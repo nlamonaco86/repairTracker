@@ -26,7 +26,7 @@
         <div class="card-body font-weight-bold">
            {{#each burgers}}
           {{#if inProgress}}
-          {{> burgers/burger-block devoured=false}}
+          {{> burgers/burger-block inProgress=true}}
           {{/if}}
           {{/each}}
         </div>
@@ -40,7 +40,7 @@
         <div class="card-body font-weight-bold">
           {{#each burgers}}
           {{#if waiting}}
-          {{> burgers/burger-block devoured=false}}
+          {{> burgers/burger-block waiting=true}}
           {{/if}}
           {{/each}}
         </div>
@@ -63,6 +63,35 @@
   </div>
 </div>
 </div>
+
+{{!-- <div class="container">
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="card bg-light mb-3">
+        <div class="card-header font-weight-bold h1 d-flex justify-content-center">Order's Up!</div>
+        <div class="card-body font-weight-bold h3">
+          {{#each burgers}}
+          {{#unless devoured}}
+          {{> burgers/burger-block devoured=true}}
+          {{/unless}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card bg-light mb-3">
+        <div class="card-header font-weight-bold h1 d-flex justify-content-center">Already Served!</div>
+        <div class="card-body font-weight-bold h3">
+          {{#each burgers}}
+          {{#if devoured}}
+          {{> burgers/burger-block devoured=false}}
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div> --}}
 
 <div class="d-flex justify-content-center">
   <div class="card mb-3">

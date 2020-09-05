@@ -8,7 +8,7 @@ const promQuery = util.promisify(connection.query).bind(connection);
 // Object for all 4 SQL statement functions CRUD.
 let orm = {
   create: function(vals, cb) {
-    promQuery("INSERT INTO burgers (firstName, lastName, tel, issue, devoured, waiting, inProgress) VALUES (?,?,?,?,?,?,?)", vals, function(err, result) {
+    promQuery("INSERT INTO burgers SET name = ?", vals, function (err, result) {
       if (err) {
         throw err;
       }
