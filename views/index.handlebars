@@ -7,91 +7,95 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
-      <div class="card bg-light mb-3">
-        <div class="card-header font-weight-bold h4 d-flex justify-content-center">Received:</div>
-        <div class="card-body font-weight-bold">
-          {{#each burgers}}
-          {{#if received}}
-          {{> burgers/burger-block received=true}}
-          {{/if}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4">
-      <div class="card bg-light mb-3">
-        <div class="card-header font-weight-bold h4 d-flex justify-content-center">In Progress:</div>
-        <div class="card-body font-weight-bold">
-           {{#each burgers}}
-          {{#if inProgress}}
-          {{> burgers/burger-block inProgress=true}}
-          {{/if}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-lg-4">
-      <div class="card bg-light mb-3">
-        <div class="card-header font-weight-bold h4 d-flex justify-content-center">Waiting On Parts:</div>
-        <div class="card-body font-weight-bold">
-          {{#each burgers}}
-          {{#if waiting}}
-          {{> burgers/burger-block waiting=true}}
-          {{/if}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="d-flex justify-content-center">
-<div class="col-lg-10">
-  <div class="card bg-light mb-3">
-    <div class="card-header font-weight-bold h4 d-flex justify-content-center">Complete:</div>
-    <div class="card-body font-weight-bold">
+    <h4>Received:</h4>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Issue</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
       {{#each burgers}}
-      {{#if devoured}}
-      {{> burgers/burger-block devoured=true}}
+      {{#if received}}
+      {{> burgers/burger-block received=true}}
       {{/if}}
       {{/each}}
-    </div>
+    </table>
   </div>
 </div>
+
+<div class="container">
+  <div class="row">
+    <h4>In Progress:</h4>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Issue</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+ {{#each burgers}}
+      {{#if inProgress}}
+      {{> burgers/burger-block inProgress=true}}
+      {{/if}}
+      {{/each}}
+    </table>
+  </div>
 </div>
 
-{{!-- <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-lg-7">
-      <div class="card bg-light mb-3">
-        <div class="card-header font-weight-bold h1 d-flex justify-content-center">Order's Up!</div>
-        <div class="card-body font-weight-bold h3">
-          {{#each burgers}}
-          {{#unless devoured}}
-          {{> burgers/burger-block devoured=true}}
-          {{/unless}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
+    <h4>Waiting on Parts:</h4>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Issue</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+ {{#each burgers}}
+      {{#if waiting}}
+      {{> burgers/burger-block waiting=true}}
+      {{/if}}
+      {{/each}}
+    </table>
+  </div>
+</div>
 
-    <div class="col-lg-5">
-      <div class="card bg-light mb-3">
-        <div class="card-header font-weight-bold h1 d-flex justify-content-center">Already Served!</div>
-        <div class="card-body font-weight-bold h3">
-          {{#each burgers}}
-          {{#if devoured}}
-          {{> burgers/burger-block devoured=false}}
-          {{/if}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-  </div> --}}
+<div class="container">
+  <div class="row">
+    <h4>Complete:</h4>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Issue</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+        {{#each burgers}}
+        {{#if devoured}}
+        {{> burgers/burger-block devoured=true}}
+        {{/if}}
+        {{/each}}
+    </table>
+  </div>
+</div>
 
 <div class="d-flex justify-content-center">
   <div class="card mb-3">

@@ -1,4 +1,34 @@
-<div class="d-flex justify-content-center pad">
+<tbody>
+    <tr>
+      <th scope="row">{{id}}</th>
+      <td>{{firstName}}</td>
+      <td>{{lastName}}</td>
+      <td>{{tel}}</td>
+	  <td>{{issue}}</td>
+	  <td>
+		  {{#if received}}
+	<button class="change-progress btn btn-success btn-circle btn-md" data-id="{{id}}">W.I.P.</button>
+	<button class="change-waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">HOLD</button>
+	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}">X</button>
+	{{/if}}
+	{{#if inProgress}}
+	<button class="change-devour btn btn-success btn-circle btn-md" data-id="{{id}}">DONE</button>
+	<button class="change-waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">HOLD</button>
+	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}">X</button>
+	{{/if}}
+	{{#if waiting}}
+	<button class="change-progress btn btn-success btn-circle btn-md" data-id="{{id}}">W.I.P.</button>
+	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}">X</button>
+	{{/if}}
+	{{#if devoured}}
+	<button class="delete-burger btn btn-success btn-circle btn-md" data-id="{{this.id}}">$</button>
+	{{/if}}
+	  </td>
+    </tr>
+</tbody>
+
+
+{{!-- <div class="d-flex justify-content-center pad">
 	<div class="pad">
 		{{firstName}}
 		{{lastName}}
@@ -10,7 +40,7 @@
 		</div>
 
 	</div>
-<div>
+<div> --}}
 		{{!-- {{#if devoured}}
 	<button class="change-devour btn-lg btn-warning" data-id="{{id}}">DEVOUR IT!</button>
 	<button class="delete-burger btn-lg btn-danger" data-id="{{this.id}}">TOSS IT!</button>
@@ -18,7 +48,7 @@
 	<button class="delete-burger btn-lg btn-danger" data-id="{{this.id}}">TOSS IT!</button>
 	{{/if}} --}}
 
-	{{#if received}}
+	{{!-- {{#if received}}
 	<button class="change-progress btn btn-success btn-circle btn-md" data-id="{{id}}">IN PROGRESS</button>
 	<button class="change-waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
 	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><h3>X<h3></button>
@@ -36,4 +66,4 @@
 	<button class="delete-burger btn btn-success btn-circle btn-md" data-id="{{this.id}}"><h3>$</h3></button>
 	{{/if}}
 </div>
-</div>
+</div> --}}
