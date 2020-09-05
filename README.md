@@ -4,7 +4,7 @@
 
 repairTracker is a full-stack application using Node.js, Express, MySQL, Handlebars, JQuery and Bootstrap. 
 
-This demonstrates full usage of C-R-U-D in a more realistic scenario by tracking the status of a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop.
+This demonstrates full usage of C-R-U-D in a more realistic scenario by tracking a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop. Once the repair tech's side is complete, the customer will have a separate page from which they can view the status of their repair using their given Invoice #. 
 
 Deployed Site: WORK IN PROGRESS
 
