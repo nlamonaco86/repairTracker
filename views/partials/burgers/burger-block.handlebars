@@ -10,12 +10,23 @@
 		</div>
 
 	</div>
-
-	{{#if devoured}}
-	<button class="change-devour btn-lg btn-warning" data-id="{{id}}">COMPLETE</button>
-	<button class="delete-burger btn-lg btn-danger" data-id="{{this.id}}">DELETE</button>
-	{{else}}
-	<button class="delete-burger btn-lg btn-success" data-id="{{this.id}}">MARK PAID</button>
+<div>
+	{{#if received}}
+	<button class="change-progress btn btn-success btn-circle btn-md" data-id="{{id}}">IN PROGRESS</button>
+	<button class="change-parts btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
+	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><h3>X<h3></button>
 	{{/if}}
-
+	{{#if inProgress}}
+	<button class="change-devour btn btn-success btn-circle btn-md" data-id="{{id}}">DONE</button>
+	<button class="change-parts btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
+	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><h3>X<h3></button>
+	{{/if}}
+	{{#if waiting}}
+	<button class="change-progress btn btn-success btn-circle btn-md" data-id="{{id}}">IN PROGRESS</button>
+	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><h3>X<h3></button>
+	{{/if}}
+	{{#if devoured}}
+	<button class="delete-burger btn btn-success btn-circle btn-md" data-id="{{this.id}}"><h3>$</h3></button>
+	{{/if}}
+</div>
 </div>

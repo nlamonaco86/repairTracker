@@ -10,7 +10,8 @@ CREATE TABLE burgers (
     lastName VARCHAR (30),
     tel VARCHAR (15),
     issue VARCHAR (500),
-    done BOOLEAN DEFAULT false,
+    devoured BOOLEAN DEFAULT false,
+    waiting BOOLEAN DEFAULT false,
     primary key(id)
 );
 
