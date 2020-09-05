@@ -17,6 +17,16 @@ const burger = {
       cb(res);
     });
   },
+  updateInProgress: function(condition, cb) {
+    orm.updateInProgress(condition, function(res) {
+      cb(res);
+    });
+  },
+  updateWaiting: function(condition, cb) {
+    orm.updateWaiting(condition, function(res) {
+      cb(res);
+    });
+  },
   delete: function(condition, cb) {
     orm.delete(condition, function(res) {
       cb(res);

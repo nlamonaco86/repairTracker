@@ -1,26 +1,6 @@
 // Wait to attach handlers until the DOM is fully loaded
 $(function () {
-  $(".change-devour").on("click", function (event) {
-    let id = $(this).data("id");
-    let newDevoured = $(this).data("newdevour");
-
-    let newDevouredState = {
-      devoured: 1
-    };
-
-    //PUT
-    $.ajax("/api/burgers/" + id, {
-      type: "PUT",
-      data: newDevouredState
-    }).then(
-      function () {
-        console.log("changed devoured to", newDevoured);
-        // Reload the page to get the updated burger list
-        location.reload();
-      }
-    );
-  });
-
+// CREATE FUNCTION
   $(".create-form").on("submit", function (event) {
     event.preventDefault();
 
@@ -42,7 +22,69 @@ $(function () {
       }
     );
   });
+  //UPDATE FUNCTION
+  $(".change-devour").on("click", function (event) {
+    let id = $(this).data("id");
+    let newDevoured = $(this).data("newdevour");
 
+    let newDevouredState = {
+      received: 1
+    };
+
+    //PUT
+    $.ajax("/api/burgersD/" + id, {
+      type: "PUT",
+      data: newDevouredState
+    }).then(
+      function () {
+        console.log("changed devoured to", newDevoured);
+        // Reload the page to get the updated burger list
+        location.reload();
+      }
+    );
+  });
+  //UPDATE FUNCTION
+  $(".change-progress").on("click", function (event) {
+    let id = $(this).data("id");
+    let newDevoured = $(this).data("newdevour");
+
+    let newDevouredState = {
+      inProgress: 1
+    };
+
+    //PUT
+    $.ajax("/api/burgersP/" + id, {
+      type: "PUT",
+      data: newDevouredState
+    }).then(
+      function () {
+        console.log("changed devoured to", newDevoured);
+        // Reload the page to get the updated burger list
+        location.reload();
+      }
+    );
+  });
+  //UPDATE FUNCTION
+  $(".change-waiting").on("click", function (event) {
+    let id = $(this).data("id");
+    let newDevoured = $(this).data("newdevour");
+
+    let newDevouredState = {
+      waiting: 1
+    };
+    //PUT
+    $.ajax("/api/burgersW/" + id, {
+      type: "PUT",
+      data: newDevouredState
+    }).then(
+      function () {
+        console.log("changed devoured to", newDevoured);
+        // Reload the page to get the updated burger list
+        location.reload();
+      }
+    );
+  });
+// DELETE FUNCTION
   $(".delete-burger").on("click", function (event) {
     let id = $(this).data("id");
 

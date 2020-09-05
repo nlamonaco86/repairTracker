@@ -20,12 +20,12 @@
 
 	{{#if received}}
 	<button class="change-progress btn btn-success btn-circle btn-md" data-id="{{id}}">IN PROGRESS</button>
-	<button class="change-parts btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
+	<button class="change-waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
 	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><h3>X<h3></button>
 	{{/if}}
 	{{#if inProgress}}
 	<button class="change-devour btn btn-success btn-circle btn-md" data-id="{{id}}">DONE</button>
-	<button class="change-parts btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
+	<button class="change-waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">ON HOLD</button>
 	<button class="delete-burger btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><h3>X<h3></button>
 	{{/if}}
 	{{#if waiting}}

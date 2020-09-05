@@ -23,8 +23,28 @@ router.get("/", (req, res) =>{
   });
 });
 //UPDATE
-router.put("/api/burgers/:id", (req, res) => {
+router.put("/api/burgersD/:id", (req, res) => {
   burger.update(req.params.id, (result) => {
+    if (result.changedRows == 0) {
+      // If no rows were changed, then the ID must not exist, so 404
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
+  });
+});
+router.put("/api/burgersP/:id", (req, res) => {
+  burger.updateInProgress(req.params.id, (result) => {
+    if (result.changedRows == 0) {
+      // If no rows were changed, then the ID must not exist, so 404
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
+  });
+});
+router.put("/api/burgersW/:id", (req, res) => {
+  burger.updateWaiting(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
