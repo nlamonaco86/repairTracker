@@ -1,0 +1,66 @@
+<div class="jumbotron jumbotron-fluid bg-info">
+  <div class="container">
+    <h1 class="display-2 font-weight-bold">Repair Tracker</h1>
+    <p class="lead text-dark"></p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="card bg-light mb-3">
+        <div class="card-header font-weight-bold h1 d-flex justify-content-center">Received:</div>
+        <div class="card-body font-weight-bold h3">
+          {{#each burgers}}
+          {{#unless devoured}}
+          {{> burgers/burger-block devoured=true}}
+          {{/unless}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card bg-light mb-3">
+        <div class="card-header font-weight-bold h1 d-flex justify-content-center">Complete:</div>
+        <div class="card-body font-weight-bold h3">
+          {{#each burgers}}
+          {{#if devoured}}
+          {{> burgers/burger-block devoured=false}}
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="d-flex justify-content-center">
+    <div class="card mb-3">
+      <div class="card-header font-weight-bold h1 d-flex justify-content-center">Input Order:</div>
+      <div class="card-body font-weight-bold h3">
+
+        <form class="create-form">
+
+          <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="name">
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="name">
+            <div class="d-flex justify-content-center">
+            <label for="tel">Telephone:</label>
+            <input type="text" id="tel" name="name">
+            </div>
+            <label for="issue" class="d-flex justify-content-center">Issue:</label>
+            <textarea class="form-control" id="issue" rows="3"></textarea>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn-lg btn-info">Add Customer</button>
+          </div>
+        </form>
+        </form>
+      </div>
+    </div>
+
+  </div>

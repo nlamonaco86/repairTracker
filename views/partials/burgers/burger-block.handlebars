@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center pad">
+	<div class="pad">
+		{{firstName}}
+		{{lastName}}
+		<div>
+			{{tel}}
+		</div>
+		<div>
+			{{issue}}
+		</div>
+
+	</div>
+
+	{{#if devoured}}
+	<button class="change-devour btn-lg btn-warning" data-id="{{id}}">COMPLETE</button>
+	<button class="delete-burger btn-lg btn-danger" data-id="{{this.id}}">DELETE</button>
+	{{else}}
+	<button class="delete-burger btn-lg btn-success" data-id="{{this.id}}">MARK PAID</button>
+	{{/if}}
+
+</div>
