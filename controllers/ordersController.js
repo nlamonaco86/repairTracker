@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 
 // Import the model to use it
 const order = require("../models/order.js");
@@ -13,8 +14,14 @@ router.post("/api/orders", function (req, res) {
     res.json({id: results.insertId});
   });
 });
-//READ
-router.get("/", (req, res) =>{
+router.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/splash.html"));
+});
+router.get("/tracker", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/tracker.html"));
+});
+//READ FROM ORDERS LIST
+router.get("/orders", (req, res) =>{
   //read all entries from the orders table
   order.all((data) => {
     //store them in an object for handlebars to use

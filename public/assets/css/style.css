@@ -1,12 +1,25 @@
 .pad {
-  padding: 5px;
-}
+    padding: 5px;
+  }
+  
+  .btn-circle.btn-md { 
+    width: 30px; 
+    height: 30px; 
+    padding: 7px 3px; 
+    border-radius: 12px; 
+    font-size: 8px; 
+    text-align: center; 
+  } 
 
-.btn-circle.btn-md { 
-  width: 30px; 
-  height: 30px; 
-  padding: 7px 3px; 
-  border-radius: 12px; 
-  font-size: 8px; 
-  text-align: center; 
-} 
+  .bg {
+      background-image: url("https://toppng.com/uploads/preview/wrench-icon-png-download-maintenance-ico-11562993557yfsvtldmgj.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;   
+  }
+  .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
