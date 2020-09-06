@@ -9,6 +9,7 @@ CREATE TABLE orders (
     firstName VARCHAR (30),
     lastName VARCHAR (30),
     tel VARCHAR (15),
+    email VARCHAR (100),
     issue VARCHAR (500),
     orderNum VARCHAR (8),
     received BOOLEAN DEFAULT true,
@@ -17,5 +18,3 @@ CREATE TABLE orders (
 	complete BOOLEAN DEFAULT false,
     primary key(id)
 );
-
-SELECT * FROM orders;

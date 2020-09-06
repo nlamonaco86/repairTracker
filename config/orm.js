@@ -9,7 +9,7 @@ const promQuery = util.promisify(connection.query).bind(connection);
 let orm = {
   //INSERT INTO ?? (COLUMN NAMES) VALUES (ROW DATA)
   create: function(vals, cb) {
-    promQuery("INSERT INTO orders (firstName, lastName, tel, issue, orderNum) VALUES (?,?,?,?,?)", vals, function (err, result) {
+    promQuery("INSERT INTO orders (firstName, lastName, tel, email, issue, orderNum) VALUES (?,?,?,?,?,?)", vals, function (err, result) {
       if (err) {
         throw err;
       }

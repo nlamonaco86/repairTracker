@@ -3,14 +3,16 @@ $(function () {
   // CREATE FUNCTION
   $(".create").on("submit", function (event) {
     //prevent page reload
-    event.preventDefault();    
+    event.preventDefault();   
+    let genNum = (Math.floor(10000000 + Math.random() * 9000000)) 
     //define a new order as an object based on input from the form
     let newOrder = {
       firstName: $("#firstname").val(),
       lastName: $("#lastname").val(),
       tel: $("#tel").val(),
+      email: $("#email").val(),
       issue: $("#issue").val(),
-      orderNum: (Math.floor(10000000 + Math.random() * 9000000))
+      orderNum: genNum
     };
     // POST request
     $.ajax("/api/orders", {
