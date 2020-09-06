@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS burger_db;
+DROP DATABASE IF EXISTS repair_db;
 
-CREATE DATABASE burger_db;
+CREATE DATABASE repair_db;
 
-USE burger_db;
+USE repair_db;
 
-CREATE TABLE burgers (
+CREATE TABLE orders (
     id INT AUTO_INCREMENT,
     firstName VARCHAR (30),
     lastName VARCHAR (30),
@@ -13,9 +13,8 @@ CREATE TABLE burgers (
     received BOOLEAN DEFAULT true,
     waiting BOOLEAN DEFAULT false,
     inProgress BOOLEAN DEFAULT false,
-	devoured BOOLEAN DEFAULT false,
+	complete BOOLEAN DEFAULT false,
     primary key(id)
 );
 
-SELECT * FROM burgers;
-
+SELECT * FROM orders;

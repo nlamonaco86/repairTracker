@@ -40,9 +40,9 @@
           <th scope="col col-lg-2">Actions</th>
         </tr>
       </thead>
-      {{#each burgers}}
+      {{#each orders}}
       {{#if received}}
-      {{> burgers/burger-block received=true}}
+      {{> orders/order-block received=true}}
       {{/if}}
       {{/each}}
     </table>
@@ -63,9 +63,9 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      {{#each burgers}}
+      {{#each orders}}
       {{#if inProgress}}
-      {{> burgers/burger-block inProgress=true}}
+      {{> orders/order-block inProgress=true}}
       {{/if}}
       {{/each}}
     </table>
@@ -86,9 +86,9 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      {{#each burgers}}
+      {{#each orders}}
       {{#if waiting}}
-      {{> burgers/burger-block waiting=true}}
+      {{> orders/order-block waiting=true}}
       {{/if}}
       {{/each}}
     </table>
@@ -109,9 +109,9 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      {{#each burgers}}
-      {{#if devoured}}
-      {{> burgers/burger-block devoured=true}}
+      {{#each orders}}
+      {{#if complete}}
+      {{> orders/order-block complete=true}}
       {{/if}}
       {{/each}}
     </table>
@@ -122,9 +122,7 @@
   <div class="card mb-3">
     <div class="card-header font-weight-bold h4 d-flex justify-content-center" id="new">Input Order:</div>
     <div class="card-body font-weight-bold">
-
-      <form class="create-form">
-
+      <form class="create">
         <div class="form-group">
           <label for="firstname">First Name:</label>
           <input type="text" id="firstname" name="name">
