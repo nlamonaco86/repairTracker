@@ -6,7 +6,7 @@ repairTracker is a full-stack application using Node.js, Express, MySQL, Handleb
 
 This demonstrates full usage of C-R-U-D in a more realistic scenario by tracking a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop. Once the repair tech's side is complete, the customer will have a separate page from which they can view the status of their repair using their given Invoice #. 
 
-Deployed Site: WORK IN PROGRESS
+Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
 - Industry-specific variable tracking (i.e. make/model/year/serial)
