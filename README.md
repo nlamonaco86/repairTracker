@@ -8,6 +8,12 @@ This demonstrates full usage of C-R-U-D in a more realistic scenario by tracking
 
 Deployed Site: WORK IN PROGRESS
 
+FUTURE UPDATES: 
+- Industry-specific variable tracking (i.e. make/model/year/serial)
+- Users will be able to look up the current status of their order from a separate page
+- Admin/Tech will be able to edit notes on order status change
+- Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
+
 ## Table of Contents
 
 * [Installation](#installation)
@@ -18,7 +24,7 @@ Deployed Site: WORK IN PROGRESS
 Simply clone the repo, and/or visit the deployed page link to begin.
 
 ## Usage
-WORK IN PROGRESS - Check out "McDev's" in my repo for the basic version of this. 
+![repairTracker](./public/assets/screenshot.png) 
 
 ## Questions
 
