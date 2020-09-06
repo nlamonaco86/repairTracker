@@ -23,5 +23,5 @@ app.use(routes);
 
 // Start the server so it can listening to client requests.
 app.listen(PORT, function() {
-  console.log("Now serving at: http://localhost:" + PORT);
+  console.log("🌎 Now working at: http://localhost:" + PORT);
 });

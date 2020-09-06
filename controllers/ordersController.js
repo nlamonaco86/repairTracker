@@ -6,16 +6,18 @@ const order = require("../models/order.js");
 
 //CREATE
 router.post("/api/orders", function (req, res) {
-  var vals = Object.entries(req.body).map(e => e[1]); // get values
-  
+// get values from our incoming request object and map them in an array
+  var vals = Object.entries(req.body).map(e => e[1]); 
+  //use that array to call a create function in the model
   order.create(vals, function(results) {
-    console.log(results);
     res.json({id: results.insertId});
   });
 });
 //READ
 router.get("/", (req, res) =>{
+  //read all entries from the orders table
   order.all((data) => {
+    //store them in an object for handlebars to use
     let hbsObject = {
       orders: data
     };
@@ -26,7 +28,7 @@ router.get("/", (req, res) =>{
 router.put("/api/orders/complete/:id", (req, res) => {
   order.update(req.params.id, (result) => {
     if (result.changedRows == 0) {
-      // If no rows were changed, then the ID must not exist, so 404
+      // If no rows were changed, then the ID does not exist 404
       return res.status(404).end();
     } else {
       res.status(200).end();
@@ -36,7 +38,6 @@ router.put("/api/orders/complete/:id", (req, res) => {
 router.put("/api/orders/inProgress/:id", (req, res) => {
   order.updateInProgress(req.params.id, (result) => {
     if (result.changedRows == 0) {
-      // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
     } else {
       res.status(200).end();
@@ -46,7 +47,6 @@ router.put("/api/orders/inProgress/:id", (req, res) => {
 router.put("/api/orders/waiting/:id", (req, res) => {
   order.updateWaiting(req.params.id, (result) => {
     if (result.changedRows == 0) {
-      // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
     } else {
       res.status(200).end();
@@ -57,7 +57,6 @@ router.put("/api/orders/waiting/:id", (req, res) => {
 router.delete("/api/orders/:id", (req, res) => {
   order.delete(req.params.id, (result) => {
     if (result.affectedRows == 0) {
-      // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
     } else {
       res.status(200).end();
@@ -65,5 +64,5 @@ router.delete("/api/orders/:id", (req, res) => {
   });
 });
 
-// Export routes for server.js to use.
+// Export the routes for server.js to use.
 module.exports = router;

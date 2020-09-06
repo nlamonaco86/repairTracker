@@ -1,6 +1,6 @@
 // Import the ORM to create functions that will interact with the database.
 const orm = require("../config/orm.js");
-//"CRUD Burger" doesn't sound yummy...
+// when claled by the ordersController, this will run specific C-R-U-D functions in the ORM
 const order = {
   all: function(cb) {
     orm.all(function(res) {
@@ -12,6 +12,7 @@ const order = {
       cb(res);
     });
   },
+  // Redundancy detected - optimize and combine
   update: function(condition, cb) {
     orm.update(condition, function(res) {
       cb(res);
@@ -33,6 +34,5 @@ const order = {
     });
   }
 };
-
 // Export the database functions for the controller (burgersController.js).
 module.exports = order;

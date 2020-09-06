@@ -7,6 +7,7 @@ const promQuery = util.promisify(connection.query).bind(connection);
 
 // Object for all 4 SQL statement functions CRUD.
 let orm = {
+  //INSERT INTO ?? (COLUMN NAMES) VALUES (ROW DATA)
   create: function(vals, cb) {
     promQuery("INSERT INTO orders (firstName, lastName, tel, issue) VALUES (?,?,?,?)", vals, function (err, result) {
       if (err) {
@@ -21,7 +22,8 @@ let orm = {
       cb(result);
     });
   },
-  // SET TO DONE // PARAMETIZE THESE 3 LATER INTO 1 NICE DYNAMIC FUNCTION
+  // PARAMETIZE THESE 3 LATER INTO 1 NICE DYNAMIC FUNCTION
+  // UPDATE ?? SET ?? = ?
   update: (condition, cb) => {
     promQuery("UPDATE orders SET complete = 1, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
       if (err) throw err;
