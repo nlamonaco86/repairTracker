@@ -25,6 +25,8 @@ Simply clone the repo, and/or visit the deployed page link to begin.
 
 ## Usage
 ![repairTracker](./public/assets/screenshot.png) 
+![splash page](./public/assets/screenshot2.png) 
+![customer view](./public/assets/screenshot3.png) 
 
 ## Questions
 
