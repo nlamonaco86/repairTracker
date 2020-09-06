@@ -28,11 +28,11 @@ $(function () {
     let newDevoured = $(this).data("newdevour");
 
     let newDevouredState = {
-      received: 1
+      devoured: 1
     };
 
     //PUT
-    $.ajax("/api/burgersD/" + id, {
+    $.ajax("/api/burgers/devoured/" + id, {
       type: "PUT",
       data: newDevouredState
     }).then(
@@ -53,7 +53,7 @@ $(function () {
     };
 
     //PUT
-    $.ajax("/api/burgersP/" + id, {
+    $.ajax("/api/burgers/inProgress/" + id, {
       type: "PUT",
       data: newDevouredState
     }).then(
@@ -73,7 +73,7 @@ $(function () {
       waiting: 1
     };
     //PUT
-    $.ajax("/api/burgersW/" + id, {
+    $.ajax("/api/burgers/waiting/" + id, {
       type: "PUT",
       data: newDevouredState
     }).then(

@@ -10,8 +10,12 @@ CREATE TABLE burgers (
     lastName VARCHAR (30),
     tel VARCHAR (15),
     issue VARCHAR (500),
-    devoured BOOLEAN DEFAULT false,
+    received BOOLEAN DEFAULT true,
     waiting BOOLEAN DEFAULT false,
+    inProgress BOOLEAN DEFAULT false,
+	devoured BOOLEAN DEFAULT false,
     primary key(id)
 );
+
+SELECT * FROM burgers;
 

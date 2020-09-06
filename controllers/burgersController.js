@@ -23,7 +23,7 @@ router.get("/", (req, res) =>{
   });
 });
 //UPDATE
-router.put("/api/burgersD/:id", (req, res) => {
+router.put("/api/burgers/devoured/:id", (req, res) => {
   burger.update(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
@@ -33,7 +33,7 @@ router.put("/api/burgersD/:id", (req, res) => {
     }
   });
 });
-router.put("/api/burgersP/:id", (req, res) => {
+router.put("/api/burgers/inProgress/:id", (req, res) => {
   burger.updateInProgress(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
@@ -43,7 +43,7 @@ router.put("/api/burgersP/:id", (req, res) => {
     }
   });
 });
-router.put("/api/burgersW/:id", (req, res) => {
+router.put("/api/burgers/waiting/:id", (req, res) => {
   burger.updateWaiting(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
