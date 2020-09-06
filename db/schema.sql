@@ -10,6 +10,7 @@ CREATE TABLE orders (
     lastName VARCHAR (30),
     tel VARCHAR (15),
     issue VARCHAR (500),
+    orderNum VARCHAR (8),
     received BOOLEAN DEFAULT true,
     waiting BOOLEAN DEFAULT false,
     inProgress BOOLEAN DEFAULT false,

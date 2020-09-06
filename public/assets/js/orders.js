@@ -4,12 +4,15 @@ $(function () {
   $(".create").on("submit", function (event) {
     //prevent page reload
     event.preventDefault();
+    //generate an 8-digit order number
+    let orderNum = (Math.floor(10000000 + Math.random() * 9000000));
     //define a new order as an object based on input from the form
     let newOrder = {
       firstName: $("#firstname").val(),
       lastName: $("#lastname").val(),
       tel: $("#tel").val(),
       issue: $("#issue").val(),
+      orderNum: orderNum
     };
     // POST request
     $.ajax("/api/orders", {

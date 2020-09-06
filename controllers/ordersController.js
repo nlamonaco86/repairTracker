@@ -8,19 +8,21 @@ const order = require("../models/order.js");
 //CREATE
 router.post("/api/orders", function (req, res) {
 // get values from our incoming request object and map them in an array
-  var vals = Object.entries(req.body).map(e => e[1]); 
+let vals = Object.entries(req.body).map(e => e[1]);
   //use that array to call a create function in the model
   order.create(vals, function(results) {
     res.json({id: results.insertId});
   });
 });
+//Get the splash page
 router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/splash.html"));
 });
+//Get the tracker page
 router.get("/tracker", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/tracker.html"));
 });
-//READ FROM ORDERS LIST
+//Get the orders page
 router.get("/orders", (req, res) =>{
   //read all entries from the orders table
   order.all((data) => {
