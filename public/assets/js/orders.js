@@ -69,6 +69,7 @@ $(function () {
       data: newWorkState
     }).then(
       function () {
+        console.log("click")
         location.reload();
       }
     );

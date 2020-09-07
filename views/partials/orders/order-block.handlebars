@@ -7,21 +7,21 @@
 		<td>{{issue}}</td>
 		<td>
 			{{#if received}}
-			<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}">W.I.P.</button>
-			<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">HOLD</button>
-			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}">X</button>
+			<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-wrench"></i></button>
+			<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-pause"></i></button>
+			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-times"></i></button>
 			{{/if}}
 			{{#if inProgress}}
-			<button class="complete btn btn-success btn-circle btn-md" data-id="{{id}}">DONE</button>
-			<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}">HOLD</button>
-			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}">X</button>
+			<button class="complete btn btn-success btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-check"></i></button>
+			<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-pause"></i></button>
+			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-times"></i></button>
 			{{/if}}
 			{{#if waiting}}
-			<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}">W.I.P.</button>
-			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}">X</button>
+			<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-wrench"></i></button>
+			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-times"></i></button>
 			{{/if}}
 			{{#if complete}}
-			<button class="delete btn btn-success btn-circle btn-md" data-id="{{this.id}}">$</button>
+			<button class="delete btn btn-success btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-dollar-sign"></i></button>
 			{{/if}}
 		</td>
 	</tr>

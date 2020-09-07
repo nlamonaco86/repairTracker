@@ -22,6 +22,10 @@ router.get("/", (req, res) => {
 router.get("/tracker", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/tracker.html"));
 });
+//Get the login page
+router.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/login.html"));
+});
 //Get the orders page
 router.get("/orders", (req, res) =>{
   //read all entries from the orders table
