@@ -1,12 +1,12 @@
 const express = require("express");
-const router = express.Router();
+const apirouter = express.Router();
 const path = require("path");
 
 // Import the model to use it
 const order = require("../models/order.js");
 
 //CREATE
-router.post("/api/orders", function (req, res) {
+apirouter.post("/api/orders", function (req, res) {
 // get values from our incoming request object and map them in an array
 let vals = Object.entries(req.body).map(e => e[1]);
   //use that array to call a create function in the model
@@ -14,31 +14,7 @@ let vals = Object.entries(req.body).map(e => e[1]);
     res.json({id: results.insertId});
   });
 });
-//Get the splash page
-router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/splash.html"));
-});
-//Get the tracker page
-router.get("/tracker", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/tracker.html"));
-});
-//Get the login page
-router.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/login.html"));
-});
-//Get the orders page
-router.get("/orders", (req, res) =>{
-  //read all entries from the orders table
-  order.all((data) => {
-    //store them in an object for handlebars to use
-    let hbsObject = {
-      orders: data
-    };
-    res.render("index", hbsObject);
-  });
-});
-//UPDATE
-router.put("/api/orders/complete/:id", (req, res) => {
+apirouter.put("/api/orders/complete/:id", (req, res) => {
   order.update(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID does not exist 404
@@ -48,7 +24,7 @@ router.put("/api/orders/complete/:id", (req, res) => {
     }
   });
 });
-router.put("/api/orders/inProgress/:id", (req, res) => {
+apirouter.put("/api/orders/inProgress/:id", (req, res) => {
   order.updateInProgress(req.params.id, (result) => {
     if (result.changedRows == 0) {
       return res.status(404).end();
@@ -57,7 +33,7 @@ router.put("/api/orders/inProgress/:id", (req, res) => {
     }
   });
 });
-router.put("/api/orders/waiting/:id", (req, res) => {
+apirouter.put("/api/orders/waiting/:id", (req, res) => {
   order.updateWaiting(req.params.id, (result) => {
     if (result.changedRows == 0) {
       return res.status(404).end();
@@ -67,7 +43,7 @@ router.put("/api/orders/waiting/:id", (req, res) => {
   });
 });
 //DELETE
-router.delete("/api/orders/:id", (req, res) => {
+apirouter.delete("/api/orders/:id", (req, res) => {
   order.delete(req.params.id, (result) => {
     if (result.affectedRows == 0) {
       return res.status(404).end();
@@ -78,4 +54,4 @@ router.delete("/api/orders/:id", (req, res) => {
 });
 
 // Export the routes for server.js to use.
-module.exports = router;
+module.exports = apirouter;
