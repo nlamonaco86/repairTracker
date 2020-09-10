@@ -29,6 +29,9 @@ $(function () {
   $(".complete").on("click", function (event) {
     let id = $(this).data("id");
     let newWorkState = {
+      received: 0,
+      inProgress: 0,
+      waiting: 0,
       complete: 1
     };
     //PUT
@@ -45,7 +48,10 @@ $(function () {
   $(".inprogress").on("click", function (event) {
     let id = $(this).data("id");
     let newWorkState = {
-      inProgress: 1
+      received: 0,
+      inProgress: 1,
+      waiting: 0,
+      complete: 0
     };
     //PUT
     $.ajax("/api/orders/inProgress/" + id, {
@@ -61,7 +67,10 @@ $(function () {
   $(".waiting").on("click", function (event) {
     let id = $(this).data("id");
     let newWorkState = {
-      waiting: 1
+      received: 0,
+      inProgress: 0,
+      waiting: 1,
+      complete: 0
     };
     //PUT
     $.ajax("/api/orders/waiting/" + id, {

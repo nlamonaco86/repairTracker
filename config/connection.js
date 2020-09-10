@@ -1,6 +1,7 @@
 // Dependencies
 const mysql = require('mysql');
 
+// do not use const here
 var connection;
 if (process.env.JAWSDB_URL) {
     // Database is JawsDB on Heroku
