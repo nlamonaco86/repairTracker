@@ -99,17 +99,30 @@ $(function () {
   //LOOKUP AN ORDER
   $(".lookup").on("submit", function (event) {
     //prevent page reload
-    event.preventDefault();   
+    event.preventDefault(); 
       let orderNum= $("#orderNumber").val()
-    // POST request
+    // GET request
     $.ajax("/api/orders/" + orderNum, {
-      type: "GET",
-      data: orderNum
+      type: "GET"
     }).then(
       function (response) {
-        console.log(response)
+        if (response[0].received === 1){   
+          $("#result").text("Your order has been received.")
+          $("#alert").addClass("alert-success")
+        }
+        if (response[0].inProgress === 1){
+          $("#result").text("Your repair order is in progress.")
+          $("#alert").addClass("alert-success")
+        }
+        if (response[0].waiting === 1){
+          $("#result").text("Your order is currently on hold. Please call 908-555-1234 for more information.")
+          $("#alert").addClass("alert-warning")
+        }
+        if (response[0].complete === 1){
+          $("#result").text("Your order is ready for pickup")
+          $("#alert").addClass("alert-success")
+        }
         // Reload the page to get the updated order list
-        location.reload();
       }
     );
   });

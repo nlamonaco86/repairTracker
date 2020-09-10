@@ -15,17 +15,23 @@
 </head>
 
 <body class="bg">
+  <a href="./"><i class="fas fa-tools fa-3x text-info corner"></i></a>
   <div class="centered text-center">
     <i class="fas fa-question fa-7x text-info pad"></i>
     <h1 class="card-title display-3">Track Order</h5>
-      <form>
+
+      <div id="alert" role="alert" class="">
+      <h4 id="result"></h4>
+    </div>
+
+      <form class="lookup">
         <div class="form-group">
           <label for="orderNumber">Please enter your 8-digit order ID.</label>
           <input type="text" class="form-control" id="orderNumber" aria-describedby="orderHelp">
           <small id="orderHelp" class="form-text text-muted">Don't have your Order ID? Call us at 908-555-1234.</small>
         </div>
         <div class="row justify-content-center pad"><button type="submit"
-            class="btn-lg btn-info display-4 lookup" id="search">Search</button></div>
+            class="btn-lg btn-info display-4" id="search">Search</button></div>
       </form>
   </div>
 </body>

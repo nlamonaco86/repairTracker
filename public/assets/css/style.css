@@ -2,6 +2,10 @@
     padding: 5px;
   }
   
+.corner {
+  padding: 20px;
+}
+
   .btn-circle.btn-md { 
     width: 30px; 
     height: 30px; 
@@ -13,10 +17,6 @@
 
   .bg {
     background-color: rgb(250, 250, 250)
-      /* background-image: url("https://toppng.com/uploads/preview/wrench-icon-png-download-maintenance-ico-11562993557yfsvtldmgj.png");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;    */
   }
   .centered {
     position: fixed;

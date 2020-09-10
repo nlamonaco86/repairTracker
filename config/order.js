@@ -4,7 +4,7 @@ const util = require('util');
 // promisify the query because shennanigans
 const promQuery = util.promisify(connection.query).bind(connection);
 
-// when called by the ordersController, this will run specific C-R-U-D functions in the ORM
+// This will run specific C-R-U-D functions in the database
 const order = {
   all: function (cb) {
     promQuery("SELECT * FROM orders", function (err, result) {

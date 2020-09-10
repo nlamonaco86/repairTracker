@@ -23,7 +23,7 @@ const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// // Import the models folder
+// Import the models folder
 const db = require("./models");
 
 //Use the given routes

@@ -53,11 +53,13 @@ app.post("/api/orders", function (req, res) {
   });
 });
 // FIND ONE
-app.get("/orders/:orderNum", (req, res) =>{
+app.get("/api/orders/:orderNum", (req, res) =>{
   //read all entries from the orders table
   order.findOne(req.params.orderNum, (data) => {
+    // //test 
+    console.log("this is the", data)
     //store them in an object for handlebars to use
-    res.render(data);
+    res.json(data);
   });
 });
 //UPDATE
