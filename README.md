@@ -2,10 +2,11 @@
 
 ## Description
 
-repairTracker is a full-stack application using Node.js, Express, MySQL, Handlebars, JQuery and Bootstrap. 
+repairTracker is a full-stack application using Node.js, Express, Sequelize, Passport, Handlebars, JQuery and Bootstrap. 
 
-This demonstrates full usage of C-R-U-D in a more realistic scenario by tracking a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop. Once the repair tech's side is complete, the customer will have a separate page from which they can view the status of their repair using their given Invoice #. 
+This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop. Repair techs can log into the Employees section with a valid login (provided by the company's administrator) and customers can view the Tracker page. 
 
+LOGIN CREDENTIALS: Username: Admin@repairTracker.com / Password: Admin1 (case sesitive)
 Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
