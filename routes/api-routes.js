@@ -52,6 +52,15 @@ app.post("/api/orders", function (req, res) {
     res.json({ id: results.insertId });
   });
 });
+// FIND ONE
+app.get("/orders/:orderNum", (req, res) =>{
+  //read all entries from the orders table
+  order.findOne(req.params.orderNum, (data) => {
+    //store them in an object for handlebars to use
+    res.render(data);
+  });
+});
+//UPDATE
 app.put("/api/orders/complete/:id", (req, res) => {
   order.update(req.params.id, (result) => {
     if (result.changedRows == 0) {

@@ -96,4 +96,21 @@ $(function () {
       }
     );
   });
+  //LOOKUP AN ORDER
+  $(".lookup").on("submit", function (event) {
+    //prevent page reload
+    event.preventDefault();   
+      let orderNum= $("#orderNumber").val()
+    // POST request
+    $.ajax("/api/orders/" + orderNum, {
+      type: "GET",
+      data: orderNum
+    }).then(
+      function (response) {
+        console.log(response)
+        // Reload the page to get the updated order list
+        location.reload();
+      }
+    );
+  });
 });

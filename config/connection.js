@@ -23,7 +23,6 @@ connection.connect(function(err) {
     console.error("error connecting: " + err.stack);
     return;
   }
-  console.log("You're Customer # " + connection.threadId);
 });
 
 // Export connection for ORM to use.
