@@ -6,7 +6,7 @@ repairTracker is a full-stack application using Node.js, Express, Sequelize, Pas
 
 This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop. Repair techs can log into the Employees section with a valid login (provided by the company's administrator) and customers can view the Tracker page. 
 
-LOGIN CREDENTIALS: Username: Admin@repairTracker.com / Password: Admin1 (case sesitive)
+LOGIN CREDENTIALS: Username: Admin@CompanyAdmin.com / Password: Admin1 (case sesitive)
 Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
