@@ -32,10 +32,9 @@
     transform: translate(-50%, -95%);
   }
 
-  .pushed {
-    position: fixed;
+  .padtop {
     top: 0%;
-    left: 95%;
+    left: 100%;
     transform: translate(-95%, 2%)
   }
 
