@@ -27,7 +27,7 @@ const order = {
     });
   },
   // Redundancy detected - optimize and combine
-  update: function (condition, cb) {
+  update: function (val, cb) {
     promQuery("SELECT * FROM orders WHERE orderNum = ?", val, function (err, result) {
       if (err) throw err;
       cb(result);
@@ -45,7 +45,13 @@ const order = {
       cb(result);
     });
   },
-  delete: function (condition, cb) {
+  updateComplete: function (condition, cb) {
+    promQuery("UPDATE orders SET complete = 1, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  },
+  delete: function (id, cb) {
     promQuery("DELETE FROM orders WHERE id = ?", id, function (err, result) {
       if (err) throw err;
       cb(result);

@@ -64,7 +64,7 @@ app.get("/api/orders/:orderNum", (req, res) =>{
 });
 //UPDATE
 app.put("/api/orders/complete/:id", (req, res) => {
-  order.update(req.params.id, (result) => {
+  order.updateComplete(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID does not exist 404
       return res.status(404).end();
