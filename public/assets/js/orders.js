@@ -28,6 +28,24 @@ $(function () {
       }
     );
   });
+  // UPDATE ISSUE
+  // $(".updateIssue").on("click", function (event) {
+  //   event.preventDefault();
+  //   let id = $(this).data("id");
+  //   let newIssue = {
+  //     issue: "test",
+  //   };
+  //   console.log(id, newIssue)
+    //PUT
+    // $.ajax("/api/orders/issue/" + id, {
+    //   type: "PUT",
+    //   data: newIssue
+    // }).then(
+    //   function () { 
+    //     location.reload();
+    //   }
+    // );
+  // });
   //UPDATE FUNCTION
   $(".complete").on("click", function (event) {
     let id = $(this).data("id");
@@ -43,6 +61,7 @@ $(function () {
       data: newWorkState
     }).then(
       function () {
+        console.log(data)
         location.reload();
       }
     );
@@ -81,7 +100,6 @@ $(function () {
       data: newWorkState
     }).then(
       function () {
-        console.log("click")
         location.reload();
       }
     );
@@ -125,7 +143,6 @@ $(function () {
           $("#result").text("Your order is ready for pickup")
           $("#alert").addClass("alert-success")
         }
-        // Reload the page to get the updated order list
       }
     );
   });

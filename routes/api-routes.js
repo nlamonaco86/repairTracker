@@ -63,6 +63,15 @@ app.get("/api/orders/:orderNum", (req, res) =>{
   });
 });
 //UPDATE
+// app.put("/api/orders/issue/:id", (req, res) => {
+//   order.updateIssue(req.params.id, (result) => {
+//     if (result.changedRows == 0) {
+//       return res.status(404).end();
+//     } else {
+//       res.status(200).end();
+//     }
+//   });
+// });
 app.put("/api/orders/complete/:id", (req, res) => {
   order.updateComplete(req.params.id, (result) => {
     if (result.changedRows == 0) {

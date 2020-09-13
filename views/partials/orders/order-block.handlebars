@@ -4,26 +4,72 @@
 		<td>{{firstName}}</td>
 		<td>{{lastName}}</td>
 		<td><a href="tel:{{tel}}" class="text-info">{{tel}}</a></td>
-		<td>{{year}} | {{make}} | {{model}}</td>
-		<td>{{issue}}</td>
-		<td>
-			{{#if received}}
-			<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-wrench"></i></button>
-			<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-pause"></i></button>
-			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-times"></i></button>
-			{{/if}}
-			{{#if inProgress}}
-			<button class="complete btn btn-success btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-check"></i></button>
-			<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-pause"></i></button>
-			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-times"></i></button>
-			{{/if}}
-			{{#if waiting}}
-			<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i class="fas fa-2x fa-wrench"></i></button>
-			<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-times"></i></button>
-			{{/if}}
-			{{#if complete}}
-			<button class="delete btn btn-success btn-circle btn-md" data-id="{{this.id}}"><i class="fas fa-2x fa-dollar-sign"></i></button>
-			{{/if}}
-		</td>
+		<td>{{year}} {{make}} {{model}}</td>
+		<!-- Modal Button -->
+		<td><button class="btn btn-info btn-circle btn-md" data-toggle="modal" data-target="#m{{orderNum}}">
+				<i class="fas fa-2x fa-question"></i>
+			</button></td>
+
+		<!-- Modal -->
+		<div class="modal fade" id="m{{orderNum}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div>
+							<p class="modal-title display-4" id="exampleModalLabel">Order: {{orderNum}}</p>
+							<div>
+								<h5>
+									<a href="tel:{{tel}}" class="text-info">{{firstName}}
+										{{lastName}}'s</a> {{year}} {{make}} {{model}}
+								</h5>
+							</div>
+						</div>
+						<button type="button" class="btn-lg btn-danger btn-circle" data-dismiss="modal"
+							aria-label="Close"><i class="fas fa-3x fa-times"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="font-weight-bold">Tech Instructions:</p>
+						<form class="updateIssue">
+							<div class="form-group">
+								<textarea type="text" class="form-control issueU" id="issueU" rows="6">{{issue}}</textarea>
+							</div>
+							<div class="d-flex justify-content-center">
+								<button type="submit" class="btn-lg btn-success btn-circle updateIssue"
+									data-id="{{id}}">
+									<i class="fas fa-3x fa-check"></i></button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<td>
+				{{#if received}}
+				<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i
+						class="fas fa-2x fa-wrench"></i></button>
+				<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i
+						class="fas fa-2x fa-pause"></i></button>
+				<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i
+						class="fas fa-2x fa-times"></i></button>
+				{{/if}}
+				{{#if inProgress}}
+				<button class="complete btn btn-success btn-circle btn-md" data-id="{{id}}"><i
+						class="fas fa-2x fa-check"></i></button>
+				<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i
+						class="fas fa-2x fa-pause"></i></button>
+				<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i
+						class="fas fa-2x fa-times"></i></button>
+				{{/if}}
+				{{#if waiting}}
+				<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i
+						class="fas fa-2x fa-wrench"></i></button>
+				<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i
+						class="fas fa-2x fa-times"></i></button>
+				{{/if}}
+				{{#if complete}}
+				<button class="delete btn btn-success btn-circle btn-md" data-id="{{this.id}}"><i
+						class="fas fa-2x fa-dollar-sign"></i></button>
+				{{/if}}
+			</td>
 	</tr>
 </tbody>

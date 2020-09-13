@@ -13,7 +13,7 @@ const order = {
     });
   },
   create: function (vals, cb) {
-      promQuery("INSERT INTO orders (firstName, lastName, tel, email, issue, orderNum) VALUES (?,?,?,?,?,?)", vals, function (err, result) {
+      promQuery("INSERT INTO orders (firstName, lastName, tel, email, year, make, model, issue, orderNum) VALUES (?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
         if (err) {
           throw err;
         }
@@ -26,13 +26,13 @@ const order = {
       cb(result);
     });
   },
-  // Redundancy detected - optimize and combine
-  update: function (val, cb) {
-    promQuery("SELECT * FROM orders WHERE orderNum = ?", val, function (err, result) {
-      if (err) throw err;
-      cb(result);
-    });
-  },
+  // updateIssue: function (issue, id, cb) {
+  //   promQuery("UPDATE orders SET issue = ? WHERE id = ?", issue, id, function (err, result) {
+  //     if (err) throw err;
+  //     cb(result);
+  //   });
+  // },
+   // redundant, optimize and combine
   updateInProgress: function (condition, cb) {
     promQuery("UPDATE orders SET complete = 0, inProgress = 1, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
       if (err) throw err;
