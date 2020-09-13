@@ -11,6 +11,9 @@ $(function () {
       lastName: $("#lastname").val(),
       tel: $("#tel").val(),
       email: $("#email").val(),
+      year: $("#year").val(),
+      make: $("#make").val(),
+      model: $("#model").val(),
       issue: $("#issue").val(),
       orderNum: genNum
     };
