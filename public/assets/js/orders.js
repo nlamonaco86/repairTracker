@@ -29,23 +29,23 @@ $(function () {
     );
   });
   // UPDATE ISSUE
-  // $(".updateIssue").on("click", function (event) {
-  //   event.preventDefault();
-  //   let id = $(this).data("id");
-  //   let newIssue = {
-  //     issue: "test",
-  //   };
-  //   console.log(id, newIssue)
-    //PUT
-    // $.ajax("/api/orders/issue/" + id, {
-    //   type: "PUT",
-    //   data: newIssue
-    // }).then(
-    //   function () { 
-    //     location.reload();
-    //   }
-    // );
-  // });
+  $(".updateIssue").on("click", function (event) {
+    event.preventDefault();
+    let id = $(this).data("id");
+    let newIssue = {
+      issue: $("#issueU").val(),
+    };
+    console.log(id, newIssue)
+  // //  PUT
+  //   $.ajax("/api/orders/issue/" + id, {
+  //     type: "PUT",
+  //     data: newIssue
+  //   }).then(
+  //     function () { 
+  //       location.reload();
+  //     }
+  //   );
+  });
   //UPDATE FUNCTION
   $(".complete").on("click", function (event) {
     let id = $(this).data("id");

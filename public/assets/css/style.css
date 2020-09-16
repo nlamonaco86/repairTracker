@@ -58,6 +58,15 @@
     transform: translate(-95%, 2%)
   }
 
+  .round {
+    border-radius: 24px; 
+    text-align: center; 
+  }
+
+  .shadow{
+    shadow: 3px 3px gray
+}
+
   .white{
     color: white
   }
