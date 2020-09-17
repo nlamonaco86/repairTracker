@@ -28,24 +28,45 @@ $(function () {
       }
     );
   });
-  // UPDATE ISSUE
-  $(".updateIssue").on("click", function (event) {
-    event.preventDefault();
-    let id = $(this).data("id");
-    let newIssue = {
-      issue: $("#issueU").val(),
-    };
-    console.log(id, newIssue)
-  // //  PUT
-  //   $.ajax("/api/orders/issue/" + id, {
-  //     type: "PUT",
-  //     data: newIssue
-  //   }).then(
-  //     function () { 
-  //       location.reload();
-  //     }
-  //   );
+  // COLOR CHANGER FOR THE TRACKER PAGE
+  const changeColors = (target) => {
+    console.log(target[0])
+    if (target[0].received === 1){   
+      $("#result").text("Your order has been received.")
+      $("#alert").addClass("alert-success")
+    }
+    if (target[0].inProgress === 1){
+      $("#result").text("Your repair order is in progress.")
+      $("#alert").addClass("alert-success")
+    }
+    if (target[0].waiting === 1){
+      $("#result").text("Your order is currently on hold. Please call 908-555-1234 for more information.")
+      $("#alert").addClass("alert-warning")
+    }
+    if (target[0].complete === 1){
+      $("#result").text("Your order is ready for pickup")
+      $("#alert").addClass("alert-success")
+    }
+  }
+
+  // DYNAMIC MODAL
+  $(".modal-show").on("click", function (event) {
+    //prevent page reload
+    event.preventDefault(); 
+      let orderNum = $(this).data("id")
+      console.log(orderNum)
+    // GET request
+    $.ajax("/api/orders/" + orderNum, {
+      type: "GET"
+    }).then(
+      function (response) {
+        $("#orderInfo").text("Order : " + response[0].orderNum);
+        $("#custInfo").text(response[0].firstName +" "+ response[0].lastName +"'s" +" "+ response[0].year +" "+ response[0].make +" "+ response[0].model);
+        $("#issueU").text(response[0].issue);
+      }
+    );
   });
+
   //UPDATE FUNCTION
   $(".complete").on("click", function (event) {
     let id = $(this).data("id");
@@ -127,23 +148,11 @@ $(function () {
       type: "GET"
     }).then(
       function (response) {
-        if (response[0].received === 1){   
-          $("#result").text("Your order has been received.")
-          $("#alert").addClass("alert-success")
-        }
-        if (response[0].inProgress === 1){
-          $("#result").text("Your repair order is in progress.")
-          $("#alert").addClass("alert-success")
-        }
-        if (response[0].waiting === 1){
-          $("#result").text("Your order is currently on hold. Please call 908-555-1234 for more information.")
-          $("#alert").addClass("alert-warning")
-        }
-        if (response[0].complete === 1){
-          $("#result").text("Your order is ready for pickup")
-          $("#alert").addClass("alert-success")
-        }
+        $("#result").empty();
+        $("#alert").removeClass();
+        changeColors(response);
       }
     );
   });
+
 });
