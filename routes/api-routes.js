@@ -56,22 +56,20 @@ app.post("/api/orders", function (req, res) {
 app.get("/api/orders/:orderNum", (req, res) =>{
   //read all entries from the orders table
   order.findOne(req.params.orderNum, (data) => {
-    // //test 
-    console.log("this is the", data)
-    //store them in an object for handlebars to use
     res.json(data);
   });
 });
 //UPDATE
-// app.put("/api/orders/issue/:id", (req, res) => {
-//   order.updateIssue(req.params.id, (result) => {
-//     if (result.changedRows == 0) {
-//       return res.status(404).end();
-//     } else {
-//       res.status(200).end();
-//     }
-//   });
-// });
+app.put("/api/orders/:id", (req, res) => {
+  order.updateIssue(req.params.id, req.body.issue, (result) => {
+    console.log(req.params.id, req.params.issue)
+    if (result.changedRows == 0) {
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
+  });
+});
 app.put("/api/orders/complete/:id", (req, res) => {
   order.updateComplete(req.params.id, (result) => {
     if (result.changedRows == 0) {

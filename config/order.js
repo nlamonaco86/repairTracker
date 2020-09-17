@@ -26,12 +26,19 @@ const order = {
       cb(result);
     });
   },
-  // updateIssue: function (issue, id, cb) {
-  //   promQuery("UPDATE orders SET issue = ? WHERE id = ?", issue, id, function (err, result) {
-  //     if (err) throw err;
-  //     cb(result);
-  //   });
-  // },
+  updateIssue: function (id, issue, cb) {
+
+    let queryString = "UPDATE orders SET issue = " 
+    queryString += "'"
+    queryString += issue
+    queryString += "'"
+    queryString += " WHERE id = "
+    queryString += id
+    promQuery(queryString, function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  },
    // redundant, optimize and combine
   updateInProgress: function (condition, cb) {
     promQuery("UPDATE orders SET complete = 0, inProgress = 1, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {

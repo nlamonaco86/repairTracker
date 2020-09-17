@@ -28,6 +28,7 @@ $(function () {
       }
     );
   });
+
   // COLOR CHANGER FOR THE TRACKER PAGE
   const changeColors = (target) => {
     console.log(target[0])
@@ -51,10 +52,7 @@ $(function () {
 
   // DYNAMIC MODAL
   $(".modal-show").on("click", function (event) {
-    //prevent page reload
-    event.preventDefault(); 
       let orderNum = $(this).data("id")
-      console.log(orderNum)
     // GET request
     $.ajax("/api/orders/" + orderNum, {
       type: "GET"
@@ -63,11 +61,29 @@ $(function () {
         $("#orderInfo").text("Order : " + response[0].orderNum);
         $("#custInfo").text(response[0].firstName +" "+ response[0].lastName +"'s" +" "+ response[0].year +" "+ response[0].make +" "+ response[0].model);
         $("#issueU").text(response[0].issue);
+        $("#orderID").text(response[0].id)
       }
     );
   });
 
-  //UPDATE FUNCTION
+  // UPDATE ISSUE FUNCTION
+  $(".updateIssue").on("submit", function (event) {
+    event.preventDefault();
+    let id = $("#orderID").text();
+    let newIssue = {
+      issue: $("#issueU").val()
+    }
+    $.ajax("/api/orders/" + id, {
+      type: "PUT",
+      data: newIssue
+    }).then(
+      function () {
+        location.reload();
+      }
+    );
+  });
+
+  //UPDATE STATUS FUNCTION
   $(".complete").on("click", function (event) {
     let id = $(this).data("id");
     let newWorkState = {
@@ -82,12 +98,11 @@ $(function () {
       data: newWorkState
     }).then(
       function () {
-        console.log(data)
         location.reload();
       }
     );
   });
-  //UPDATE FUNCTION
+  //UPDATE STATUS FUNCTION
   $(".inprogress").on("click", function (event) {
     let id = $(this).data("id");
     let newWorkState = {
@@ -106,7 +121,7 @@ $(function () {
       }
     );
   });
-  //UPDATE FUNCTION
+  //UPDATE STATUS FUNCTION
   $(".waiting").on("click", function (event) {
     let id = $(this).data("id");
     let newWorkState = {

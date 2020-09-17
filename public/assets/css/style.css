@@ -6,6 +6,10 @@
   padding: 20px;
 }
 
+.hide{
+  display: none
+}
+
 .btn-circle.btn-md { 
     width: 30px; 
     height: 30px; 
