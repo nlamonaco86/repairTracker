@@ -15,7 +15,8 @@ $(function () {
       make: $("#make").val(),
       model: $("#model").val(),
       issue: $("#issue").val(),
-      orderNum: genNum
+      orderNum: genNum,
+      photo: $("#photo").val()
     };
     // POST request
     $.ajax("/api/orders", {
@@ -51,7 +52,7 @@ $(function () {
   }
 
   // DYNAMIC MODAL
-  $(".modal-show").on("click", function (event) {
+  $(".info-modal-show").on("click", function (event) {
       let orderNum = $(this).data("id")
     // GET request
     $.ajax("/api/orders/" + orderNum, {
@@ -65,6 +66,25 @@ $(function () {
       }
     );
   });
+
+  $(".photo-modal-show").on("click", function (event) {
+    let orderNum = $(this).data("id")
+  // GET request
+  $.ajax("/api/orders/" + orderNum, {
+    type: "GET"
+  }).then(
+    function (response) {
+      $("#currentPhoto").attr("src", "../assets/nophoto.png")
+      $("#photoID").text(response[0].id)
+
+      if (response[0].photo) {
+        $("#currentPhoto").attr("src", response[0].photo);
+      }
+
+      $("#orderInfoPhoto").text("Order : " + response[0].orderNum);
+    }
+  );
+});
 
   // UPDATE ISSUE FUNCTION
   $(".updateIssue").on("submit", function (event) {
@@ -82,6 +102,7 @@ $(function () {
       }
     );
   });
+
 
   //UPDATE STATUS FUNCTION
   $(".complete").on("click", function (event) {

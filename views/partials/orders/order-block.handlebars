@@ -5,10 +5,14 @@
 		<td>{{lastName}}</td>
 		<td><a href="tel:{{tel}}" class="text-info">{{tel}}</a></td>
 		<td>{{year}} {{make}} {{model}}</td>
+		<td><button class="btn btn-success btn-circle btn-md photo-modal-show" data-toggle="modal" data-target="#photoModal" data-id="{{orderNum}}">
+				<i class="fas fa-2x fa-image"></i>
+			</button></td>
 		<!-- Modal Button -->
-		<td><button class="btn btn-info btn-circle btn-md modal-show" data-toggle="modal" data-target="#infoModal" data-id="{{orderNum}}">
+		<td><button class="btn btn-info btn-circle btn-md info-modal-show" data-toggle="modal" data-target="#infoModal" data-id="{{orderNum}}">
 				<i class="fas fa-2x fa-question"></i>
 			</button></td>
+		
 
 			<td>
 				{{#if received}}

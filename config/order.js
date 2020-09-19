@@ -13,7 +13,7 @@ const order = {
     });
   },
   create: function (vals, cb) {
-      promQuery("INSERT INTO orders (firstName, lastName, tel, email, year, make, model, issue, orderNum) VALUES (?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
+      promQuery("INSERT INTO orders (firstName, lastName, tel, email, year, make, model, issue, orderNum, photo) VALUES (?,?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
         if (err) {
           throw err;
         }

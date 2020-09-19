@@ -1,6 +1,7 @@
 // Require models and passport
-var db = require("../models");
-var passport = require("../config/passport");
+require('dotenv').config();
+const db = require("../models");
+const passport = require("../config/passport");
 const order = require("../config/order.js");
 
 module.exports = function(app) {
@@ -38,7 +39,9 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       res.json({
         email: req.user.email,
-        id: req.user.id
+        id: req.user.id,
+        cloudUploadName: process.env.CLOUDINARY_CLOUDNAME,
+        cloudUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
       });
     }
   });

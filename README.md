@@ -6,7 +6,7 @@ repairTracker is a full-stack application using Node.js, Express, MySQL, Sequeli
 
 This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair based on four different statuses (received, in progress, waiting on parts, complete) as one would in an automobile, electronics, appliance or other repair shop. 
 
-Repair techs can log into the Employees section with a valid login (provided by the company's administrator) to manage order status, view work notes, and update either as needed.
+Repair techs can log into the Employees section with a valid login (provided by the company's administrator) to manage order status, add photos, view work notes, and update either as needed.
 
 Customers can view the Tracker page to lookup the current status of their order. 
 
@@ -18,6 +18,7 @@ Deployed Site: https://repairtracker.herokuapp.com/
 FUTURE UPDATES: 
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
+- Invoice Generator
 
 ## Table of Contents
 
