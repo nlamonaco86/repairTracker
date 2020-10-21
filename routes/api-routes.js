@@ -2,7 +2,7 @@
 require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
-const order = require("../config/order.js");
+// const order = require("../config/order.js");
 
 module.exports = function(app) {
   // LOGIN route with error handling
@@ -14,7 +14,13 @@ module.exports = function(app) {
   app.post("/api/signup", function(req, res) {
     db.User.create({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      first: req.body.first,
+      last: req.body.last,
+      position: req.body.position,
+      phone: req.body.phone,
+      dob: req.body.dob,
+      ssn: req.body.ssn,
     })
       .then(function() {
         res.redirect(307, "/api/login");

@@ -17,7 +17,31 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    first: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    last: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    position: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    dob: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ssn: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }   
   });
   // Creating a custom method for User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in the database
   User.prototype.validPassword = function(password) {
