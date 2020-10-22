@@ -3,8 +3,8 @@ $(function () {
   // CREATE FUNCTION
   $(".create").on("submit", function (event) {
     //prevent page reload
-    event.preventDefault();   
-    let genNum = (Math.floor(10000000 + Math.random() * 9000000)) 
+    event.preventDefault();
+    let genNum = (Math.floor(10000000 + Math.random() * 9000000))
     //define a new order as an object based on input from the form
     let newOrder = {
       firstName: $("#firstname").val(),
@@ -33,19 +33,19 @@ $(function () {
   // COLOR CHANGER FOR THE TRACKER PAGE
   const changeColors = (target) => {
     console.log(target[0])
-    if (target[0].received === 1){   
+    if (target[0].received === 1) {
       $("#result").text("Your order has been received.")
       $("#alert").addClass("alert-success")
     }
-    if (target[0].inProgress === 1){
+    if (target[0].inProgress === 1) {
       $("#result").text("Your repair order is in progress.")
       $("#alert").addClass("alert-success")
     }
-    if (target[0].waiting === 1){
+    if (target[0].waiting === 1) {
       $("#result").text("Your order is currently on hold. Please call 908-555-1234 for more information.")
       $("#alert").addClass("alert-warning")
     }
-    if (target[0].complete === 1){
+    if (target[0].complete === 1) {
       $("#result").text("Your order is ready for pickup")
       $("#alert").addClass("alert-success")
     }
@@ -53,14 +53,14 @@ $(function () {
 
   // DYNAMIC MODAL
   $(".info-modal-show").on("click", function (event) {
-      let orderNum = $(this).data("id")
+    let orderNum = $(this).data("id")
     // GET request
     $.ajax("/api/orders/" + orderNum, {
       type: "GET"
     }).then(
       function (response) {
         $("#orderInfo").text("Order : " + response[0].orderNum);
-        $("#custInfo").text(response[0].firstName +" "+ response[0].lastName +"'s" +" "+ response[0].year +" "+ response[0].make +" "+ response[0].model);
+        $("#custInfo").text(response[0].firstName + " " + response[0].lastName + "'s" + " " + response[0].year + " " + response[0].make + " " + response[0].model);
         $("#issueU").text(response[0].issue);
         $("#orderID").text(response[0].id)
       }
@@ -69,22 +69,22 @@ $(function () {
 
   $(".photo-modal-show").on("click", function (event) {
     let orderNum = $(this).data("id")
-  // GET request
-  $.ajax("/api/orders/" + orderNum, {
-    type: "GET"
-  }).then(
-    function (response) {
-      $("#currentPhoto").attr("src", "../assets/nophoto.png")
-      $("#photoID").text(response[0].id)
+    // GET request
+    $.ajax("/api/orders/" + orderNum, {
+      type: "GET"
+    }).then(
+      function (response) {
+        $("#currentPhoto").attr("src", "../assets/nophoto.png")
+        $("#photoID").text(response[0].id)
 
-      if (response[0].photo) {
-        $("#currentPhoto").attr("src", response[0].photo);
+        if (response[0].photo) {
+          $("#currentPhoto").attr("src", response[0].photo);
+        }
+
+        $("#orderInfoPhoto").text("Order : " + response[0].orderNum);
       }
-
-      $("#orderInfoPhoto").text("Order : " + response[0].orderNum);
-    }
-  );
-});
+    );
+  });
 
   // UPDATE ISSUE FUNCTION
   $(".updateIssue").on("submit", function (event) {
@@ -177,8 +177,8 @@ $(function () {
   //LOOKUP AN ORDER
   $(".lookup").on("submit", function (event) {
     //prevent page reload
-    event.preventDefault(); 
-      let orderNum= $("#orderNumber").val()
+    event.preventDefault();
+    let orderNum = $("#orderNumber").val()
     // GET request
     $.ajax("/api/orders/" + orderNum, {
       type: "GET"
@@ -191,4 +191,21 @@ $(function () {
     );
   });
 
+  const personalizePage = () => {
+    $.ajax("/api/user_data/", {
+      type: "GET"
+    }).then(function (response) {
+      console.log(response)
+      if (response.position === "Admin") {
+        //fill out the user's profile section
+        $("#navBar").prepend( 
+          `<li class="nav-item">
+           <a class="nav-link" href="/admin.html">Admin</a>
+           </li>`)
+      };
+
+    });
+  }
+  personalizePage();
 });
+

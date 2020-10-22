@@ -2,7 +2,7 @@
 require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
-// const order = require("../config/order.js");
+const order = require("../config/order.js");
 
 module.exports = function(app) {
   // LOGIN route with error handling
@@ -45,7 +45,11 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       res.json({
         email: req.user.email,
+        phone: req.user.phone,
         id: req.user.id,
+        first: req.user.first,
+        last: req.user.last,
+        position: req.user.position,
         cloudUploadName: process.env.CLOUDINARY_CLOUDNAME,
         cloudUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
       });

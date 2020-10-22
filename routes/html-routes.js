@@ -73,6 +73,10 @@ module.exports = function(app) {
 
   // ADMIN FUNCTION
   app.get("/admin", function(req, res) {
+    if (req.user.position === "Admin") {
     res.sendFile(path.join(__dirname, "../public/admin.html"));
+    }
+    // Change to error handling later
+    res.sendFile(path.join(__dirname, "../public/splash.html"));
   });
 };
