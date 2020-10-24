@@ -7,13 +7,13 @@ const promQuery = util.promisify(connection.query).bind(connection);
 // This will run specific C-R-U-D functions in the database
 const order = {
   all: function (cb) {
-    promQuery("SELECT * FROM orders", function (err, result) {
+    promQuery("SELECT * FROM Orders", function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   create: function (vals, cb) {
-      promQuery("INSERT INTO orders (firstName, lastName, tel, email, year, make, model, issue, orderNum, photo) VALUES (?,?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
+      promQuery("INSERT INTO Orders (firstName, lastName, tel, email, year, make, model, issue, orderNum, photo) VALUES (?,?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
         if (err) {
           throw err;
         }
@@ -21,14 +21,14 @@ const order = {
       });
   },
   findOne: function (val, cb) {
-    promQuery("SELECT * FROM orders WHERE orderNum = ?", val, function (err, result) {
+    promQuery("SELECT * FROM Orders WHERE orderNum = ?", val, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   updateIssue: function (id, issue, cb) {
 
-    let queryString = "UPDATE orders SET issue = " 
+    let queryString = "UPDATE Orders SET issue = " 
     queryString += "'"
     queryString += issue
     queryString += "'"
@@ -41,25 +41,25 @@ const order = {
   },
    // redundant, optimize and combine
   updateInProgress: function (condition, cb) {
-    promQuery("UPDATE orders SET complete = 0, inProgress = 1, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
+    promQuery("UPDATE Orders SET complete = 0, inProgress = 1, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   updateWaiting: function (condition, cb) {
-    promQuery("UPDATE orders SET complete = 0, inProgress = 0, waiting = 1, received = 0 WHERE id = ?", condition, function (err, result) {
+    promQuery("UPDATE Orders SET complete = 0, inProgress = 0, waiting = 1, received = 0 WHERE id = ?", condition, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   updateComplete: function (condition, cb) {
-    promQuery("UPDATE orders SET complete = 1, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
+    promQuery("UPDATE Orders SET complete = 1, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   delete: function (id, cb) {
-    promQuery("DELETE FROM orders WHERE id = ?", id, function (err, result) {
+    promQuery("DELETE FROM Orders WHERE id = ?", id, function (err, result) {
       if (err) throw err;
       cb(result);
     });
