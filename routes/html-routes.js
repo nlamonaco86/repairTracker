@@ -2,7 +2,6 @@
 var path = require("path");
 
 // Import the model to use it
-// const db = require("../models");
 const order = require("../config/order.js");
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -13,12 +12,6 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // If the user already has an account send them to the orders page
     if (req.user) {
-      // db.Order.findAll({})
-      // .then(data => {
-      //   let hbsObject = {orders: data};
-      //   res.render("index", hbsObject);
-      //   console.log(hbsObject);
-      // });
       order.all((data) => {
         //store them in an object for handlebars to use
         let hbsObject = {
@@ -73,10 +66,6 @@ module.exports = function(app) {
 
   // ADMIN FUNCTION
   app.get("/admin", function(req, res) {
-    if (req.user.position === "Admin") {
     res.sendFile(path.join(__dirname, "../public/admin.html"));
-    }
-    // Change to error handling later
-    res.sendFile(path.join(__dirname, "../public/splash.html"));
   });
 };
