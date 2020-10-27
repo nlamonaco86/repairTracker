@@ -16,23 +16,23 @@
 
 			<td>
 				{{#if received}}
-				<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i
+				<button class="update btn btn-success btn-circle btn-md" data-status="inProgress" data-inProgress="1" data-id="{{id}}"><i
 						class="fas fa-2x fa-wrench"></i></button>
-				<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i
+				<button class="update btn btn-warning btn-circle btn-md" data-status="waiting" data-waiting="1" data-id="{{id}}"><i
 						class="fas fa-2x fa-pause"></i></button>
 				<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i
 						class="fas fa-2x fa-times"></i></button>
 				{{/if}}
 				{{#if inProgress}}
-				<button class="complete btn btn-success btn-circle btn-md" data-id="{{id}}"><i
+				<button class="update btn btn-success btn-circle btn-md" data-status="complete" data-complete="1" data-id="{{id}}"><i
 						class="fas fa-2x fa-check"></i></button>
-				<button class="waiting btn btn-warning btn-circle btn-md" data-id="{{id}}"><i
+				<button class="update btn btn-warning btn-circle btn-md" data-status="waiting" data-waiting="1" data-id="{{id}}"><i
 						class="fas fa-2x fa-pause"></i></button>
 				<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i
 						class="fas fa-2x fa-times"></i></button>
 				{{/if}}
 				{{#if waiting}}
-				<button class="inprogress btn btn-success btn-circle btn-md" data-id="{{id}}"><i
+				<button class="update btn btn-success btn-circle btn-md" data-status="inProgress" data-inProgress="1" data-id="{{id}}"><i
 						class="fas fa-2x fa-wrench"></i></button>
 				<button class="delete btn btn-danger btn-circle btn-md" data-id="{{this.id}}"><i
 						class="fas fa-2x fa-times"></i></button>

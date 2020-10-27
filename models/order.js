@@ -20,7 +20,6 @@ module.exports = function(sequelize, DataTypes) {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
         validate: {
           isEmail: true
         }
@@ -49,20 +48,20 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING
       },
       received: {
-        type: DataTypes.BOOLEAN,
-        default: true
+        type: DataTypes.TINYINT,
+        default: 1
       },
       waiting: {
-        type: DataTypes.BOOLEAN,
-        default: false
+        type: DataTypes.TINYINT,
+        default: 0
       },
       inProgress: {
-        type: DataTypes.BOOLEAN,
-        default: false
+        type: DataTypes.TINYINT,
+        default: 0
       },
       complete: {
-        type: DataTypes.BOOLEAN,
-        default: false
+        type: DataTypes.TINYINT,
+        default: 0
       }
   });
   return Order;

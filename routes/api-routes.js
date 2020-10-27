@@ -56,34 +56,76 @@ module.exports = function(app) {
     }
   });
 
-//CREATE
 app.post("/api/orders", function (req, res) {
-  // get values from our incoming request object and map them in an array
-  let vals = Object.entries(req.body).map(e => e[1]);
-  //use that array to call a create function in the model
-  order.create(vals, function (results) {
-    res.json({ id: results.insertId });
-  });
+  db.Order.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      tel: req.body.tel,
+      email: req.body.email,
+      year: req.body.year,
+      make: req.body.make,
+      model: req.body.model,
+      issue: req.body.issue,
+      orderNum: req.body.orderNum,
+      photo: req.body.photo,
+      received: 1,
+      waiting: 0,
+      inProgress: 0,
+      complete: 0
+  })
+    .then(function () {
+      res.send("success")
+    })
+    .catch(function (err) {
+      res.status(401).json(err);
+    });
 });
-// FIND ONE
-app.get("/api/orders/:orderNum", (req, res) =>{
-  //read all entries from the orders table
-  order.findOne(req.params.orderNum, (data) => {
-    res.json(data);
-  });
+
+app.get("/api/orders/:orderNum", function (req, res) {
+  db.Order.findAll({
+    where: { orderNum: req.params.orderNum }
+  })
+    .then(result => {
+      res.json(result);
+    });
 });
+
 //UPDATE
 app.put("/api/orders/:id", (req, res) => {
-  order.updateIssue(req.params.id, req.body.issue, (result) => {
-    console.log(req.params.id, req.params.issue)
-    if (result.changedRows == 0) {
-      return res.status(404).end();
-    } else {
-      res.status(200).end();
+  db.Order.update(
+    { issue: req.body.issue }, 
+    { where: { id: req.params.id } }, (result) => {
+      if (result.changedRows == 0) {
+        // If no rows were changed, then the ID does not exist 404
+        return res.status(404).end();
+      } else {
+        res.status(200).end();
+      }
     }
-  });
+  );
 });
+
+// app.put("/api/orders/:status/:id", (req, res) => {
+//   console.log(req.params)
+//   console.log(req.body)
+//   db.Order.update(
+//     { received: 0,
+//     inProgress: req.body.inProgress,
+//     waiting: req.body.waiting,
+//     complete: req.body.complete }, 
+//     { where: { id: req.params.id } }, (result) => {
+//       if (result.changedRows == 0) {
+//         // If no rows were changed, then the ID does not exist 404
+//         return res.status(404).end();
+//       } else {
+//         res.status(200).end();
+//       }
+//     }
+//   );
+// });
+
 app.put("/api/orders/complete/:id", (req, res) => {
+  console.log(req.body)
   order.updateComplete(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID does not exist 404
@@ -93,7 +135,9 @@ app.put("/api/orders/complete/:id", (req, res) => {
     }
   });
 });
+
 app.put("/api/orders/inProgress/:id", (req, res) => {
+  console.log(req.body)
   order.updateInProgress(req.params.id, (result) => {
     if (result.changedRows == 0) {
       return res.status(404).end();
@@ -102,7 +146,9 @@ app.put("/api/orders/inProgress/:id", (req, res) => {
     }
   });
 });
+
 app.put("/api/orders/waiting/:id", (req, res) => {
+  console.log(req.body)
   order.updateWaiting(req.params.id, (result) => {
     if (result.changedRows == 0) {
       return res.status(404).end();
@@ -111,15 +157,15 @@ app.put("/api/orders/waiting/:id", (req, res) => {
     }
   });
 });
+
 //DELETE
 app.delete("/api/orders/:id", (req, res) => {
-  order.delete(req.params.id, (result) => {
-    if (result.affectedRows == 0) {
-      return res.status(404).end();
-    } else {
-      res.status(200).end();
-    }
-  });
+  db.Order.destroy({
+    where: { id: req.params.id }
+  })
+    .then((data) => {
+      res.json(data);
+    });
 });
   
 };

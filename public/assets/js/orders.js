@@ -98,69 +98,38 @@ $(function () {
       data: newIssue
     }).then(
       function () {
+        window.reload();
+      }
+    );
+  });
+
+  //UPDATE STATUS FUNCTION
+  $(".update").on("click", function (event) {
+    let id = $(this).data("id");
+    let status = $(this).data("status")
+    var newWorkState = {
+      received: 0,
+      inProgress: 0,
+      waiting: 0,
+      complete: 0
+    };
+
+    if(status === "inProgress"){ newWorkState.inProgress += 1}
+    if(status === "waiting"){ newWorkState.waiting += 1}
+    if(status === "complete"){ newWorkState.complete += 1}
+
+    console.log(id, status, newWorkState)
+    //PUT
+    $.ajax("/api/orders/" + status + "/" + id, {
+      type: "PUT",
+      data: newWorkState
+    }).then(
+      function () {
         location.reload();
       }
     );
   });
 
-
-  //UPDATE STATUS FUNCTION
-  $(".complete").on("click", function (event) {
-    let id = $(this).data("id");
-    let newWorkState = {
-      received: 0,
-      inProgress: 0,
-      waiting: 0,
-      complete: 1
-    };
-    //PUT
-    $.ajax("/api/orders/complete/" + id, {
-      type: "PUT",
-      data: newWorkState
-    }).then(
-      function () {
-        location.reload();
-      }
-    );
-  });
-  //UPDATE STATUS FUNCTION
-  $(".inprogress").on("click", function (event) {
-    let id = $(this).data("id");
-    let newWorkState = {
-      received: 0,
-      inProgress: 1,
-      waiting: 0,
-      complete: 0
-    };
-    //PUT
-    $.ajax("/api/orders/inProgress/" + id, {
-      type: "PUT",
-      data: newWorkState
-    }).then(
-      function () {
-        location.reload();
-      }
-    );
-  });
-  //UPDATE STATUS FUNCTION
-  $(".waiting").on("click", function (event) {
-    let id = $(this).data("id");
-    let newWorkState = {
-      received: 0,
-      inProgress: 0,
-      waiting: 1,
-      complete: 0
-    };
-    //PUT
-    $.ajax("/api/orders/waiting/" + id, {
-      type: "PUT",
-      data: newWorkState
-    }).then(
-      function () {
-        location.reload();
-      }
-    );
-  });
   // DELETE FUNCTION
   $(".delete").on("click", function (event) {
     let id = $(this).data("id");
@@ -174,6 +143,7 @@ $(function () {
       }
     );
   });
+
   //LOOKUP AN ORDER
   $(".lookup").on("submit", function (event) {
     //prevent page reload
