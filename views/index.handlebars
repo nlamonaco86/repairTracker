@@ -1,170 +1,101 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info shadow">
-  <i class="fas fa-tools fa-2x pad white"></i>
-  <h3 class="text-white">repairTracker</h3>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav" id="navBar">
-      <li class="nav-item">
-        <a class="nav-link" href="#received">Received</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#inProgress">In Progress</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#onHold">On Hold</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#onHold">Complete</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#new">New Work Order</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Log Out</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<section class="mt-4 bg-light text-dark mb-0" id="main">
 
-<div class="container">
-  <div class="row">
-    <h4 id="received">Received:</h4>
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col col-lg-2">Order ID</th>
-          <th scope="col col-lg-2">First</th>
-          <th scope="col col-lg-2">Last</th>
-          <th scope="col col-lg-2">Contact</th>
-          <th scope="col col-lg-2">Make/Model</th>
-           <th scope="col col-lg-2">Photo</th>
-          <th scope="col col-lg-2">Issue</th>
-          <th scope="col col-lg-2">Actions</th>
-        </tr>
-      </thead>
-      {{#each orders}}
-      {{#if received}}
-      {{> orders/order-block received=true}}
-      {{/if}}
-      {{/each}}
-    </table>
-  </div>
-</div>
+  <div class="">
+    <!-- SIDE NAVIGATION -->
+    <div class="row">
+      <div class="col-lg-4 ml-auto">
 
-<div class="container">
-  <div class="row">
-    <h4 id="inProgress">In Progress:</h4>
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col col-lg-2">Order ID</th>
-          <th scope="col col-lg-2">First</th>
-          <th scope="col col-lg-2">Last</th>
-          <th scope="col col-lg-2">Contact</th>
-          <th scope="col col-lg-2">Make/Model</th>
-           <th scope="col col-lg-2">Photo</th>
-          <th scope="col col-lg-2">Issue</th>
-          <th scope="col col-lg-2">Actions</th>
-        </tr>
-      </thead>
-      {{#each orders}}
-      {{#if inProgress}}
-      {{> orders/order-block inProgress=true}}
-      {{/if}}
-      {{/each}}
-    </table>
-  </div>
-</div>
+        <!-- Error handling -->
+        <div id="searchError">
 
-<div class="container">
-  <div class="row">
-    <h4 id="onHold">Waiting on Parts:</h4>
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col col-lg-2">Order ID</th>
-          <th scope="col col-lg-2">First</th>
-          <th scope="col col-lg-2">Last</th>
-          <th scope="col col-lg-2">Contact</th>
-          <th scope="col col-lg-2">Make/Model</th>
-          <th scope="col col-lg-2">Photo</th>
-          <th scope="col col-lg-2">Issue</th>
-          <th scope="col col-lg-2">Actions</th>
-        </tr>
-      </thead>
-      {{#each orders}}
-      {{#if waiting}}
-      {{> orders/order-block waiting=true}}
-      {{/if}}
-      {{/each}}
-    </table>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <h4 id="complete">Complete:</h4>
-    <table class="table table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col col-lg-2">Order ID</th>
-          <th scope="col col-lg-2">First</th>
-          <th scope="col col-lg-2">Last</th>
-          <th scope="col col-lg-2">Contact</th>
-          <th scope="col col-lg-2">Make/Model</th>
-           <th scope="col col-lg-2">Photo</th>
-          <th scope="col col-lg-2">Issue</th>
-          <th scope="col col-lg-2">Actions</th>
-        </tr>
-      </thead>
-      {{#each orders}}
-      {{#if complete}}
-      {{> orders/order-block complete=true}}
-      {{/if}}
-      {{/each}}
-    </table>
-  </div>
-</div>
-
-<div class="d-flex justify-content-center">
-  <div class="card mb-3 shadow">
-    <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center" id="new">Input Order:</div>
-    <div class="card-body font-weight-bold">
-      <form class="create">
-        <div class="form-group">
-          <label for="firstname">First Name:</label>
-          <input type="text" id="firstname" name="firstname">
-          <label for="lastname">Last Name:</label>
-          <input type="text" id="lastname" name="lastname">
-          <div class="d-flex justify-content-between">
-            <label for="tel">Telephone:</label>
-            <input type="text" id="tel" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-            <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="customer@email.com">
-          </div>
-          <div class="d-flex justify-content-between pad">
-            <label for="year">Year:</label>
-            <input type="number" id="year" name="year" min="1912" max="2025">
-            <label for="make">Make:</label>
-            <input type="text" id="make" name="make">
-            <label for="model">Model:</label>
-            <input type="text" id="model" name="model">
-            <label for="photo" class="hide">Photo Goes Here</label>
-            <input type="text" id="photo" name="model" class="hide">
-          </div>
-          <label for="issue" class="d-flex justify-content-center">Issue:</label>
-          <textarea class="form-control" id="issue" rows="3"></textarea>
         </div>
-        <div class="d-flex justify-content-around">
-          <button type="submit" class="btn-lg btn-info btn-circle"><i class="fas fa-3x fa-plus"></i></button>
-        </div>
-      </form>
-        <button id="upload_widget" class="btn-lg btn-info btn-circle"><i class="fas fa-2x fa-image"></i></button>
-        <script type="text/javascript" src="/js/member-upload.js" defer></script>
-    </div>
-  </div>
+        <!-- SEARCH BAR GOES HERE-->
+        <form class="searchForm bg-info">
+          <div class="form-row ml-1">
+            <div class="col-lg-5 mt-1">
+              <select id="searchType" class="form-control">
+                <option>Search By</option>
+                <option>Order Number</option>
+                <option>Last Name</option>
+              </select>
+            </div>
+            <div class="col-lg-5 mt-1">
+              <input type="text" class="form-control" placeholder="" id="searchTerm">
+            </div>
+            <button class="btn btn-info btn-circle" type="submit"><i class="fas fa-2x fa-search"></i></button>
+          </div>
+        </form>
 
-</div>
+        <nav class="navbar bg-white rounded-lg">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#receivedList" aria-controls="receivedList"
+              aria-expanded="false" aria-label="Toggle navigation"> RECEIVED </button>
+            <div class="collapse navbar-collapse" id="receivedList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if received}}
+                {{> orders/order-nav received=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar bg-white">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#inProgressList" aria-controls="inProgressList"
+              aria-expanded="false" aria-label="Toggle navigation"> IN PROGRESS </button>
+            <div class="collapse navbar-collapse" id="inProgressList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if inProgress}}
+                {{> orders/order-nav inProgress=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar bg-white">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#waitingList" aria-controls="waitingList"
+              aria-expanded="false" aria-label="Toggle navigation"> ON HOLD </button>
+            <div class="collapse navbar-collapse" id="waitingList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if waiting}}
+                {{> orders/order-nav waiting=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar bg-white rounded-lg">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#completeList" aria-controls="completeList"
+              aria-expanded="false" aria-label="Toggle navigation"> COMPLETE </button>
+            <div class="collapse navbar-collapse" id="completeList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if complete}}
+                {{> orders/order-nav complete=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
