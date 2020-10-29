@@ -116,7 +116,7 @@ $(function () {
       data: newIssue
     }).then(
       function () {
-     console.log("done!")
+        console.log("done!")
       }
     );
   });
@@ -211,7 +211,7 @@ $(function () {
   // DELETE FUNCTION
   $("#delete").on("click", function (event) {
     let id = $("#orderID").text();
-   // DELETE
+    // DELETE
     $.ajax("/api/orders/" + id, {
       type: "DELETE"
     }).then(
@@ -238,6 +238,45 @@ $(function () {
   }
   personalizePage();
 
+  const populateInfoCard = (response) => {
+    $("#orderNumber").text(response.orderNum);
+    $("#customerName").text(response.firstName + " " + response.lastName);
+    $("#emailAddr").html(`<a href="mailto:${response.email}" class="text-info font-weight-bold">${response.email}</a>`);
+    $("#telNum").html(`<a id="phoneNum" href="tel:${response.tel}" class="font-weight-bold text-info">${response.tel}</a>`);
+    $("#orderID").text(response.id)
+    $("#vehicle").text(response.year + " " + response.make + " " + response.model);
+    $("#issueU").text(response.issue);
+
+    if (response.received) {
+      $("#updateInProgress").removeClass("hide");
+      $("#updateWaiting").removeClass("hide");
+      $("#updateComplete").addClass("hide");
+      $("#delete").removeClass("hide");
+      $("#markPaid").addClass("hide");
+    };
+    if (response.waiting) {
+      $("#updateInProgress").removeClass("hide");
+      $("#updateWaiting").addClass("hide");
+      $("#updateComplete").addClass("hide");
+      $("#delete").addClass("hide");
+      $("#markPaid").addClass("hide");
+    };
+    if (response.inProgress) {
+      $("#updateInProgress").addClass("hide");
+      $("#updateWaiting").removeClass("hide");
+      $("#updateComplete").removeClass("hide");
+      $("#delete").addClass("hide");
+      $("#markPaid").addClass("hide");
+    };
+    if (response.complete) {
+      $("#updateInProgress").addClass("hide");
+      $("#updateWaiting").addClass("hide");
+      $("#updateComplete").addClass("hide");
+      $("#delete").addClass("hide");
+      $("#markPaid").removeClass("hide");
+    };
+  }
+
   // SIDE NAVBAR ON CLICK
   $(".order").on("click", function (event) {
 
@@ -249,43 +288,7 @@ $(function () {
       type: "GET"
     }).then(
       function (response) {
-        $("#orderNumber").text(response.orderNum);
-        $("#customerName").text(response.firstName + " " + response.lastName);
-        $("#emailAddr").html(`<a href="mailto:${response.email}" class="text-info font-weight-bold">${response.email}</a>`);
-        $("#telNum").html(`<a id="phoneNum" href="tel:${response.tel}" class="font-weight-bold text-info">${response.tel}</a>`);
-        $("#orderID").text(response.id)
-        $("#vehicle").text(response.year + " " + response.make + " " + response.model);
-        $("#issueU").text(response.issue);
-  
-    if(response.received){ 
-      $("#updateInProgress").removeClass("hide");
-      $("#updateWaiting").removeClass("hide");
-      $("#updateComplete").addClass("hide");
-      $("#delete").removeClass("hide");
-      $("#markPaid").addClass("hide");
-     };
-    if(response.waiting){ 
-      $("#updateInProgress").removeClass("hide");
-      $("#updateWaiting").addClass("hide");
-      $("#updateComplete").addClass("hide");
-      $("#delete").addClass("hide");
-      $("#markPaid").addClass("hide");
-    };
-    if(response.inProgress){  
-      $("#updateInProgress").addClass("hide");
-      $("#updateWaiting").removeClass("hide");
-      $("#updateComplete").removeClass("hide");
-      $("#delete").addClass("hide");
-      $("#markPaid").addClass("hide");
-    };
-    if(response.complete){
-      $("#updateInProgress").addClass("hide");
-      $("#updateWaiting").addClass("hide");
-      $("#updateComplete").addClass("hide");
-      $("#delete").addClass("hide");
-      $("#markPaid").removeClass("hide");
-    };
-  
+        populateInfoCard(response);
       }
     );
   })
