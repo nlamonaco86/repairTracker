@@ -1,35 +1,88 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info shadow">
-  <i class="fas fa-tools fa-2x pad white"></i>
-  <h3 class="text-white">repairTracker</h3>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav" id="navBar">
-      <li class="nav-item">
-        <a class="nav-link" href="#received">Received</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#inProgress">In Progress</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#onHold">On Hold</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#onHold">Complete</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#new">New Work Order</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Log Out</a>
-      </li>
-    </ul>
-  </div>
-</nav>
 
-<div class="container">
+<section class="mt-4 bg-light text-dark mb-0" id="main">
+
+  <div class="">
+    <!-- SIDE NAVIGATION -->
+    <div class="row">
+      <div class="col-lg-4 ml-auto">
+        <nav class="navbar bg-white rounded-lg">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#receivedList" aria-controls="receivedList"
+              aria-expanded="false" aria-label="Toggle navigation"> RECEIVED </button>
+            <div class="collapse navbar-collapse" id="receivedList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if received}}
+                {{> orders/order-nav received=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar bg-white">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#inProgressList" aria-controls="inProgressList"
+              aria-expanded="false" aria-label="Toggle navigation"> IN PROGRESS </button>
+            <div class="collapse navbar-collapse" id="inProgressList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if inProgress}}
+                {{> orders/order-nav inProgress=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar bg-white">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#waitingList" aria-controls="waitingList"
+              aria-expanded="false" aria-label="Toggle navigation"> ON HOLD </button>
+            <div class="collapse navbar-collapse" id="waitingList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if waiting}}
+                {{> orders/order-nav waiting=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar bg-white rounded-lg">
+          <div class="container">
+            <button
+              class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+              type="button" data-toggle="collapse" data-target="#completeList" aria-controls="completeList"
+              aria-expanded="false" aria-label="Toggle navigation"> COMPLETE </button>
+            <div class="collapse navbar-collapse" id="completeList">
+              <ul class="navbar-nav ml-auto font-weight-bold">
+                {{#each orders}}
+                {{#if complete}}
+                {{> orders/order-nav complete=true}}
+                {{/if}}
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+
+      <!-- Information Card -->
+
+{{!-- 
+<div class="container mt-5">
   <div class="row">
     <h4 id="received">Received:</h4>
     <table class="table table-hover">
@@ -40,7 +93,7 @@
           <th scope="col col-lg-2">Last</th>
           <th scope="col col-lg-2">Contact</th>
           <th scope="col col-lg-2">Make/Model</th>
-           <th scope="col col-lg-2">Photo</th>
+          <th scope="col col-lg-2">Photo</th>
           <th scope="col col-lg-2">Issue</th>
           <th scope="col col-lg-2">Actions</th>
         </tr>
@@ -65,7 +118,7 @@
           <th scope="col col-lg-2">Last</th>
           <th scope="col col-lg-2">Contact</th>
           <th scope="col col-lg-2">Make/Model</th>
-           <th scope="col col-lg-2">Photo</th>
+          <th scope="col col-lg-2">Photo</th>
           <th scope="col col-lg-2">Issue</th>
           <th scope="col col-lg-2">Actions</th>
         </tr>
@@ -115,7 +168,7 @@
           <th scope="col col-lg-2">Last</th>
           <th scope="col col-lg-2">Contact</th>
           <th scope="col col-lg-2">Make/Model</th>
-           <th scope="col col-lg-2">Photo</th>
+          <th scope="col col-lg-2">Photo</th>
           <th scope="col col-lg-2">Issue</th>
           <th scope="col col-lg-2">Actions</th>
         </tr>
@@ -131,7 +184,8 @@
 
 <div class="d-flex justify-content-center">
   <div class="card mb-3 shadow">
-    <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center" id="new">Input Order:</div>
+    <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center" id="new">Input Order:
+    </div>
     <div class="card-body font-weight-bold">
       <form class="create">
         <div class="form-group">
@@ -162,9 +216,9 @@
           <button type="submit" class="btn-lg btn-info btn-circle"><i class="fas fa-3x fa-plus"></i></button>
         </div>
       </form>
-        <button id="upload_widget" class="btn-lg btn-info btn-circle"><i class="fas fa-2x fa-image"></i></button>
-        <script type="text/javascript" src="/js/member-upload.js" defer></script>
+      <button id="upload_widget" class="btn-lg btn-info btn-circle"><i class="fas fa-2x fa-image"></i></button>
+      <script type="text/javascript" src="/js/member-upload.js" defer></script>
     </div>
   </div>
 
-</div>
+</div> --}}
