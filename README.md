@@ -12,7 +12,7 @@ Customers can view the Tracker page to lookup the current status of their order.
 
 repairTracker is intended for use on an iPad in a mobile setting, but is responsive to all screen sizes. 
 
-## LOGIN CREDENTIALS: Username: Admin@CompanyAdmin.com / Password: Admin1 (case sesitive)
+## LOGIN CREDENTIALS: TECHNICIAN: Username:Tech2@company.com / Password: Technician2 (case sesitive)
 Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
