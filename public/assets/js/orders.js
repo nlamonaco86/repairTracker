@@ -34,7 +34,7 @@ $(function () {
 
   // COLOR CHANGER FOR THE TRACKER PAGE
   const changeColors = (target) => {
-    console.log(target[0])
+    console.log(target)
     if (target.received === 1) {
       $("#result").text("Your order has been received.")
       $("#alert").addClass("alert-success")
@@ -240,6 +240,7 @@ $(function () {
   personalizePage();
 
   const populateInfoCard = (response) => {
+    $("#information").removeClass("hide");
     $("#orderNumber").text(response.orderNum);
     $("#customerName").text(response.firstName + " " + response.lastName);
     $("#emailAddr").html(`<a href="mailto:${response.email}" class="text-info font-weight-bold">${response.email}</a>`);
