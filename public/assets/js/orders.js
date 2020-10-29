@@ -24,7 +24,8 @@ $(function () {
       type: "POST",
       data: newOrder
     }).then(
-      function () {
+      function (response) {
+        if (response.err) { console.log(err) }
         // Reload the page to get the updated order list
         location.reload();
       }
@@ -292,5 +293,51 @@ $(function () {
       }
     );
   })
+
+  const handleSearchError = (event) => {
+    event.preventDefault();
+    $("#searchError").html(
+      `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>No results found!</strong> Please try again.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`);
+  }
+
+  $(".searchForm").on("submit", function (event) {
+    $("#searchError").empty();
+    event.preventDefault();
+    let searchType = $("#searchType").val();
+
+    if (searchType === "Order Number") {
+      let orderNum = $("#searchTerm").val();
+      $.ajax("/api/orders/" + orderNum, {
+        type: "GET"
+      }).then(
+        function (response) {
+          if (response === null) { 
+         handleSearchError(event);
+        }
+          else { populateInfoCard(response) }
+        }
+      );
+    }
+
+    if (searchType === "Last Name") {
+      let lastName = $("#searchTerm").val();
+      $.ajax("/api/orders/named/" + lastName, {
+        type: "GET"
+      }).then(
+        function (response) {
+          if (response === null) { 
+            handleSearchError(event);
+          }
+            else { populateInfoCard(response) }
+          }
+      );
+    };
+  });
+
 });
 

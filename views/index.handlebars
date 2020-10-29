@@ -1,12 +1,30 @@
-
 <section class="mt-4 bg-light text-dark mb-0" id="main">
 
   <div class="">
     <!-- SIDE NAVIGATION -->
     <div class="row">
       <div class="col-lg-4 ml-auto">
+
+        <!-- Error handling -->
+        <div id="searchError">
+
+        </div>
         <!-- SEARCH BAR GOES HERE-->
-        
+        <form class="searchForm bg-info">
+          <div class="form-row ml-1">
+            <div class="col-lg-5 mt-1">
+              <select id="searchType" class="form-control">
+                <option>Search By</option>
+                <option>Order Number</option>
+                <option>Last Name</option>
+              </select>
+            </div>
+            <div class="col-lg-5 mt-1">
+              <input type="text" class="form-control" placeholder="" id="searchTerm">
+            </div>
+            <button class="btn btn-info btn-circle" type="submit"><i class="fas fa-2x fa-search"></i></button>
+          </div>
+        </form>
 
         <nav class="navbar bg-white rounded-lg">
           <div class="container">
@@ -84,7 +102,7 @@
 
       <!-- Information Card -->
 
-{{!-- 
+      {{!-- 
 <div class="container mt-5">
   <div class="row">
     <h4 id="received">Received:</h4>

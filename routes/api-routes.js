@@ -90,9 +90,10 @@ app.get("/api/orders/:orderNum", function (req, res) {
     });
 });
 
-app.get("/api/orders/:lastName/:firstName", function (req, res) {
-  db.Order.findAll({
-    where: { lastName: req.params.lastName, firstName: req.params.firstName }
+app.get("/api/orders/named/:lastName", function (req, res) {
+  console.log(req.params)
+  db.Order.findOne({
+    where: { lastName: req.params.lastName }
   })
     .then(result => {
       res.json(result);
