@@ -3,52 +3,215 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+	<link rel="stylesheet" href="./assets/css/style.css" type="text/css" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="./assets/css/styles.css" rel="stylesheet">
+	<!-- Fonts CSS-->
+	<link rel="stylesheet" href="./assets/css/heading.css">
+	<link rel="stylesheet" href="./assets/css/body.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<title>Repair Tracker</title>
-	<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<title>repairTracker</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="../assets/js/orders.js"></script>
-	<script src="../assets/js/photo-upload.js"></script>
+	<script src="./assets/js/orders.js"></script>
 	<script src="https://kit.fontawesome.com/6337599472.js"></script>
+	<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+	<script src="../assets/js/photo-upload.js"></script>
 </head>
 
 <body class="bg">
-	{{{ body }}}
-	<!-- Modal -->
-	<div class="modal fade" id="infoModal" data-backdrop="static" tabindex="-1" aria-labelledby="infoModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div>
-						<h4 class="modal-title" id="orderInfo"></h4>
-						<div>
-							<h5 id="custInfo"></h5>
+
+	<nav class="navbar navbar-expand-lg bg-info" id="mainNav">
+		<div class="container">
+			<a href='/'><i class="fas fa-tools fa-3x text-light"></i></a>
+			<a href='/' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
+			<button class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded"
+				type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item mx-0 mx-lg-1" id="navBar">
+					</li>
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+							href="#new">NEW WORK ORDER</a>
+					</li>
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+							href="/logout">LOG OUT</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		{{{ body }}}
+
+		<div class="col-lg-8 mr-auto" id="infoCard">
+
+			<div class="card text-left">
+				<div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
+					Information:</div>
+				<div id="information" class="hide">
+				<div class="card-body row">
+					<div class="col-lg-6">
+						<h4 class="card-title">Order #<span id="orderNumber">12345678</span></h4>
+						<h5 class="card-title" id="customerName">John Customer</h5>
+						<div class="mt-3" id="emailAddr">
+							<a href="mailto:email@website.com" class="text-info font-weight-bold">email@website.com</a>
+						</div>
+						<div class="mt-2" id="telNum">
+							<a href="tel:9083379307" class="font-weight-bold text-info">(908)555-1234</a>
+						</div>
+						<div id="addr1" class="mt-3">222 Main Street</div>
+						<div id="addr2">Apt. #206</div>
+						<div id="addr3">Anytown, USA 07299</div>
+						<div class="mt-3" id="buttonDiv">
+							<div class="d-flex justify-content-center">
+								<p class="font-weight-bold mt-2">ACTIONS:</p>
+							</div>
+							<div class="row d-flex justify-content-around">
+								<button class="photo-modal-show btn btn-info btn-circle btn-lg" data-toggle="modal"
+									data-target="#photoModal"><i class="fas fa-2x fa-image"></i></button>
+								<div id="updateInProgress">
+									<button class="btn btn-success btn-circle btn-lg"><i
+											class="fas fa-2x fa-wrench"></i></button>
+								</div>
+								<div id="updateWaiting">
+									<button class="btn btn-warning btn-circle btn-lg"><i
+											class="fas fa-2x fa-pause"></i></button>
+								</div>
+								<div id="updateComplete">
+									<button class="btn btn-success btn-circle btn-lg"><i
+											class="fas fa-2x fa-check"></i></button>
+								</div>
+								<div id="delete">
+									<button class="btn btn-danger btn-circle btn-lg"><i
+											class="fas fa-2x fa-times"></i></button></button>
+								</div>
+								<div id="markPaid">
+									<button class="btn btn-success btn-circle btn-lg"><i
+											class="fas fa-2x fa-dollar-sign"></i></button>
+								</div>
+							</div>
+
 						</div>
 					</div>
-					<button type="button" class="btn-lg btn-danger btn-circle" data-dismiss="modal"
-						aria-label="Close"><i class="fas fa-2x fa-times"></i>
-					</button>
+
+					<div class="col-lg-6">
+						<h5 class="card-title mt-3" id="vehicle">2009 Chevrolet Tahoe</h5>
+
+						<p class="font-weight-bold">Tech Instructions:</p>
+						<form id="updateIssue">
+							<div id="orderID" class="hide"></div>
+							<div class="form-group">
+								<textarea type="text" class="form-control" id="issueU" rows="6">Vehicle runs but makes a slight rumbling sound at idle, makes a loud clunking noise when shifting into gear, suspect possible issues with motor mount or transmission problems. Run diagnostic and test drive.
+                  </textarea>
+							</div>
+							<div class="d-flex justify-content-center">
+								<button type="submit" class="btn btn-success btn-circle btn-lg">
+									<i class="fas fa-2x fa-save"></i></button>
+							</div>
+						</form>
+					</div>
 				</div>
-				<div class="modal-body">
-					<p class="font-weight-bold">Tech Instructions:</p>
-					<form class="updateIssue">
-						<div id="orderID" class="hide"></div>
-						<div class="form-group">
-							<textarea type="text" class="form-control" id="issueU" rows="6"></textarea>
+				</div>
+				<!-- form goes here -->
+				<div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center mt-4"
+					id="new">Input Order:</div>
+				<div class="card-body font-weight-bold">
+					<form class="create">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="firstName">First Name</label>
+								<input type="text" class="form-control" id="firstname">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="lastName">Last Name</label>
+								<input type="text" class="form-control" id="lastname">
+							</div>
 						</div>
-						<div class="d-flex justify-content-center">
-							<button type="submit" class="btn btn-success">
-								<i class="fas fa-2x fa-save"></i></button>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="email">Email</label>
+								<input type="email" class="form-control" id="email" placeholder="customer@email.com">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="tel">Telephone</label>
+								<input type="text" class="form-control" id="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="addr1">Address</label>
+							<input type="text" class="form-control" id="addr1" placeholder="1234 Main St">
+						</div>
+						<div class="form-group">
+							<label for="addr2">Address 2</label>
+							<input type="text" class="form-control" id="addr2"
+								placeholder="Apartment, studio, or floor">
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="city">City</label>
+								<input type="text" class="form-control" id="city">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="inputState">State</label>
+								<select id="state" class="form-control">
+									<option>CT</option>
+									<option>DE</option>
+									<option>MA</option>
+									<option>MD</option>
+									<option>ME</option>
+									<option>NH</option>
+									<option selected>NJ</option>
+									<option>NY</option>
+									<option>PA</option>
+									<option>VT</option>
+								</select>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="zip">ZIP</label>
+								<input type="text" class="form-control" id="zip">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="year">Year</label>
+								<input type="number" class="form-control" id="year" min="1912" max="2025">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="make">Make</label>
+								<input type="text" class="form-control" id="make">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="model">Model</label>
+								<input type="text" class="form-control" id="model">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="issue">Issue:</label>
+							<textarea class="form-control" id="issue" rows="3"></textarea>
+						</div>
+						<div class="d-flex justify-content-around">
+							<button type="submit" class="btn btn-success btn-circle btn-lg"><i
+									class="fas fa-3x fa-plus"></i></button>
+							<button id="upload_widget" class="btn btn-info btn-circle btn-lg"><i
+									class="fas fa-2x fa-image"></i></button>
+							<script type="text/javascript" src="/js/member-upload.js" defer></script>
 						</div>
 					</form>
 				</div>
 			</div>
+
+
+
 		</div>
+
+		</section>
 	</div>
+
+	<!-- Modal -->
 	<div class="modal fade" id="photoModal" data-backdrop="static" tabindex="-1" aria-labelledby="infoModalLabel"
 		aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">

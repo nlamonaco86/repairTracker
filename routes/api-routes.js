@@ -82,8 +82,18 @@ app.post("/api/orders", function (req, res) {
 });
 
 app.get("/api/orders/:orderNum", function (req, res) {
-  db.Order.findAll({
+  db.Order.findOne({
     where: { orderNum: req.params.orderNum }
+  })
+    .then(result => {
+      res.json(result);
+    });
+});
+
+app.get("/api/orders/named/:lastName", function (req, res) {
+  console.log(req.params)
+  db.Order.findOne({
+    where: { lastName: req.params.lastName }
   })
     .then(result => {
       res.json(result);
@@ -129,6 +139,17 @@ app.put("/api/orders/complete/:id", (req, res) => {
   order.updateComplete(req.params.id, (result) => {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID does not exist 404
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
+  });
+});
+
+app.put("/api/orders/paid/:id", (req, res) => {
+  console.log(req.body)
+  order.updatePaid(req.params.id, (result) => {
+    if (result.changedRows == 0) {
       return res.status(404).end();
     } else {
       res.status(200).end();
