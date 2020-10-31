@@ -22,7 +22,8 @@ $(function () {
       orderNum: Math.floor(10000000 + Math.random() * 9000000),
       photo: $("#photo").val(),
       received: 1,
-      techID: 1
+      genCustomerId: Math.floor(10000000 + Math.random() * 9000000),
+      genVehicleId: Math.floor(10000000 + Math.random() * 9000000)
     };
     // POST request
     console.log(newOrder)

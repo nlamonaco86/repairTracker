@@ -3,6 +3,7 @@ require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
 const order = require("../config/order.js");
+const { v4: uuidv4 } = require('uuid');
 const { compareSync } = require('bcryptjs');
 
 module.exports = function (app) {
@@ -56,11 +57,8 @@ module.exports = function (app) {
       });
     }
   });
-
-  app.post("/api/orders", function (req, res) {
-    // Generate Customer Id, Vehicle ID, and OrderNumber in the input form instead of using int_auto
-    // assign generated CustomerID to Customer.id, Order.CustomerId, and Vehicles.CustomerId
-    // assign orderNum to Order.id, Vehicles.OrderId
+    // assign generated CustomerID to Order.CustomerId
+    // assign generated VehicleID to Order.VehicleId
     // no longer need orderNum column then, and can combine all orderNum/id frontend functions
 
 //   INSERT INTO Customers (id, firstName, lastName, tel, email, addr1, addr2, city, state, zip, createdAt, updatedAt)
@@ -69,10 +67,15 @@ module.exports = function (app) {
 // INSERT INTO Orders (id, issue, orderNum, photo, received, waiting, inProgress, complete, paid, createdAt, updatedAt, CustomerId)
 //  VALUES ('62948765', 'the issue', '62948765', 'rust.jpg', '1','0','0','0', '0', '2020-09-29 17:45:51', '2020-09-29 17:45:51', '4214' );
 
-// INSERT INTO Vehicles (id, year, make, model, vin, color, createdAt, updatedAt, OrderId, CustomerId)
-// VALUES ('1', '1995', 'toyota', 'model', 'vin', 'color',  '2020-09-29 17:45:51', '2020-09-29 17:45:51', '62948765', '4214');
+// INSERT INTO Orders (id, year, make, model, vin, color, createdAt, updatedAt, OrderId, CustomerId)
+// VALUES (...);
 
+app.post("/api/orders", function (req, res) {
+  // Data from the form gets inserted into three separate but associated tables
+  // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
+// Create the customer entry
     db.Customer.create({
+      id: req.body.genCustomerId,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       tel: req.body.tel,
@@ -83,8 +86,17 @@ module.exports = function (app) {
       state: req.body.state,
       zip: req.body.zip
     })
+// Vehicle entry
+    db.Vehicle.create({
+      id: req.body.genVehicleId,
+      year: req.body.year,
+      make: req.body.make,
+      model: req.body.model,
+      vin: req.body.vin,
+    })
     db.Order.create({
-      // customerId: db.Customer.id,
+      CustomerId: req.body.genCustomerId,
+      VehicleId: req.body.genVehicleId,
       issue: req.body.issue,
       orderNum: req.body.orderNum,
       photo: req.body.photo,
@@ -94,12 +106,6 @@ module.exports = function (app) {
       complete: 0,
       paid: 0
     })    
-    db.Vehicle.create({
-      year: req.body.year,
-      make: req.body.make,
-      model: req.body.model,
-      vin: req.body.vin,
-    })
       .then(function () {
         res.send("success")
       })
