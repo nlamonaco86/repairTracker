@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 // Orders can have one vehicles
 Order.associate = function (models) {
-    Order.hasMany(models.Vehicle, {
+    Order.hasOne(models.Vehicle, {
         foreignKey: {
             allowNull: false
         }

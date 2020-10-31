@@ -58,9 +58,20 @@ module.exports = function (app) {
   });
 
   app.post("/api/orders", function (req, res) {
-    // need to get the id for the customer
-    // and pass it to Order as CustomerId
-    // Then need to pass OrderId and CustomerId to Vehicle
+    // Generate Customer Id, Vehicle ID, and OrderNumber in the input form instead of using int_auto
+    // assign generated CustomerID to Customer.id, Order.CustomerId, and Vehicles.CustomerId
+    // assign orderNum to Order.id, Vehicles.OrderId
+    // no longer need orderNum column then, and can combine all orderNum/id frontend functions
+
+//   INSERT INTO Customers (id, firstName, lastName, tel, email, addr1, addr2, city, state, zip, createdAt, updatedAt)
+//  VALUES ('4214', 'Penelope','King','908-555-1234', 'pKing73@email.com', '123 main st', 'apt 2', 'anytown', 'anystate', '12345', '2020-09-29 17:45:51', '2020-09-29 17:45:51' );
+
+// INSERT INTO Orders (id, issue, orderNum, photo, received, waiting, inProgress, complete, paid, createdAt, updatedAt, CustomerId)
+//  VALUES ('62948765', 'the issue', '62948765', 'rust.jpg', '1','0','0','0', '0', '2020-09-29 17:45:51', '2020-09-29 17:45:51', '4214' );
+
+// INSERT INTO Vehicles (id, year, make, model, vin, color, createdAt, updatedAt, OrderId, CustomerId)
+// VALUES ('1', '1995', 'toyota', 'model', 'vin', 'color',  '2020-09-29 17:45:51', '2020-09-29 17:45:51', '62948765', '4214');
+
     db.Customer.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
