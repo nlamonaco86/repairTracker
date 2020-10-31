@@ -100,7 +100,7 @@ module.exports = function (app) {
   });
 
   app.get("/api/orders/:orderNum", function (req, res) {
-    db.Order.findAll({
+    db.Order.findOne({
       where: { orderNum: req.params.orderNum },
       include: [
         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }

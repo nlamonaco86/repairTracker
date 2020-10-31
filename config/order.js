@@ -59,6 +59,12 @@ const order = {
       cb(result);
     });
   },
+  updatePaid: function (condition, cb) {
+    promQuery("UPDATE Orders SET paid = 1, complete = 0, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  }
   // delete: function (id, cb) {
   //   promQuery("DELETE FROM Orders WHERE id = ?", id, function (err, result) {
   //     if (err) throw err;

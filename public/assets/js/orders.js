@@ -70,6 +70,7 @@ $(function () {
       type: "GET"
     }).then(
       function (response) {
+        console.log(response)
         $("#result").empty();
         $("#alert").removeClass();
         if (response === null) {
@@ -106,6 +107,7 @@ $(function () {
       type: "GET"
     }).then(
       function (response) {
+        console.log(response)
         $("#currentPhoto").attr("src", "../assets/nophoto.png")
         $("#photoID").text(response.id)
 
@@ -138,6 +140,7 @@ $(function () {
   //UPDATE STATUS FUNCTION
   $("#updateWaiting").on("click", function (event) {
     event.preventDefault();
+    
     let id = $("#orderID").text();
     var newWorkState = {
       received: 0,
@@ -145,6 +148,7 @@ $(function () {
       waiting: 1,
       complete: 0
     };
+    console.log(id, newWorkState)
     //PUT
     $.ajax("/api/orders/waiting/" + id, {
       type: "PUT",
@@ -254,14 +258,17 @@ $(function () {
   personalizePage();
 
   const populateInfoCard = (response) => {
-    $("#information").removeClass("hide");
+   const styleCard = (response) => { $("#information").removeClass("hide");
     $("#orderNumber").text(response.orderNum);
-    $("#customerName").text(response.firstName + " " + response.lastName);
-    $("#emailAddr").html(`<a href="mailto:${response.email}" class="text-info font-weight-bold">${response.email}</a>`);
-    $("#telNum").html(`<a id="phoneNum" href="tel:${response.tel}" class="font-weight-bold text-info">${response.tel}</a>`);
+    $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
+    $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
+    $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
+    $("#addr1").text(response.Customer.addr1);
+    $("#addr2").text(response.Customer.addr2);
+    $("#addr3").text(response.Customer.city + " " + response.Customer.state + " " + response.Customer.zip);
     $("#orderID").text(response.id)
     $("#vehicle").text(response.year + " " + response.make + " " + response.model);
-    $("#issueU").text(response.issue);
+    $("#issueU").text(response.issue)};
 
     if (response.received) {
       $("#updateInProgress").removeClass("hide");
@@ -269,6 +276,7 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").removeClass("hide");
       $("#markPaid").addClass("hide");
+      styleCard(response);
     };
     if (response.waiting) {
       $("#updateInProgress").removeClass("hide");
@@ -276,6 +284,7 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").addClass("hide");
+      styleCard(response);
     };
     if (response.inProgress) {
       $("#updateInProgress").addClass("hide");
@@ -283,6 +292,7 @@ $(function () {
       $("#updateComplete").removeClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").addClass("hide");
+      styleCard(response);
     };
     if (response.complete) {
       $("#updateInProgress").addClass("hide");
@@ -290,6 +300,7 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").removeClass("hide");
+      styleCard(response);
     };
   }
 
@@ -309,6 +320,18 @@ $(function () {
     );
   })
 
+  const handlePaidError = (event) => {
+    event.preventDefault();
+    $("#searchError").html(
+      `<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>This order is paid!</strong> Please search the completed orders database.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`);
+  $("#information").addClass("hide");
+  }
+
   const handleSearchError = (event) => {
     event.preventDefault();
     $("#searchError").html(
@@ -318,6 +341,7 @@ $(function () {
       <span aria-hidden="true">&times;</span>
     </button>
   </div>`);
+  $("#information").addClass("hide");
   }
 
   $(".searchForm").on("submit", function (event) {
@@ -332,8 +356,11 @@ $(function () {
       }).then(
         function (response) {
           if (response === null) { 
-         handleSearchError(event);
-        }
+            handleSearchError(event);
+           }
+          if (response.Order.paid === 1) { 
+            handlePaidError(event);
+          }
           else { populateInfoCard(response) }
         }
       );
@@ -347,6 +374,9 @@ $(function () {
         function (response) {
           if (response === null) { 
             handleSearchError(event);
+          }
+          if (response.Order.paid === 1) { 
+            handlePaidError(event);
           }
             else { populateInfoCard(response) }
           }
