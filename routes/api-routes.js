@@ -3,8 +3,8 @@ require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
 const order = require("../config/order.js");
-const { v4: uuidv4 } = require('uuid');
-const { compareSync } = require('bcryptjs');
+// const { v4: uuidv4 } = require('uuid');
+// const { compareSync } = require('bcryptjs');
 
 module.exports = function (app) {
   // LOGIN route with error handling
@@ -57,23 +57,27 @@ module.exports = function (app) {
       });
     }
   });
-    // assign generated CustomerID to Order.CustomerId
-    // assign generated VehicleID to Order.VehicleId
-    // no longer need orderNum column then, and can combine all orderNum/id frontend functions
-
-//   INSERT INTO Customers (id, firstName, lastName, tel, email, addr1, addr2, city, state, zip, createdAt, updatedAt)
-//  VALUES ('4214', 'Penelope','King','908-555-1234', 'pKing73@email.com', '123 main st', 'apt 2', 'anytown', 'anystate', '12345', '2020-09-29 17:45:51', '2020-09-29 17:45:51' );
-
-// INSERT INTO Orders (id, issue, orderNum, photo, received, waiting, inProgress, complete, paid, createdAt, updatedAt, CustomerId)
-//  VALUES ('62948765', 'the issue', '62948765', 'rust.jpg', '1','0','0','0', '0', '2020-09-29 17:45:51', '2020-09-29 17:45:51', '4214' );
-
-// INSERT INTO Orders (id, year, make, model, vin, color, createdAt, updatedAt, OrderId, CustomerId)
-// VALUES (...);
-
-app.post("/api/orders", function (req, res) {
-  // Data from the form gets inserted into three separate but associated tables
-  // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
-// Create the customer entry
+ 
+  app.post("/api/orders", function (req, res) {
+    // Data from the form gets inserted into three separate but associated tables
+    // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
+    // Order entry
+    db.Order.create({
+      id: req.body.orderNum,
+      year: req.body.year,
+      make: req.body.make,
+      model: req.body.model,
+      vin: req.body.vin,
+      issue: req.body.issue,
+      orderNum: req.body.orderNum,
+      photo: req.body.photo,
+      received: 1,
+      waiting: 0,
+      inProgress: 0,
+      complete: 0,
+      paid: 0
+    })
+    // Create the customer entry
     db.Customer.create({
       id: req.body.genCustomerId,
       firstName: req.body.firstName,
@@ -84,28 +88,9 @@ app.post("/api/orders", function (req, res) {
       addr2: req.body.addr2,
       city: req.body.city,
       state: req.body.state,
-      zip: req.body.zip
+      zip: req.body.zip,
+      OrderId: req.body.orderNum
     })
-// Vehicle entry
-    db.Vehicle.create({
-      id: req.body.genVehicleId,
-      year: req.body.year,
-      make: req.body.make,
-      model: req.body.model,
-      vin: req.body.vin,
-    })
-    db.Order.create({
-      CustomerId: req.body.genCustomerId,
-      VehicleId: req.body.genVehicleId,
-      issue: req.body.issue,
-      orderNum: req.body.orderNum,
-      photo: req.body.photo,
-      received: 1,
-      waiting: 0,
-      inProgress: 0,
-      complete: 0,
-      paid: 0
-    })    
       .then(function () {
         res.send("success")
       })
@@ -115,20 +100,28 @@ app.post("/api/orders", function (req, res) {
   });
 
   app.get("/api/orders/:orderNum", function (req, res) {
-    db.Order.findOne({
-      where: { orderNum: req.params.orderNum }
+    db.Order.findAll({
+      where: { orderNum: req.params.orderNum },
+      include: [
+        { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+      ]
     })
       .then(result => {
+        console.log(result)
         res.json(result);
       });
   });
 
   app.get("/api/orders/named/:lastName", function (req, res) {
     console.log(req.params)
-    db.Order.findOne({
-      where: { lastName: req.params.lastName }
+    db.Customer.findOne({
+      where: { lastName: req.params.lastName },
+      include: [
+        { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'orderNum', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'  ] }
+      ]
     })
       .then(result => {
+        console.log(result)
         res.json(result);
       });
   });
@@ -147,25 +140,6 @@ app.post("/api/orders", function (req, res) {
       }
     );
   });
-
-  // app.put("/api/orders/:status/:id", (req, res) => {
-  //   console.log(req.params)
-  //   console.log(req.body)
-  //   db.Order.update(
-  //     { received: 0,
-  //     inProgress: req.body.inProgress,
-  //     waiting: req.body.waiting,
-  //     complete: req.body.complete }, 
-  //     { where: { id: req.params.id } }, (result) => {
-  //       if (result.changedRows == 0) {
-  //         // If no rows were changed, then the ID does not exist 404
-  //         return res.status(404).end();
-  //       } else {
-  //         res.status(200).end();
-  //       }
-  //     }
-  //   );
-  // });
 
   app.put("/api/orders/complete/:id", (req, res) => {
     console.log(req.body)

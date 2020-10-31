@@ -1,6 +1,24 @@
 // Order model
 module.exports = function (sequelize, DataTypes) {
     const Order = sequelize.define("Order", {
+      year: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      make: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      model: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+     vin: {
+        type: DataTypes.STRING
+      },
+     color: {
+        type: DataTypes.STRING
+      },
       issue: {
         type: DataTypes.STRING,
         allowNull: false
@@ -33,19 +51,21 @@ module.exports = function (sequelize, DataTypes) {
         default: 0
       }
     });
+    // Order.associate = function (models) {
+    //     Order.hasMany(models.Vehicle, {
+    //         foreignKey: 
+    //         {
+    //             allowNull: false
+    //         }
+    //     });
+    // };
     Order.associate = function (models) {
-        Order.belongsTo(models.Vehicle, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-    };
-    Order.associate = function (models) {
-        Order.belongsTo(models.Customer, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+        Order.hasOne(models.Customer, { 
+          foreignKey: 
+          {
+              allowNull: false
+          }
+      });
     };
     return Order;
   };

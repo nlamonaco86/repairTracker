@@ -34,11 +34,11 @@ module.exports = function (sequelize, DataTypes) {
       }
     });
     Customer.associate = function (models) {
-        Customer.hasMany(models.Order, {
+      Customer.belongsTo(models.Order, {
           foreignKey: {
-            allowNull: false
+              allowNull: false
           }
-        });
+      });
       };
     return Customer;
   };
