@@ -63,7 +63,7 @@ module.exports = function (sequelize, DataTypes) {
         Order.hasOne(models.Customer, { 
           foreignKey: 
           {
-              allowNull: false
+             
           }
       });
     };

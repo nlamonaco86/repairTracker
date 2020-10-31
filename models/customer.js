@@ -36,7 +36,6 @@ module.exports = function (sequelize, DataTypes) {
     Customer.associate = function (models) {
       Customer.belongsTo(models.Order, {
           foreignKey: {
-              allowNull: false
           }
       });
       };
