@@ -1,9 +1,6 @@
-// Require bcrypt for password hashing
-const bcrypt = require("bcryptjs");
-
 // Order model
-module.exports = function(sequelize, DataTypes) {
-  const Order = sequelize.define("Order", {
+module.exports = function (sequelize, DataTypes) {
+    const Order = sequelize.define("Order", {
       issue: {
         type: DataTypes.STRING,
         allowNull: false
@@ -35,18 +32,21 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.TINYINT,
         default: 0
       }
-  });
-   // Orders belong to a Customer
-   Order.associate = function (models) {
-    Order.belongsTo(models.Customer, {foreignKey: 'id'});
-};
-// Orders can have one vehicles
-Order.associate = function (models) {
-    Order.hasOne(models.Vehicle, {
-        foreignKey: {
-            allowNull: false
-        }
     });
-};
-  return Order;
-};
+    Order.associate = function (models) {
+        Order.belongsTo(models.Vehicle, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
+    Order.associate = function (models) {
+        Order.belongsTo(models.Customer, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
+    return Order;
+  };
+  

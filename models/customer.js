@@ -40,14 +40,6 @@ module.exports = function (sequelize, DataTypes) {
           }
         });
       };
-      // it doesn't like this one
-    //   Customer.associate = function (models) {
-    //     Customer.hasOne(models.Vehicles, {
-    //       foreignKey: {
-    //         allowNull: false
-    //       }
-    //     });
-    //   };
     return Customer;
   };
   
