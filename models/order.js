@@ -4,38 +4,6 @@ const bcrypt = require("bcryptjs");
 // Order model
 module.exports = function(sequelize, DataTypes) {
   const Order = sequelize.define("Order", {
-    // The email cannot be null, and must be a proper email before creation
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false 
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      tel: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          isEmail: true
-        }
-      },
-      year: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      make: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      model: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       issue: {
         type: DataTypes.STRING,
         allowNull: false
@@ -62,7 +30,23 @@ module.exports = function(sequelize, DataTypes) {
       complete: {
         type: DataTypes.TINYINT,
         default: 0
+      },
+      paid: {
+        type: DataTypes.TINYINT,
+        default: 0
       }
   });
+   // Orders belong to a Customer
+   Order.associate = function (models) {
+    Order.belongsTo(models.Customer, {foreignKey: 'id'});
+};
+// Orders can have one vehicles
+Order.associate = function (models) {
+    Order.hasMany(models.Vehicle, {
+        foreignKey: {
+            allowNull: false
+        }
+    });
+};
   return Order;
 };

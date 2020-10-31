@@ -2,24 +2,30 @@
 $(function () {
   // CREATE FUNCTION
   $(".create").on("submit", function (event) {
-    //prevent page reload
     event.preventDefault();
-    let genNum = (Math.floor(10000000 + Math.random() * 9000000))
-    //define a new order as an object based on input from the form
+      //define a new order as an object based on input from the form
     let newOrder = {
       firstName: $("#firstname").val(),
       lastName: $("#lastname").val(),
       tel: $("#tel").val(),
       email: $("#email").val(),
+      addr1: $("#addr1").val(),
+      addr2: $("#addr2").val(),
+      city: $("#city").val(),
+      state: $("#state").val(),
+      zip: $("#zip").val(),
+      vin: $("#vin").val(),
       year: $("#year").val(),
       make: $("#make").val(),
       model: $("#model").val(),
       issue: $("#issue").val(),
-      orderNum: genNum,
+      orderNum: Math.floor(10000000 + Math.random() * 9000000),
       photo: $("#photo").val(),
-      received: 1
+      received: 1,
+      techID: 1
     };
     // POST request
+    console.log(newOrder)
     $.ajax("/api/orders", {
       type: "POST",
       data: newOrder
@@ -235,6 +241,7 @@ $(function () {
     }).then(function (response) {
       console.log(response)
       if (response.position === "Admin") {
+        $(".theme").addClass("bg-info");
         //fill out the user's profile section
         $("#navBar").append(
           `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
