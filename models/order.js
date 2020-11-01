@@ -23,10 +23,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
-      orderNum: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
       photo: {
         type: DataTypes.STRING
       },

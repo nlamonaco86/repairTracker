@@ -152,6 +152,7 @@
 								<input type="text" class="" id="lastname">
 							</div>
 						</div>
+						<div class="hide" id="photo"></div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="email">Email</label>
@@ -164,16 +165,16 @@
 						</div>
 						<div class="form-group">
 							<label for="addr1">Address</label>
-							<input type="text" class="" id="addr1" placeholder="1234 Main St">
+							<input type="text" class="" id="addr" placeholder="1234 Main St"></input>
 						</div>
 						<div class="form-group">
 							<label for="addr2">Address 2</label>
-							<input type="text" class="" id="addr2" placeholder="Apartment, studio, or floor">
+							<input type="text" class="" id="addrB" placeholder="Apartment, studio, or floor"></input>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="city">City</label>
-								<input type="text" class="" id="city">
+								<input type="text" class="" id="city"></input>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="inputState">State</label>
@@ -219,12 +220,12 @@
 						</div>
 						<div class="d-flex justify-content-around">
 							<button type="submit" class="btn btn-success btn-circle btn-lg"><i
-									class="fas fa-3x fa-plus"></i></button>
-							<button id="upload_widget" class="btn btn-info btn-circle btn-lg"><i
-									class="fas fa-2x fa-image"></i></button>
+									class="fas fa-3x fa-plus"></i></button>		
 							{{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
 						</div>
 					</form>
+					<button id="upload_widget" class="btn btn-info btn-circle btn-lg"><i
+									class="fas fa-2x fa-image"></i></button>
 				</div>
 			</div>
 

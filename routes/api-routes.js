@@ -63,13 +63,12 @@ module.exports = function (app) {
     // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
     // Order entry
     db.Order.create({
-      id: req.body.orderNum,
+      id: req.body.id,
       year: req.body.year,
       make: req.body.make,
       model: req.body.model,
       vin: req.body.vin,
       issue: req.body.issue,
-      orderNum: req.body.orderNum,
       photo: req.body.photo,
       received: 1,
       waiting: 0,
@@ -89,7 +88,7 @@ module.exports = function (app) {
       city: req.body.city,
       state: req.body.state,
       zip: req.body.zip,
-      OrderId: req.body.orderNum
+      OrderId: req.body.id
     })
       .then(function () {
         res.send("success")
@@ -99,29 +98,26 @@ module.exports = function (app) {
       });
   });
 
-  app.get("/api/orders/:orderNum", function (req, res) {
+  app.get("/api/orders/:id", function (req, res) {
     db.Order.findOne({
-      where: { orderNum: req.params.orderNum },
+      where: { id: req.params.id },
       include: [
         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
       ]
     })
       .then(result => {
-        console.log(result)
         res.json(result);
       });
   });
 
   app.get("/api/orders/named/:lastName", function (req, res) {
-    console.log(req.params)
     db.Customer.findOne({
       where: { lastName: req.params.lastName },
       include: [
-        { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'orderNum', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'  ] }
+        { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'  ] }
       ]
     })
       .then(result => {
-        console.log(result)
         res.json(result);
       });
   });
@@ -142,7 +138,6 @@ module.exports = function (app) {
   });
 
   app.put("/api/orders/complete/:id", (req, res) => {
-    console.log(req.body)
     order.updateComplete(req.params.id, (result) => {
       if (result.changedRows == 0) {
         // If no rows were changed, then the ID does not exist 404
@@ -154,7 +149,6 @@ module.exports = function (app) {
   });
 
   app.put("/api/orders/paid/:id", (req, res) => {
-    console.log(req.body)
     order.updatePaid(req.params.id, (result) => {
       if (result.changedRows == 0) {
         return res.status(404).end();
@@ -165,7 +159,6 @@ module.exports = function (app) {
   });
 
   app.put("/api/orders/inProgress/:id", (req, res) => {
-    console.log(req.body)
     order.updateInProgress(req.params.id, (result) => {
       if (result.changedRows == 0) {
         return res.status(404).end();
@@ -176,7 +169,6 @@ module.exports = function (app) {
   });
 
   app.put("/api/orders/waiting/:id", (req, res) => {
-    console.log(req.body)
     order.updateWaiting(req.params.id, (result) => {
       if (result.changedRows == 0) {
         return res.status(404).end();

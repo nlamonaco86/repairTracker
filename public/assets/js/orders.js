@@ -5,12 +5,13 @@ $(function () {
     event.preventDefault();
       //define a new order as an object based on input from the form
     let newOrder = {
+      id: Math.floor(10000000 + Math.random() * 9000000),
       firstName: $("#firstname").val(),
       lastName: $("#lastname").val(),
       tel: $("#tel").val(),
       email: $("#email").val(),
-      addr1: $("#addr1").val(),
-      addr2: $("#addr2").val(),
+      addr1: $("#addr").val(),
+      addr2: $("#addrB").val(),
       city: $("#city").val(),
       state: $("#state").val(),
       zip: $("#zip").val(),
@@ -19,14 +20,12 @@ $(function () {
       make: $("#make").val(),
       model: $("#model").val(),
       issue: $("#issue").val(),
-      orderNum: Math.floor(10000000 + Math.random() * 9000000),
       photo: $("#photo").val(),
       received: 1,
-      genCustomerId: Math.floor(10000000 + Math.random() * 9000000),
-      genVehicleId: Math.floor(10000000 + Math.random() * 9000000)
+      // genCustomerId: Math.floor(10000000 + Math.random() * 9000000),
+      // genVehicleId: Math.floor(10000000 + Math.random() * 9000000)
     };
     // POST request
-    console.log(newOrder)
     $.ajax("/api/orders", {
       type: "POST",
       data: newOrder
@@ -41,7 +40,6 @@ $(function () {
 
   // COLOR CHANGER FOR THE TRACKER PAGE
   const changeColors = (target) => {
-    console.log(target)
     if (target.received === 1) {
       $("#result").text("Your order has been received.")
       $("#alert").addClass("alert-success")
@@ -64,13 +62,12 @@ $(function () {
   $(".lookup").on("submit", function (event) {
     //prevent page reload
     event.preventDefault();
-    let orderNum = $("#orderNumber").val()
+    let id = $("#orderNumber").val()
     // GET request
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
-        console.log(response)
         $("#result").empty();
         $("#alert").removeClass();
         if (response === null) {
@@ -86,13 +83,13 @@ $(function () {
 
   // DYNAMIC MODAL
   $(".info-modal-show").on("click", function (event) {
-    let orderNum = $(this).data("id")
+    let id = $(this).data("id")
     // GET request
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
-        $("#orderInfo").text("Order : " + response[0].orderNum);
+        $("#orderInfo").text("Order : " + response[0].id);
         $("#custInfo").text(response[0].firstName + " " + response[0].lastName + "'s" + " " + response[0].year + " " + response[0].make + " " + response[0].model);
         $("#issueU").text(response[0].issue);
         $("#orderID").text(response[0].id)
@@ -101,13 +98,12 @@ $(function () {
   });
 
   $(".photo-modal-show").on("click", function (event) {
-    let orderNum = $("#orderNumber").text();
+    let id = $("#orderNumber").text();
     // GET request
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
-        console.log(response)
         $("#currentPhoto").attr("src", "../assets/nophoto.png")
         $("#photoID").text(response.id)
 
@@ -115,7 +111,7 @@ $(function () {
           $("#currentPhoto").attr("src", response.photo);
         }
 
-        $("#orderInfoPhoto").text("Order : " + response.orderNum);
+        $("#orderInfoPhoto").text("Order : " + response.id);
       }
     );
   });
@@ -126,7 +122,6 @@ $(function () {
     let newIssue = {
       issue: $("#issueU").val()
     }
-    console.log(id, newIssue)
     $.ajax("/api/orders/" + id, {
       type: "PUT",
       data: newIssue
@@ -148,7 +143,7 @@ $(function () {
       waiting: 1,
       complete: 0
     };
-    console.log(id, newWorkState)
+
     //PUT
     $.ajax("/api/orders/waiting/" + id, {
       type: "PUT",
@@ -206,7 +201,6 @@ $(function () {
   $("#markPaid").on("click", function (event) {
     event.preventDefault();
     let id = $("#orderID").text();
-    console.log(id)
     // let status = $(this).data("status")
     var newWorkState = {
       received: 0,
@@ -244,7 +238,6 @@ $(function () {
     $.ajax("/api/user_data/", {
       type: "GET"
     }).then(function (response) {
-      console.log(response)
       if (response.position === "Admin") {
         $(".theme").addClass("bg-info");
         //fill out the user's profile section
@@ -259,7 +252,7 @@ $(function () {
 
   const populateInfoCard = (response) => {
    const styleCard = (response) => { $("#information").removeClass("hide");
-    $("#orderNumber").text(response.orderNum);
+    $("#orderNumber").text(response.id);
     $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
     $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
     $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
@@ -309,9 +302,9 @@ $(function () {
 
     event.preventDefault();
 
-    let orderNum = $(this).data("id");
+    let id = $(this).data("id");
 
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
@@ -350,8 +343,8 @@ $(function () {
     let searchType = $("#searchType").val();
 
     if (searchType === "Order Number") {
-      let orderNum = $("#searchTerm").val();
-      $.ajax("/api/orders/" + orderNum, {
+      let id = $("#searchTerm").val();
+      $.ajax("/api/orders/" + id, {
         type: "GET"
       }).then(
         function (response) {
