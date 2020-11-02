@@ -3,7 +3,7 @@ $(function () {
   // CREATE FUNCTION
   $(".create").on("submit", function (event) {
     event.preventDefault();
-      //define a new order as an object based on input from the form
+    //define a new order as an object based on input from the form
     let newOrder = {
       id: Math.floor(10000000 + Math.random() * 9000000),
       firstName: $("#firstname").val(),
@@ -75,7 +75,7 @@ $(function () {
           $("#alert").addClass("alert-danger")
         }
         else {
-        changeColors(response);
+          changeColors(response);
         }
       }
     );
@@ -135,7 +135,7 @@ $(function () {
   //UPDATE STATUS FUNCTION
   $("#updateWaiting").on("click", function (event) {
     event.preventDefault();
-    
+
     let id = $("#orderID").text();
     var newWorkState = {
       received: 0,
@@ -220,19 +220,44 @@ $(function () {
     );
   });
 
+  const handleDeleteError = (event) => {
+    event.preventDefault();
+    $("#searchError").html(
+      `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>You don't have permission to do that! Please contact a Manager or Administrator. 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`);
+    $("#information").addClass("hide");
+  }
+
   // DELETE FUNCTION
   $("#delete").on("click", function (event) {
-    let id = $("#orderID").text();
-    // DELETE
-    $.ajax("/api/orders/" + id, {
-      type: "DELETE"
-    }).then(
-      function () {
-        console.log("deleted order", id);
-        location.reload();
-      }
-    );
+
+    $.ajax("/api/user_data/", {
+      type: "GET"
+    }).then(function (response) {
+      console.log(response.position)
+      if (response.position === "Admin" || "Manager") {
+          // DELETE
+          let id = $("#orderID").text();
+  
+          $.ajax("/api/orders/" + id, {
+            type: "DELETE"
+          }).then(
+            function () {
+              console.log("deleted order", id);
+              location.reload();
+            }
+          );
+        }
+      else { 
+        handleDeleteError(event); 
+      };
+    });
   });
+
 
   const personalizePage = () => {
     $.ajax("/api/user_data/", {
@@ -245,7 +270,6 @@ $(function () {
           `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
           href="/admin">ADMIN</a>`)
       };
-
     });
   }
   personalizePage();
@@ -278,7 +302,7 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").addClass("hide");
-     };
+    };
     if (response.inProgress) {
       $("#updateInProgress").addClass("hide");
       $("#updateWaiting").removeClass("hide");
@@ -320,7 +344,7 @@ $(function () {
       <span aria-hidden="true">&times;</span>
     </button>
   </div>`);
-  $("#information").addClass("hide");
+    $("#information").addClass("hide");
   }
 
   const handleSearchError = (event) => {
@@ -332,7 +356,7 @@ $(function () {
       <span aria-hidden="true">&times;</span>
     </button>
   </div>`);
-  $("#information").addClass("hide");
+    $("#information").addClass("hide");
   }
 
   $(".searchForm").on("submit", function (event) {
@@ -348,10 +372,10 @@ $(function () {
       }).then(
         function (response) {
           console.log(response)
-          if (response === null) { 
+          if (response === null) {
             handleSearchError(event);
-           }
-          if (response.paid === 1) { 
+          }
+          if (response.paid === 1) {
             handlePaidError(event);
           }
           else { populateInfoCard(response) }
@@ -365,15 +389,16 @@ $(function () {
         type: "GET"
       }).then(
         function (response) {
-          if (response === null) { 
+          if (response === null) {
             handleSearchError(event);
           }
-          if (response.paid === 1) { 
+          if (response.paid === 1) {
             handlePaidError(event);
           }
-            else { 
-              populateInfoCard(response) }
+          else {
+            populateInfoCard(response)
           }
+        }
       );
     };
   });
