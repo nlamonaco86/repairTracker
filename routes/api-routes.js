@@ -110,6 +110,9 @@ module.exports = function (app) {
       });
   });
 
+// In order to minimize confusion, when a user searches by Customer last name, Sequelize will find the Customer with that last name, 
+// then find their associated order, then search the Orders table for that order, and sends it back with its associated customer
+// this is to ensure uniformity of objects sent back to the front end 
   app.get("/api/orders/named/:lastName", function (req, res) {
     db.Customer.findOne({
       where: { lastName: req.params.lastName },
@@ -118,7 +121,15 @@ module.exports = function (app) {
       ]
     })
       .then(result => {
-        res.json(result);
+        db.Order.findOne({
+          where: { id: result.Order.id },
+          include: [
+            { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+          ]
+        })
+          .then(result => {
+            res.json(result);
+          });        
       });
   });
 

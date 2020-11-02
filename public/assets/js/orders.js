@@ -251,7 +251,9 @@ $(function () {
   personalizePage();
 
   const populateInfoCard = (response) => {
-   const styleCard = (response) => { $("#information").removeClass("hide");
+    console.log(response)
+
+    $("#information").removeClass("hide");
     $("#orderNumber").text(response.id);
     $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
     $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
@@ -259,9 +261,9 @@ $(function () {
     $("#addr1").text(response.Customer.addr1);
     $("#addr2").text(response.Customer.addr2);
     $("#addr3").text(response.Customer.city + " " + response.Customer.state + " " + response.Customer.zip);
-    $("#orderID").text(response.id)
+    $("#orderID").text(response.id);
     $("#vehicle").text(response.year + " " + response.make + " " + response.model);
-    $("#issueU").text(response.issue)};
+    $("#issueU").text(response.issue);
 
     if (response.received) {
       $("#updateInProgress").removeClass("hide");
@@ -269,7 +271,6 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").removeClass("hide");
       $("#markPaid").addClass("hide");
-      styleCard(response);
     };
     if (response.waiting) {
       $("#updateInProgress").removeClass("hide");
@@ -277,15 +278,13 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").addClass("hide");
-      styleCard(response);
-    };
+     };
     if (response.inProgress) {
       $("#updateInProgress").addClass("hide");
       $("#updateWaiting").removeClass("hide");
       $("#updateComplete").removeClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").addClass("hide");
-      styleCard(response);
     };
     if (response.complete) {
       $("#updateInProgress").addClass("hide");
@@ -293,13 +292,11 @@ $(function () {
       $("#updateComplete").addClass("hide");
       $("#delete").addClass("hide");
       $("#markPaid").removeClass("hide");
-      styleCard(response);
     };
   }
 
   // SIDE NAVBAR ON CLICK
   $(".order").on("click", function (event) {
-
     event.preventDefault();
 
     let id = $(this).data("id");
@@ -308,6 +305,7 @@ $(function () {
       type: "GET"
     }).then(
       function (response) {
+        console.log(response);
         populateInfoCard(response);
       }
     );
@@ -340,6 +338,7 @@ $(function () {
   $(".searchForm").on("submit", function (event) {
     $("#searchError").empty();
     event.preventDefault();
+
     let searchType = $("#searchType").val();
 
     if (searchType === "Order Number") {
@@ -348,10 +347,11 @@ $(function () {
         type: "GET"
       }).then(
         function (response) {
+          console.log(response)
           if (response === null) { 
             handleSearchError(event);
            }
-          if (response.Order.paid === 1) { 
+          if (response.paid === 1) { 
             handlePaidError(event);
           }
           else { populateInfoCard(response) }
@@ -368,10 +368,11 @@ $(function () {
           if (response === null) { 
             handleSearchError(event);
           }
-          if (response.Order.paid === 1) { 
+          if (response.paid === 1) { 
             handlePaidError(event);
           }
-            else { populateInfoCard(response) }
+            else { 
+              populateInfoCard(response) }
           }
       );
     };
