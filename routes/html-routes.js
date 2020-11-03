@@ -10,31 +10,17 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
 
   app.get("/", function(req, res) {
-    // If the user already has an account send them to the orders page
-    if (req.user) {
-      order.all((data) => {
-        //store them in an object for handlebars to use
-        let hbsObject = {
-          orders: data
-        };
-        res.render("index", hbsObject);
-      });
-    }
-    res.sendFile(path.join(__dirname, "../public/splash.html"));
+    // If the user visits the main page and is already logged in, send them to the orders page
+    // query the ORM and store the response in an object for handlebars to use
+    // otherwise send them back to the splash page
+    (req.user ? order.all((data) => { let hbsObject = { orders: data }; res.render("index", hbsObject); }) : res.sendFile(path.join(__dirname, "../public/splash.html")))
   });
 
   app.get("/login", function(req, res) {
-    // If the user already has an account send them to the orders page
-    if (req.user) {
-      order.all((data) => {
-        //store them in an object for handlebars to use
-        let hbsObject = {
-          orders: data
-        };
-        res.render("index", hbsObject);
-      });
-    }
-    res.sendFile(path.join(__dirname, "../public/login.html"));
+    // If the user visits the login page while logged in, send them to the orders page
+    // query the ORM and store the response in an object for handlebars to use
+    // otherwise send them to the login page
+    (req.user ? order.all((data) => { let hbsObject = { orders: data }; res.render("index", hbsObject); }) : res.sendFile(path.join(__dirname, "../public/login.html")))
   });
 
   app.get("/tracker", function(req, res) {
