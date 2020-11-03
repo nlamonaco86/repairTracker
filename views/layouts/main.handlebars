@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="./assets/css/style.css" type="text/css" />
-	<!-- Core theme CSS (includes Bootstrap)-->
+	<!-- Core themes CSS (includes Bootstrap)-->
 	<link href="./assets/css/styles.css" rel="stylesheet">
 	<!-- Fonts CSS-->
 	<link rel="stylesheet" href="./assets/css/heading.css">
@@ -27,8 +27,8 @@
 		<div class="container">
 			<a href='/'><i class="fas fa-tools fa-3x text-light"></i></a>
 			<a href='/' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
-			<button class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded"
-				type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+			<button class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
@@ -37,6 +37,26 @@
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
 							href="#new">NEW WORK ORDER</a>
 					</li>
+					<!-- COLOR CHANGER -->
+					{{!-- <li class="nav-item dropdown mx-0 mx-lg-1">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-palette"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<div class="row" >
+								<a class="dropdown-item">A</a>
+								<a class="dropdown-item">B</a>
+								<a class="dropdown-item">C</a>
+								<a class="dropdown-item">D</a>
+								<a class="dropdown-item">E</a>
+								<a class="dropdown-item">F</a>
+								<a class="dropdown-item">G</a>
+								<a class="dropdown-item">H</a>
+							</div>
+
+						</div>
+					</li> --}}
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
 							href="/logout">LOG OUT</a>
 					</li>
@@ -53,68 +73,69 @@
 				<div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
 					Information:</div>
 				<div id="information" class="hide">
-				<div class="card-body row">
-					<div class="col-lg-6">
-						<h4 class="card-title">Order #<span id="orderNumber">12345678</span></h4>
-						<h5 class="card-title" id="customerName">John Customer</h5>
-						<div class="mt-3" id="emailAddr">
-							<a href="mailto:email@website.com" class="text-info font-weight-bold">email@website.com</a>
-						</div>
-						<div class="mt-2" id="telNum">
-							<a href="tel:9083379307" class="font-weight-bold text-info">(908)555-1234</a>
-						</div>
-						<div id="addr1" class="mt-3">222 Main Street</div>
-						<div id="addr2">Apt. #206</div>
-						<div id="addr3">Anytown, USA 07299</div>
-						<div class="mt-3" id="buttonDiv">
-							<div class="d-flex justify-content-center">
-								<p class="font-weight-bold mt-2">ACTIONS:</p>
+					<div class="card-body row">
+						<div class="col-lg-6">
+							<h4 class="card-title">Order #<span id="orderNumber">12345678</span></h4>
+							<h5 class="card-title" id="customerName">John Customer</h5>
+							<div class="mt-3" id="emailAddr">
+								<a href="mailto:email@website.com"
+									class="text-info font-weight-bold">email@website.com</a>
 							</div>
-							<div class="row d-flex justify-content-around">
-								<button class="photo-modal-show btn btn-info btn-circle btn-lg" data-toggle="modal"
-									data-target="#photoModal"><i class="fas fa-2x fa-image"></i></button>
-								<div id="updateInProgress">
-									<button class="btn btn-success btn-circle btn-lg"><i
-											class="fas fa-2x fa-wrench"></i></button>
-								</div>
-								<div id="updateWaiting">
-									<button class="btn btn-warning btn-circle btn-lg"><i
-											class="fas fa-2x fa-pause"></i></button>
-								</div>
-								<div id="updateComplete">
-									<button class="btn btn-success btn-circle btn-lg"><i
-											class="fas fa-2x fa-check"></i></button>
-								</div>
-								<div id="delete">
-									<button class="btn btn-danger btn-circle btn-lg"><i
-											class="fas fa-2x fa-times"></i></button></button>
-								</div>
-								<div id="markPaid">
-									<button class="btn btn-success btn-circle btn-lg"><i
-											class="fas fa-2x fa-dollar-sign"></i></button>
-								</div>
+							<div class="mt-2" id="telNum">
+								<a href="tel:9083379307" class="font-weight-bold text-info">(908)555-1234</a>
 							</div>
+							<div id="addr1" class="mt-3">222 Main Street</div>
+							<div id="addr2">Apt. #206</div>
+							<div id="addr3">Anytown, USA 07299</div>
+							<div class="mt-3" id="buttonDiv">
+								<div class="d-flex justify-content-center">
+									<p class="font-weight-bold mt-2">ACTIONS:</p>
+								</div>
+								<div class="row d-flex justify-content-around">
+									<button class="photo-modal-show btn btn-info btn-circle btn-lg" data-toggle="modal"
+										data-target="#photoModal"><i class="fas fa-2x fa-image"></i></button>
+									<div id="updateInProgress">
+										<button class="btn btn-success btn-circle btn-lg"><i
+												class="fas fa-2x fa-wrench"></i></button>
+									</div>
+									<div id="updateWaiting">
+										<button class="btn btn-warning btn-circle btn-lg"><i
+												class="fas fa-2x fa-pause"></i></button>
+									</div>
+									<div id="updateComplete">
+										<button class="btn btn-success btn-circle btn-lg"><i
+												class="fas fa-2x fa-check"></i></button>
+									</div>
+									<div id="delete">
+										<button class="btn btn-danger btn-circle btn-lg"><i
+												class="fas fa-2x fa-times"></i></button></button>
+									</div>
+									<div id="markPaid">
+										<button class="btn btn-success btn-circle btn-lg"><i
+												class="fas fa-2x fa-dollar-sign"></i></button>
+									</div>
+								</div>
 
+							</div>
 						</div>
-					</div>
 
-					<div class="col-lg-6">
-						<h5 class="card-title mt-3" id="vehicle">2009 Chevrolet Tahoe</h5>
+						<div class="col-lg-6">
+							<h5 class="card-title mt-3" id="vehicle">2009 Chevrolet Tahoe</h5>
 
-						<p class="font-weight-bold">Tech Instructions:</p>
-						<form id="updateIssue">
-							<div id="orderID" class="hide"></div>
-							<div class="form-group">
-								<textarea type="text" class="" id="issueU" rows="6">Vehicle runs but makes a slight rumbling sound at idle, makes a loud clunking noise when shifting into gear, suspect possible issues with motor mount or transmission problems. Run diagnostic and test drive.
+							<p class="font-weight-bold">Tech Instructions:</p>
+							<form id="updateIssue">
+								<div id="orderID" class="hide"></div>
+								<div class="form-group">
+									<textarea type="text" class="extended" id="issueU" rows="6">Vehicle runs but makes a slight rumbling sound at idle, makes a loud clunking noise when shifting into gear, suspect possible issues with motor mount or transmission problems. Run diagnostic and test drive.
                   </textarea>
-							</div>
-							<div class="d-flex justify-content-center">
-								<button type="submit" class="btn btn-success btn-circle btn-lg">
-									<i class="fas fa-2x fa-save"></i></button>
-							</div>
-						</form>
+								</div>
+								<div class="d-flex justify-content-center">
+									<button type="submit" class="btn btn-success btn-circle btn-lg">
+										<i class="fas fa-2x fa-save"></i></button>
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
 				</div>
 				<!-- form goes here -->
 				<div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center mt-4"
@@ -131,6 +152,7 @@
 								<input type="text" class="" id="lastname">
 							</div>
 						</div>
+						<div class="hide" id="photo"></div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="email">Email</label>
@@ -143,17 +165,16 @@
 						</div>
 						<div class="form-group">
 							<label for="addr1">Address</label>
-							<input type="text" class="" id="addr1" placeholder="1234 Main St">
+							<input type="text" class="" id="addr" placeholder="1234 Main St"></input>
 						</div>
 						<div class="form-group">
 							<label for="addr2">Address 2</label>
-							<input type="text" class="" id="addr2"
-								placeholder="Apartment, studio, or floor">
+							<input type="text" class="" id="addrB" placeholder="Apartment, studio, or floor"></input>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="city">City</label>
-								<input type="text" class="" id="city">
+								<input type="text" class="" id="city"></input>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="inputState">State</label>
@@ -190,17 +211,21 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="addr1">VIN</label>
+							<input type="text" class="" id="vin" placeholder="(Optional)">
+						</div>
+						<div class="form-group">
 							<label for="issue">Issue:</label>
 							<textarea class="" id="issue" rows="3"></textarea>
 						</div>
 						<div class="d-flex justify-content-around">
 							<button type="submit" class="btn btn-success btn-circle btn-lg"><i
-									class="fas fa-3x fa-plus"></i></button>
-							<button id="upload_widget" class="btn btn-info btn-circle btn-lg"><i
-									class="fas fa-2x fa-image"></i></button>
-							<script type="text/javascript" src="/js/member-upload.js" defer></script>
+									class="fas fa-3x fa-plus"></i></button>		
+							{{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
 						</div>
 					</form>
+					<button id="upload_widget" class="btn btn-info btn-circle btn-lg"><i
+									class="fas fa-2x fa-image"></i></button>
 				</div>
 			</div>
 
@@ -239,7 +264,7 @@
 								<i class="fas fa-2x fa-save"></i></button>
 						</div>
 					</form>
-					<script type="text/javascript" src="/js/member-upload.js" defer></script>
+					{{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
 				</div>
 			</div>
 		</div>

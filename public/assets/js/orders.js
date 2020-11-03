@@ -2,22 +2,28 @@
 $(function () {
   // CREATE FUNCTION
   $(".create").on("submit", function (event) {
-    //prevent page reload
     event.preventDefault();
-    let genNum = (Math.floor(10000000 + Math.random() * 9000000))
     //define a new order as an object based on input from the form
     let newOrder = {
+      id: Math.floor(10000000 + Math.random() * 9000000),
       firstName: $("#firstname").val(),
       lastName: $("#lastname").val(),
       tel: $("#tel").val(),
       email: $("#email").val(),
+      addr1: $("#addr").val(),
+      addr2: $("#addrB").val(),
+      city: $("#city").val(),
+      state: $("#state").val(),
+      zip: $("#zip").val(),
+      vin: $("#vin").val(),
       year: $("#year").val(),
       make: $("#make").val(),
       model: $("#model").val(),
       issue: $("#issue").val(),
-      orderNum: genNum,
       photo: $("#photo").val(),
-      received: 1
+      received: 1,
+      // genCustomerId: Math.floor(10000000 + Math.random() * 9000000),
+      // genVehicleId: Math.floor(10000000 + Math.random() * 9000000)
     };
     // POST request
     $.ajax("/api/orders", {
@@ -34,7 +40,6 @@ $(function () {
 
   // COLOR CHANGER FOR THE TRACKER PAGE
   const changeColors = (target) => {
-    console.log(target)
     if (target.received === 1) {
       $("#result").text("Your order has been received.")
       $("#alert").addClass("alert-success")
@@ -57,9 +62,9 @@ $(function () {
   $(".lookup").on("submit", function (event) {
     //prevent page reload
     event.preventDefault();
-    let orderNum = $("#orderNumber").val()
+    let id = $("#orderNumber").val()
     // GET request
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
@@ -70,7 +75,7 @@ $(function () {
           $("#alert").addClass("alert-danger")
         }
         else {
-        changeColors(response);
+          changeColors(response);
         }
       }
     );
@@ -78,13 +83,13 @@ $(function () {
 
   // DYNAMIC MODAL
   $(".info-modal-show").on("click", function (event) {
-    let orderNum = $(this).data("id")
+    let id = $(this).data("id")
     // GET request
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
-        $("#orderInfo").text("Order : " + response[0].orderNum);
+        $("#orderInfo").text("Order : " + response[0].id);
         $("#custInfo").text(response[0].firstName + " " + response[0].lastName + "'s" + " " + response[0].year + " " + response[0].make + " " + response[0].model);
         $("#issueU").text(response[0].issue);
         $("#orderID").text(response[0].id)
@@ -93,9 +98,9 @@ $(function () {
   });
 
   $(".photo-modal-show").on("click", function (event) {
-    let orderNum = $("#orderNumber").text();
+    let id = $("#orderNumber").text();
     // GET request
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
@@ -106,7 +111,7 @@ $(function () {
           $("#currentPhoto").attr("src", response.photo);
         }
 
-        $("#orderInfoPhoto").text("Order : " + response.orderNum);
+        $("#orderInfoPhoto").text("Order : " + response.id);
       }
     );
   });
@@ -117,7 +122,6 @@ $(function () {
     let newIssue = {
       issue: $("#issueU").val()
     }
-    console.log(id, newIssue)
     $.ajax("/api/orders/" + id, {
       type: "PUT",
       data: newIssue
@@ -131,6 +135,7 @@ $(function () {
   //UPDATE STATUS FUNCTION
   $("#updateWaiting").on("click", function (event) {
     event.preventDefault();
+
     let id = $("#orderID").text();
     var newWorkState = {
       received: 0,
@@ -138,6 +143,7 @@ $(function () {
       waiting: 1,
       complete: 0
     };
+
     //PUT
     $.ajax("/api/orders/waiting/" + id, {
       type: "PUT",
@@ -195,7 +201,6 @@ $(function () {
   $("#markPaid").on("click", function (event) {
     event.preventDefault();
     let id = $("#orderID").text();
-    console.log(id)
     // let status = $(this).data("status")
     var newWorkState = {
       received: 0,
@@ -215,43 +220,72 @@ $(function () {
     );
   });
 
+  const handleDeleteError = (event) => {
+    event.preventDefault();
+    $("#searchError").html(
+      `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>You don't have permission to do that! Please contact a Manager or Administrator. 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`);
+    $("#information").addClass("hide");
+  }
+
   // DELETE FUNCTION
   $("#delete").on("click", function (event) {
-    let id = $("#orderID").text();
-    // DELETE
-    $.ajax("/api/orders/" + id, {
-      type: "DELETE"
-    }).then(
-      function () {
-        console.log("deleted order", id);
-        location.reload();
+
+    $.ajax("/api/user_data/", {
+      type: "GET"
+    }).then(function (response) {
+      console.log(response.position)
+      if (response.position === "Admin" || "Manager") {
+        // DELETE
+        let id = $("#orderID").text();
+
+        $.ajax("/api/orders/" + id, {
+          type: "DELETE"
+        }).then(
+          function () {
+            console.log("deleted order", id);
+            location.reload();
+          }
+        );
       }
-    );
+      else {
+        handleDeleteError(event);
+      };
+    });
   });
+
 
   const personalizePage = () => {
     $.ajax("/api/user_data/", {
       type: "GET"
     }).then(function (response) {
-      console.log(response)
       if (response.position === "Admin") {
+        $(".theme").addClass("bg-info");
         //fill out the user's profile section
         $("#navBar").append(
           `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
           href="/admin">ADMIN</a>`)
       };
-
     });
   }
   personalizePage();
 
   const populateInfoCard = (response) => {
+    console.log(response)
+
     $("#information").removeClass("hide");
-    $("#orderNumber").text(response.orderNum);
-    $("#customerName").text(response.firstName + " " + response.lastName);
-    $("#emailAddr").html(`<a href="mailto:${response.email}" class="text-info font-weight-bold">${response.email}</a>`);
-    $("#telNum").html(`<a id="phoneNum" href="tel:${response.tel}" class="font-weight-bold text-info">${response.tel}</a>`);
-    $("#orderID").text(response.id)
+    $("#orderNumber").text(response.id);
+    $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
+    $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
+    $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
+    $("#addr1").text(response.Customer.addr1);
+    $("#addr2").text(response.Customer.addr2);
+    $("#addr3").text(response.Customer.city + " " + response.Customer.state + " " + response.Customer.zip);
+    $("#orderID").text(response.id);
     $("#vehicle").text(response.year + " " + response.make + " " + response.model);
     $("#issueU").text(response.issue);
 
@@ -287,19 +321,31 @@ $(function () {
 
   // SIDE NAVBAR ON CLICK
   $(".order").on("click", function (event) {
-
     event.preventDefault();
 
-    let orderNum = $(this).data("id");
+    let id = $(this).data("id");
 
-    $.ajax("/api/orders/" + orderNum, {
+    $.ajax("/api/orders/" + id, {
       type: "GET"
     }).then(
       function (response) {
+        console.log(response);
         populateInfoCard(response);
       }
     );
   })
+
+  const handlePaidError = (event) => {
+    event.preventDefault();
+    $("#searchError").html(
+      `<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>This order is paid!</strong> Please search the completed orders database.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`);
+    $("#information").addClass("hide");
+  }
 
   const handleSearchError = (event) => {
     event.preventDefault();
@@ -310,22 +356,27 @@ $(function () {
       <span aria-hidden="true">&times;</span>
     </button>
   </div>`);
+    $("#information").addClass("hide");
   }
 
   $(".searchForm").on("submit", function (event) {
     $("#searchError").empty();
     event.preventDefault();
+
     let searchType = $("#searchType").val();
 
     if (searchType === "Order Number") {
-      let orderNum = $("#searchTerm").val();
-      $.ajax("/api/orders/" + orderNum, {
+      let id = $("#searchTerm").val();
+      $.ajax("/api/orders/" + id, {
         type: "GET"
       }).then(
         function (response) {
-          if (response === null) { 
-         handleSearchError(event);
-        }
+          if (response.error) {
+            handleSearchError(event);
+          }
+          else if (response.paid === 1) {
+            handlePaidError(event);
+          }
           else { populateInfoCard(response) }
         }
       );
@@ -337,11 +388,16 @@ $(function () {
         type: "GET"
       }).then(
         function (response) {
-          if (response === null) { 
+          if (response.error) {
             handleSearchError(event);
           }
-            else { populateInfoCard(response) }
+          else if (response.paid === 1) {
+            handlePaidError(event);
           }
+          else {
+            populateInfoCard(response)
+          }
+        }
       );
     };
   });
