@@ -16,9 +16,11 @@ repairTracker is intended for use on an iPad in a mobile setting, but is respons
 Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
+- Invoice Generator
+- Integration with CarMD API for maintenance time/cost estimations, VIN decoder and Technical Service Bulletins
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
-- Invoice Generator
+
 
 ## Table of Contents
 

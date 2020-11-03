@@ -68,15 +68,10 @@ $(function () {
       type: "GET"
     }).then(
       function (response) {
+        console.log(response)
         $("#result").empty();
         $("#alert").removeClass();
-        if (response === null) {
-          $("#result").text("Order Number not found! Please try again, or call 908-555-1234 for assistance.")
-          $("#alert").addClass("alert-danger")
-        }
-        else {
-          changeColors(response);
-        }
+        (response.error ? $("#result").text("Order Number not found! Please try again, or call 908-555-1234 for assistance.") && $("#alert").addClass("alert-danger") : changeColors(response) )       
       }
     );
   });

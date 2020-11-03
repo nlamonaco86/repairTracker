@@ -1,21 +1,16 @@
-// Dependencies
 const mysql = require('mysql');
 
 // do not use const here
 var connection;
-if (process.env.JAWSDB_URL) {
-    // Database is JawsDB on Heroku
-    connection = mysql.createConnection(process.env.JAWSDB_URL);
-} else {
-    // Database is local 
-    connection = mysql.createConnection({
-        port: 3306,
-        host: 'localhost',
-        user: 'root',
-        password: 'Nicky0416!',
-        database: 'repair_db'
-    })
-};
+
+// check to see if it's on Heroku or localhost
+(process.env.JAWSDB_URL ? connection = mysql.createConnection(process.env.JAWSDB_URL) : connection = mysql.createConnection({
+          port: 3306,
+          host: 'localhost',
+          user: process.env.MYSQL_USERNAME,
+          password: process.env.MYSQL_PASSWORD,
+          database: 'repair_db'
+      }) )
 
 // Connect to DB on startup
 connection.connect(function(err) {
