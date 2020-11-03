@@ -125,6 +125,7 @@ module.exports = function (app) {
         { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'] }
       ]
     })
+// Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
         console.log(result)
         if (result === null) {
@@ -149,22 +150,6 @@ module.exports = function (app) {
         }
       })
   });
-
-  // else{
-
-  // }
-
-  //     db.Order.findOne({
-  //       where: { id: result.Order.id },
-  //       include: [
-  //         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
-  //       ]
-  //     })
-  //       .then(result => {
-  //        res.json(result);
-  //       });        
-  //   });
-
 
   //UPDATE
   app.put("/api/orders/:id", (req, res) => {

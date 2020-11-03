@@ -1,6 +1,6 @@
 // Order model
 module.exports = function (sequelize, DataTypes) {
-    const Order = sequelize.define("Order", {
+  const Order = sequelize.define("Order", {
       year: {
         type: DataTypes.STRING,
         allowNull: false
@@ -19,50 +19,49 @@ module.exports = function (sequelize, DataTypes) {
      color: {
         type: DataTypes.STRING
       },
-      issue: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      photo: {
-        type: DataTypes.STRING
-      },
-      received: {
-        type: DataTypes.TINYINT,
-        default: 1
-      },
-      waiting: {
-        type: DataTypes.TINYINT,
-        default: 0
-      },
-      inProgress: {
-        type: DataTypes.TINYINT,
-        default: 0
-      },
-      complete: {
-        type: DataTypes.TINYINT,
-        default: 0
-      },
-      paid: {
-        type: DataTypes.TINYINT,
-        default: 0
+    issue: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    photo: {
+      type: DataTypes.STRING
+    },
+    received: {
+      type: DataTypes.TINYINT,
+      default: 1
+    },
+    waiting: {
+      type: DataTypes.TINYINT,
+      default: 0
+    },
+    inProgress: {
+      type: DataTypes.TINYINT,
+      default: 0
+    },
+    complete: {
+      type: DataTypes.TINYINT,
+      default: 0
+    },
+    paid: {
+      type: DataTypes.TINYINT,
+      default: 0
+    }
+  });
+  // Order.associate = function (models) {
+  //   Order.hasOne(models.Vehicle, {
+  //     foreignKey:
+  //     {
+
+  //     }
+  //   });
+  // };
+  Order.associate = function (models) {
+    Order.hasOne(models.Customer, {
+      foreignKey:
+      {
+
       }
     });
-    // Order.associate = function (models) {
-    //     Order.hasOne(models.Vehicle, {
-    //         foreignKey: 
-    //         {
-    //           
-    //         }
-    //     });
-    // };
-    Order.associate = function (models) {
-        Order.hasOne(models.Customer, { 
-          foreignKey: 
-          {
-             
-          }
-      });
-    };
-    return Order;
   };
-  
+  return Order;
+};
