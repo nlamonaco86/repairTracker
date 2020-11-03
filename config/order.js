@@ -13,6 +13,13 @@ const order = {
       cb(result);
     });
   },
+  one: function (cb) {
+    //Performs a LEFT OUTER JOIN of Customers and Orders, based on matching OrderId
+    promQuery("SELECT `Order`.`id`, `Order`.`year`, `Order`.`make`, `Order`.`model`, `Order`.`vin`, `Order`.`color`, `Order`.`issue`, `Order`.`photo`, `Order`.`received`, `Order`.`waiting`, `Order`.`inProgress`, `Order`.`complete`, `Order`.`paid`, `Order`.`createdAt`, `Order`.`updatedAt`, `Customer`.`id` AS `CustomerId`, `Customer`.`firstName` AS `firstName`, `Customer`.`lastName` AS `lastName`, `Customer`.`tel` AS `tel`, `Customer`.`email` AS `email`, `Customer`.`addr1` AS `addr1`, `Customer`.`addr2` AS `addr2`, `Customer`.`city` AS `city`, `Customer`.`state` AS `state`, `Customer`.`zip` AS `zip` FROM `Orders` AS `Order` LEFT OUTER JOIN `Customers` AS `Customer` ON `Order`.`id` = `Customer`.`OrderId` WHERE `Order`.`id` = '62948765'", function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  },
   // create: function (vals, cb) {
   //     promQuery("INSERT INTO Orders (firstName, lastName, tel, email, year, make, model, issue, orderNum, photo) VALUES (?,?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
   //       if (err) {

@@ -28,7 +28,8 @@ const db = require("./models");
 
 //Use the given routes
 require("./routes/html-routes.js")(app);
-require("./routes/api-routes.js")(app);
+require("./routes/user-api-routes.js")(app);
+require("./routes/order-api-routes.js")(app);
 
 // Start the server so it can listening to client requests.
 db.sequelize.sync().then(function() {

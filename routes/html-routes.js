@@ -35,23 +35,24 @@ module.exports = function(app) {
       let hbsObject = {
         orders: data
       };
+      console.log(hbsObject)
       res.render("index", hbsObject);
     });
   });
 
-  app.get("/orders", (req, res) =>{
-    //read all entries from the orders table
-    order.all((data) => {
+  app.get("/invoice", isAuthenticated, function(req, res) {
+    order.one((data) => {
       //store them in an object for handlebars to use
       let hbsObject = {
-        orders: data
+        invoice: data
       };
-      res.render("index", hbsObject);
+      console.log(hbsObject)
+      res.render("invoice", hbsObject);
     });
   });
 
   // ADMIN FUNCTION
-  app.get("/admin", function(req, res) {
+  app.get("/admin", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/admin.html"));
   });
 };
