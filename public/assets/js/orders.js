@@ -240,20 +240,20 @@ $(function () {
     }).then(function (response) {
       console.log(response.position)
       if (response.position === "Admin" || "Manager") {
-          // DELETE
-          let id = $("#orderID").text();
-  
-          $.ajax("/api/orders/" + id, {
-            type: "DELETE"
-          }).then(
-            function () {
-              console.log("deleted order", id);
-              location.reload();
-            }
-          );
-        }
-      else { 
-        handleDeleteError(event); 
+        // DELETE
+        let id = $("#orderID").text();
+
+        $.ajax("/api/orders/" + id, {
+          type: "DELETE"
+        }).then(
+          function () {
+            console.log("deleted order", id);
+            location.reload();
+          }
+        );
+      }
+      else {
+        handleDeleteError(event);
       };
     });
   });
@@ -371,11 +371,10 @@ $(function () {
         type: "GET"
       }).then(
         function (response) {
-          console.log(response)
-          if (response === null) {
+          if (response.error) {
             handleSearchError(event);
           }
-          if (response.paid === 1) {
+          else if (response.paid === 1) {
             handlePaidError(event);
           }
           else { populateInfoCard(response) }
@@ -389,10 +388,10 @@ $(function () {
         type: "GET"
       }).then(
         function (response) {
-          if (response === null) {
+          if (response.error) {
             handleSearchError(event);
           }
-          if (response.paid === 1) {
+          else if (response.paid === 1) {
             handlePaidError(event);
           }
           else {

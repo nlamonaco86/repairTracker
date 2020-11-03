@@ -57,7 +57,7 @@ module.exports = function (app) {
       });
     }
   });
- 
+
   app.post("/api/orders", function (req, res) {
     // Data from the form gets inserted into three separate but associated tables
     // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
@@ -106,32 +106,65 @@ module.exports = function (app) {
       ]
     })
       .then(result => {
-        res.json(result);
+        if (result === null) {
+          res.json({error: "No Results Found! Please try again"});
+        }
+        else {
+          res.json(result);
+        }
       });
   });
 
-// In order to minimize confusion, when a user searches by Customer last name, Sequelize will find the Customer with that last name, 
-// then find their associated order, then search the Orders table for that order, and sends it back with its associated customer
-// this is to ensure uniformity of objects sent back to the front end 
+  // In order to minimize confusion, when a user searches by Customer last name, Sequelize will find the Customer with that last name, 
+  // then find their associated order, then search the Orders table for that order, and sends it back with its associated customer
+  // this is to ensure uniformity of objects sent back to the front end 
   app.get("/api/orders/named/:lastName", function (req, res) {
     db.Customer.findOne({
       where: { lastName: req.params.lastName },
       include: [
-        { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'  ] }
+        { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'] }
       ]
     })
       .then(result => {
-        db.Order.findOne({
-          where: { id: result.Order.id },
-          include: [
-            { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
-          ]
-        })
-          .then(result => {
-            res.json(result);
-          });        
-      });
+        console.log(result)
+        if (result === null) {
+          res.json({error: "No Results Found! Please try again"});
+        }
+        else {
+          db.Order.findOne({
+            where: { id: result.Order.id },
+            include: [
+              { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+            ]
+          })
+            .then(result => {
+              if (result === null) {
+                res.json({error: "No Results Found! Please try again"});
+              }
+              else {
+                res.json(result);
+              }
+            });
+
+        }
+      })
   });
+
+  // else{
+
+  // }
+
+  //     db.Order.findOne({
+  //       where: { id: result.Order.id },
+  //       include: [
+  //         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+  //       ]
+  //     })
+  //       .then(result => {
+  //        res.json(result);
+  //       });        
+  //   });
+
 
   //UPDATE
   app.put("/api/orders/:id", (req, res) => {
