@@ -20,6 +20,11 @@ app.use(passport.session());
 // Set Handlebars
 const exphbs = require("express-handlebars");
 
+// exphbs.registerHelper('trimString', function(passedString, startstring, endstring) {
+//   var theString = passedString.substring( startstring, endstring );
+//   return new exphbs.SafeString(theString)
+// });
+
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
