@@ -3,8 +3,6 @@ require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
 const order = require("../config/order.js");
-// const { v4: uuidv4 } = require('uuid');
-// const { compareSync } = require('bcryptjs');
 
 module.exports = function (app) {
   // LOGIN route with error handling
@@ -40,22 +38,16 @@ module.exports = function (app) {
 
   // user data client-side route
   app.get("/api/user_data", function (req, res) {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      res.json({
-        email: req.user.email,
-        phone: req.user.phone,
-        id: req.user.id,
-        first: req.user.first,
-        last: req.user.last,
-        position: req.user.position,
-        cloudUploadName: process.env.CLOUDINARY_CLOUDNAME,
-        cloudUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
-      });
-    }
+    (!req.user ? res.json({}) : res.json({
+      email: req.user.email,
+      phone: req.user.phone,
+      id: req.user.id,
+      first: req.user.first,
+      last: req.user.last,
+      position: req.user.position,
+      cloudUploadName: process.env.CLOUDINARY_CLOUDNAME,
+      cloudUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
+    }))
   });
 
   app.post("/api/orders", function (req, res) {
@@ -98,20 +90,20 @@ module.exports = function (app) {
       });
   });
 
-  app.get("/api/orders/:id", function (req, res) {
-    db.Order.findOne({
-      where: { id: req.params.id },
+  const getOneOrder = (searchId) => {
+    console.log(searchId)
+    return db.Order.findOne({
+      where: { id: searchId },
       include: [
         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
       ]
     })
+  }
+
+  app.get("/api/orders/:id", function (req, res) {
+    getOneOrder(req.params.id)
       .then(result => {
-        if (result === null) {
-          res.json({error: "No Results Found! Please try again"});
-        }
-        else {
-          res.json(result);
-        }
+        (result === null ? res.json({ error: "No Results Found! Please try again" }) : res.json(result))
       });
   });
 
@@ -125,29 +117,10 @@ module.exports = function (app) {
         { model: db.Order, attributes: ['id', 'year', 'make', 'model', 'vin', 'issue', 'photo', 'received', 'waiting', 'inProgress', 'complete', 'paid'] }
       ]
     })
-// Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
+      // Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
-        console.log(result)
-        if (result === null) {
-          res.json({error: "No Results Found! Please try again"});
-        }
-        else {
-          db.Order.findOne({
-            where: { id: result.Order.id },
-            include: [
-              { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
-            ]
-          })
-            .then(result => {
-              if (result === null) {
-                res.json({error: "No Results Found! Please try again"});
-              }
-              else {
-                res.json(result);
-              }
-            });
-
-        }
+        (result === null ? res.json({error: "No Results Found! Please try again"}) : getOneOrder(result.Order.id)
+        .then(result => {(result === null ? res.json({error: "No Results Found! Please try again"}) : res.json(result) )}))
       })
   });
 
@@ -156,54 +129,33 @@ module.exports = function (app) {
     db.Order.update(
       { issue: req.body.issue },
       { where: { id: req.params.id } }, (result) => {
-        if (result.changedRows == 0) {
-          // If no rows were changed, then the ID does not exist 404
-          return res.status(404).end();
-        } else {
-          res.status(200).end();
-        }
+        (result.changedRows == 0 ? res.status(404).end() : res.status(200).end() )
       }
     );
   });
 
+  // These 4 are nearly identical, combine them
   app.put("/api/orders/complete/:id", (req, res) => {
     order.updateComplete(req.params.id, (result) => {
-      if (result.changedRows == 0) {
-        // If no rows were changed, then the ID does not exist 404
-        return res.status(404).end();
-      } else {
-        res.status(200).end();
-      }
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end() )
     });
   });
 
   app.put("/api/orders/paid/:id", (req, res) => {
     order.updatePaid(req.params.id, (result) => {
-      if (result.changedRows == 0) {
-        return res.status(404).end();
-      } else {
-        res.status(200).end();
-      }
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end() )
     });
   });
 
   app.put("/api/orders/inProgress/:id", (req, res) => {
     order.updateInProgress(req.params.id, (result) => {
-      if (result.changedRows == 0) {
-        return res.status(404).end();
-      } else {
-        res.status(200).end();
-      }
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end() )
     });
   });
 
   app.put("/api/orders/waiting/:id", (req, res) => {
     order.updateWaiting(req.params.id, (result) => {
-      if (result.changedRows == 0) {
-        return res.status(404).end();
-      } else {
-        res.status(200).end();
-      }
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end() )
     });
   });
 
