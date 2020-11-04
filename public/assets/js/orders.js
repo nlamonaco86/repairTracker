@@ -71,7 +71,7 @@ $(function () {
         console.log(response)
         $("#result").empty();
         $("#alert").removeClass();
-        (response.error ? $("#result").text("Order Number not found! Please try again, or call 908-555-1234 for assistance.") && $("#alert").addClass("alert-danger") : changeColors(response) )       
+        (response.error ? $("#result").text("Order Number not found! Please try again, or call 908-555-1234 for assistance.") && $("#alert").addClass("alert-danger") : changeColors(response))
       }
     );
   });
@@ -215,6 +215,7 @@ $(function () {
     );
   });
 
+  // Handle an error if the user does not have permission to delete an order. 
   const handleDeleteError = (event) => {
     event.preventDefault();
     $("#searchError").html(
@@ -254,13 +255,13 @@ $(function () {
   });
 
 
+  // If the user is an admin, create a link to the admin page
   const personalizePage = () => {
     $.ajax("/api/user_data/", {
       type: "GET"
     }).then(function (response) {
       if (response.position === "Admin") {
         $(".theme").addClass("bg-info");
-        //fill out the user's profile section
         $("#navBar").append(
           `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
           href="/admin">ADMIN</a>`)
@@ -269,12 +270,13 @@ $(function () {
   }
   personalizePage();
 
+  // Populate the information card when a successful request has been received
   const populateInfoCard = (response) => {
-    console.log(response)
 
     $("#information").removeClass("hide");
     $("#orderNumber").text(response.id);
     $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
+    $("#invoiceBtn").attr("href", `./${response.id}`);
     $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
     $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
     $("#addr1").text(response.Customer.addr1);
@@ -314,7 +316,7 @@ $(function () {
     };
   }
 
-  // SIDE NAVBAR ON CLICK
+  // SIDE NAVBAR ON CLICK, get an order
   $(".order").on("click", function (event) {
     event.preventDefault();
 
@@ -330,6 +332,7 @@ $(function () {
     );
   })
 
+  // Functions to handle errors during a search
   const handlePaidError = (event) => {
     event.preventDefault();
     $("#searchError").html(
@@ -354,6 +357,8 @@ $(function () {
     $("#information").addClass("hide");
   }
 
+  // Dynamic search function checks to see which term is being used to search and sends off the 
+  // proper request. Nested error handling takes all situations into account 
   $(".searchForm").on("submit", function (event) {
     $("#searchError").empty();
     event.preventDefault();
@@ -395,6 +400,11 @@ $(function () {
         }
       );
     };
+  });
+
+  // PRINT AN INVOICE
+  $('#printInvoice').click(function () {
+    window.print();
   });
 
 });

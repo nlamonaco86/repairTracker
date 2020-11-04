@@ -35,18 +35,19 @@ module.exports = function(app) {
       let hbsObject = {
         orders: data
       };
-      console.log(hbsObject)
       res.render("index", hbsObject);
     });
   });
 
-  app.get("/invoice", isAuthenticated, function(req, res) {
-    order.one((data) => {
+  // strange issue with path/routing, if /invoice/:id the resulting page cannot find css/js files as it is
+  // looking in "/invoice/assets/css/..." instead of "assets/css/..." like the others, fixed by using /:id
+  // but should become /invoice/:id when more is learned  
+  app.get("/:id", isAuthenticated, function(req, res) {
+    order.one(req.params.id, (data) => {
       //store them in an object for handlebars to use
       let hbsObject = {
         invoice: data
       };
-      console.log(hbsObject)
       res.render("invoice", hbsObject);
     });
   });
