@@ -35,6 +35,7 @@ module.exports = function(app) {
       let hbsObject = {
         orders: data
       };
+      console.log(hbsObject, "ALL ORDERS")
       res.render("index", hbsObject);
     });
   });
