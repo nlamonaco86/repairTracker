@@ -43,6 +43,17 @@
     color: white
   }
 
+  .fourohfour{
+    background-color: white;
+      position: absolute;
+      width: 450px;
+      height: 300px;
+      z-index: 15;
+      top: 50%;
+      left: 50%;
+      margin: -100px 0 0 -150px;
+  }
+
   textarea {
     width:100%;
     resize: vertical;

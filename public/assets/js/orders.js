@@ -276,7 +276,7 @@ $(function () {
     $("#information").removeClass("hide");
     $("#orderNumber").text(response.id);
     $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
-    $("#invoiceBtn").attr("href", `./${response.id}`);
+    $("#invoiceBtn").attr("href", `./invoice/${response.id}`);
     $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
     $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
     $("#addr1").text(response.Customer.addr1);

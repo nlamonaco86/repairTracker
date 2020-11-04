@@ -40,9 +40,9 @@ module.exports = function(app) {
   });
 
   // strange issue with path/routing, if /invoice/:id the resulting page cannot find css/js files as it is
-  // looking in "/invoice/assets/css/..." instead of "assets/css/..." like the others, fixed by using /:id
-  // but should become /invoice/:id when more is learned  
-  app.get("/:id", isAuthenticated, function(req, res) {
+  // looking in "/invoice/assets/css/..." instead of "assets/css/..." like the others, fixed by using stylesheet
+  // directly on the invoice, will fix properly once more is learned about why it does this
+  app.get("/invoice/:id", isAuthenticated, function(req, res) {
     order.one(req.params.id, (data) => {
       //store them in an object for handlebars to use
       let hbsObject = {
@@ -54,6 +54,11 @@ module.exports = function(app) {
 
   // ADMIN FUNCTION
   app.get("/admin", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/admin.html"));
+    ( req.user.position === "Admin" ? res.sendFile(path.join(__dirname, "../public/admin.html")) :  res.sendFile(path.join(__dirname, "../public/fourohfour.html")) );
   });
+
+  app.get("/error", isAuthenticated, function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/fourohfour.html"));
+  });
+
 };
