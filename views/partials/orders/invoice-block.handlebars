@@ -2,6 +2,8 @@
 
     <div class="toolbar hidden-print">
         <div class="text-right">
+            <!-- Buttons don't work because it cant find the script - need to fix the pathing issue with handlebars -->
+            <button data-id="{{id}}" class="btn btn-info email"><i class="fa fa-envelope"></i> E-Mail</button>
             <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
         </div>
         <hr>
@@ -12,7 +14,7 @@
                 <div class="row">
 
                     <a target="_blank" href="/">
-                        <i class="fa fa-wrench text-info fa-5x"></i>
+                        <i class="fa fa-tools text-info fa-5x"></i>
                     </a>
                     <p class="display-4">repairTracker</p>
 
@@ -22,7 +24,7 @@
                                 Nicholas La Monaco
                             </a>
                         </h2>
-                        <div>55 Evergreen Terrace, Roselle Park NJ 07204</div>
+                        <div>742 Evergreen Terrace, Roselle Park NJ 07204</div>
                         <div><a class="text-info" href="tel:9083379307">(908) 337-9307</a></div>
                         <div><a class="text-info" href="mailto:nlamonaco86@gmail.com">nlamonaco86@gmail.com</a></div>
                     </div>
@@ -94,7 +96,6 @@
                 Thank you for viewing my demonstration of repairTracker's invoice system.
             </footer>
         </div>
-        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
         <div></div>
     </div>
 </div>

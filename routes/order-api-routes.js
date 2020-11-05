@@ -45,7 +45,6 @@ module.exports = function (app) {
   });
 
   const getOneOrder = (searchId) => {
-    console.log(searchId)
     return db.Order.findOne({
       where: { id: searchId },
       include: [

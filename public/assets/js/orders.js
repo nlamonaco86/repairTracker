@@ -254,6 +254,15 @@ $(function () {
     });
   });
 
+  $(".email").on("click", function (event) {
+
+    let id = $(this).data("id");
+    $.ajax("/api/email/invoice/" + id, {
+      type: "GET"
+    }).then(function (response) {
+      console.log(response)
+    });
+  });
 
   // If the user is an admin, create a link to the admin page
   const personalizePage = () => {

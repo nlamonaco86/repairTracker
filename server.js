@@ -4,7 +4,7 @@ const express = require("express");
 const PORT = process.env.PORT || 8080;
 const app = express();
 const session = require("express-session");
-// Requiring passport as we've configured it
+// Requiring passport as configured
 const passport = require("./config/passport");
 
 // Serve static content for the app from the "public" directory
@@ -31,6 +31,7 @@ const db = require("./models");
 require("./routes/html-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/order-api-routes.js")(app);
+require("./routes/email-api.js")(app);
 
 // Start the server so it can listening to client requests.
 db.sequelize.sync().then(function() {
