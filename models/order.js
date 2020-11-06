@@ -45,6 +45,10 @@ module.exports = function (sequelize, DataTypes) {
     paid: {
       type: DataTypes.TINYINT,
       default: 0
+    },
+    inView: {
+      type: DataTypes.TINYINT,
+      default: 0
     }
   });
   // Order.associate = function (models) {

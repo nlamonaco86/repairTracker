@@ -87,30 +87,40 @@ module.exports = function (app) {
     );
   });
 
-  app.put("/api/orders/:status/:id", (req, res) => {
-      switch (req.params.status) {
-        case "inProgress":
-          order.updateInProgress(req.params.id, (result) => {
-            (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-          });
-          break;
-        case "waiting":
-          order.updateWaiting(req.params.id, (result) => {
-            (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-          });
-          break;
-        case "complete":
-          order.updateComplete(req.params.id, (result) => {
-            (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-          });
-          break;
-        case "paid":
-          order.updatePaid(req.params.id, (result) => {
-            (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-          });
-          break;
-        default:
+  //UPDATE
+  app.put("/api/orders/inView/:id", (req, res) => {
+    db.Order.update(
+      { inView: 1 },
+      { where: { id: req.params.id } }, (result) => {
+        (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
       }
+    );
+  });
+
+  app.put("/api/orders/:status/:id", (req, res) => {
+    switch (req.params.status) {
+      case "inProgress":
+        order.updateInProgress(req.params.id, (result) => {
+          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+        });
+        break;
+      case "waiting":
+        order.updateWaiting(req.params.id, (result) => {
+          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+        });
+        break;
+      case "complete":
+        order.updateComplete(req.params.id, (result) => {
+          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+        });
+        break;
+      case "paid":
+        order.updatePaid(req.params.id, (result) => {
+          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+        });
+        break;
+      default:
+    }
   });
 
   //DELETE

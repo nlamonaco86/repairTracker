@@ -225,7 +225,7 @@ $(function () {
       <span aria-hidden="true">&times;</span>
     </button>
   </div>`);
-    $("#information").addClass("hide");
+    // $("#information").addClass("hide");
   }
 
   // DELETE FUNCTION
@@ -331,12 +331,12 @@ $(function () {
 
     let id = $(this).data("id");
 
-    $.ajax("/api/orders/" + id, {
-      type: "GET"
+    $.ajax("/api/orders/inView/" + id, {
+      type: "PUT"
     }).then(
       function (response) {
         console.log(response);
-        populateInfoCard(response);
+        // populateInfoCard(response);
       }
     );
   })
