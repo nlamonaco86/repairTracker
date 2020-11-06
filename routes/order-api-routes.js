@@ -87,14 +87,11 @@ module.exports = function (app) {
     );
   });
 
-  //UPDATE
+  // VIEW ORDER
   app.put("/api/orders/inView/:id", (req, res) => {
-    db.Order.update(
-      { inView: 1 },
-      { where: { id: req.params.id } }, (result) => {
-        (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-      }
-    );
+    order.inView(req.params.id, (result) => {
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+    });
   });
 
   app.put("/api/orders/:status/:id", (req, res) => {

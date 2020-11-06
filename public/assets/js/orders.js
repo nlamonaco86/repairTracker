@@ -335,8 +335,7 @@ $(function () {
       type: "PUT"
     }).then(
       function (response) {
-        console.log(response);
-        // populateInfoCard(response);
+        location.reload();
       }
     );
   })

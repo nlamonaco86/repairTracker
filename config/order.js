@@ -22,11 +22,9 @@ const order = {
       cb(result);
     });
   },
-  notInView: function (cb) {
-    //Performs a LEFT OUTER JOIN of Customers and Orders, based on matching OrderId
-    // This combines the Customer.x keys into the main object i.e. Customer.firstName just becomes firstName, however, due to Handlebars security not allowing 
-    // objects within objects to be accessed 
-    promQuery("UPDATE Orders SET inView='0' WHERE inview='1'", val, function (err, result) {
+  inView: function (val, cb) {
+    console.log(val);
+    promQuery("UPDATE Orders SET inView = IF(id = ?, 1, 0)", val, function (err, result) {
       if (err) throw err;
       cb(result);
     });
