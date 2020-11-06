@@ -44,21 +44,21 @@ module.exports = function (app) {
       });
   });
 
-  const getOneOrder = (searchId) => {
-    return db.Order.findOne({
-      where: { id: searchId },
-      include: [
-        { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
-      ]
-    })
-  }
+  // const getOneOrder = (searchId) => {
+  //   return db.Order.findOne({
+  //     where: { id: searchId },
+  //     include: [
+  //       { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+  //     ]
+  //   })
+  // }
 
-  app.get("/api/orders/:id", function (req, res) {
-    getOneOrder(req.params.id)
-      .then(result => {
-        (result === null ? res.json({ error: "No Results Found! Please try again" }) : res.json(result))
-      });
-  });
+  // app.get("/api/orders/:id", function (req, res) {
+  //   getOneOrder(req.params.id)
+  //     .then(result => {
+  //       (result === null ? res.json({ error: "No Results Found! Please try again" }) : res.json(result))
+  //     });
+  // });
 
   // In order to minimize confusion, when a user searches by Customer last name, Sequelize will find the Customer with that last name, 
   // then find their associated order, then search the Orders table for that order, and sends it back with its associated customer
@@ -72,19 +72,10 @@ module.exports = function (app) {
     })
       // Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
-        (result === null ? res.json({ error: "No Results Found! Please try again" }) : getOneOrder(result.Order.id)
-          .then(result => { (result === null ? res.json({ error: "No Results Found! Please try again" }) : res.json(result)) }))
+        (result === null ? res.json({ error: "No Results Found! Please try again" }) : order.inView(result.Order.id, (result) => {
+          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+        }))
       })
-  });
-
-  //UPDATE
-  app.put("/api/orders/:id", (req, res) => {
-    db.Order.update(
-      { issue: req.body.issue },
-      { where: { id: req.params.id } }, (result) => {
-        (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-      }
-    );
   });
 
   // VIEW ORDER
@@ -94,6 +85,17 @@ module.exports = function (app) {
     });
   });
 
+  //UPDATE ISSUE
+  app.put("/api/orders/:id", (req, res) => {
+    db.Order.update(
+      { issue: req.body.issue },
+      { where: { id: req.params.id } }, (result) => {
+        (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+      }
+    );
+  });
+
+  // UPDATE REPAIR ORDER STATUSES
   app.put("/api/orders/:status/:id", (req, res) => {
     switch (req.params.status) {
       case "inProgress":

@@ -23,7 +23,6 @@ const order = {
     });
   },
   inView: function (val, cb) {
-    console.log(val);
     promQuery("UPDATE Orders SET inView = IF(id = ?, 1, 0)", val, function (err, result) {
       if (err) throw err;
       cb(result);

@@ -282,50 +282,50 @@ $(function () {
   // Populate the information card when a successful request has been received
   const populateInfoCard = (response) => {
 
-    $("#information").removeClass("hide");
-    $("#orderNumber").text(response.id);
-    $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
-    $("#invoiceBtn").attr("href", `./invoice/${response.id}`);
-    $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
-    $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
-    $("#addr1").text(response.Customer.addr1);
-    $("#addr2").text(response.Customer.addr2);
-    $("#addr3").text(response.Customer.city + " " + response.Customer.state + " " + response.Customer.zip);
-    $("#orderID").text(response.id);
-    $("#vehicle").text(response.year + " " + response.make + " " + response.model);
-    $("#issueU").text(response.issue);
+    // $("#information").removeClass("hide");
+    // $("#orderNumber").text(response.id);
+    // $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
+    // $("#invoiceBtn").attr("href", `./invoice/${response.id}`);
+    // $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
+    // $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
+    // $("#addr1").text(response.Customer.addr1);
+    // $("#addr2").text(response.Customer.addr2);
+    // $("#addr3").text(response.Customer.city + " " + response.Customer.state + " " + response.Customer.zip);
+    // $("#orderID").text(response.id);
+    // $("#vehicle").text(response.year + " " + response.make + " " + response.model);
+    // $("#issueU").text(response.issue);
 
-    if (response.received) {
-      $("#updateInProgress").removeClass("hide");
-      $("#updateWaiting").removeClass("hide");
-      $("#updateComplete").addClass("hide");
-      $("#delete").removeClass("hide");
-      $("#markPaid").addClass("hide");
-    };
-    if (response.waiting) {
-      $("#updateInProgress").removeClass("hide");
-      $("#updateWaiting").addClass("hide");
-      $("#updateComplete").addClass("hide");
-      $("#delete").addClass("hide");
-      $("#markPaid").addClass("hide");
-    };
-    if (response.inProgress) {
-      $("#updateInProgress").addClass("hide");
-      $("#updateWaiting").removeClass("hide");
-      $("#updateComplete").removeClass("hide");
-      $("#delete").addClass("hide");
-      $("#markPaid").addClass("hide");
-    };
-    if (response.complete) {
-      $("#updateInProgress").addClass("hide");
-      $("#updateWaiting").addClass("hide");
-      $("#updateComplete").addClass("hide");
-      $("#delete").addClass("hide");
-      $("#markPaid").removeClass("hide");
-    };
+    // if (response.received) {
+    //   $("#updateInProgress").removeClass("hide");
+    //   $("#updateWaiting").removeClass("hide");
+    //   $("#updateComplete").addClass("hide");
+    //   $("#delete").removeClass("hide");
+    //   $("#markPaid").addClass("hide");
+    // };
+    // if (response.waiting) {
+    //   $("#updateInProgress").removeClass("hide");
+    //   $("#updateWaiting").addClass("hide");
+    //   $("#updateComplete").addClass("hide");
+    //   $("#delete").addClass("hide");
+    //   $("#markPaid").addClass("hide");
+    // };
+    // if (response.inProgress) {
+    //   $("#updateInProgress").addClass("hide");
+    //   $("#updateWaiting").removeClass("hide");
+    //   $("#updateComplete").removeClass("hide");
+    //   $("#delete").addClass("hide");
+    //   $("#markPaid").addClass("hide");
+    // };
+    // if (response.complete) {
+    //   $("#updateInProgress").addClass("hide");
+    //   $("#updateWaiting").addClass("hide");
+    //   $("#updateComplete").addClass("hide");
+    //   $("#delete").addClass("hide");
+    //   $("#markPaid").removeClass("hide");
+    // };
   }
 
-  // SIDE NAVBAR ON CLICK, get an order
+  // SIDE NAVBAR ON CLICK, view an order
   $(".order").on("click", function (event) {
     event.preventDefault();
 
@@ -375,17 +375,18 @@ $(function () {
 
     if (searchType === "Order Number") {
       let id = $("#searchTerm").val();
-      $.ajax("/api/orders/" + id, {
-        type: "GET"
+      $.ajax("/api/orders/inView/" + id, {
+        type: "PUT"
       }).then(
         function (response) {
+          console.log("it ran")
           if (response.error) {
             handleSearchError(event);
           }
           else if (response.paid === 1) {
             handlePaidError(event);
           }
-          else { populateInfoCard(response) }
+          else { location.reload(); }
         }
       );
     }
@@ -402,9 +403,7 @@ $(function () {
           else if (response.paid === 1) {
             handlePaidError(event);
           }
-          else {
-            populateInfoCard(response)
-          }
+          else { location.reload(); }
         }
       );
     };
