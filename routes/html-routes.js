@@ -28,21 +28,15 @@ module.exports = function (app) {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/orders", isAuthenticated, function (req, res) {
     order.all((data) => {
-      //store them in an object for handlebars to use
-      let hbsObject = {
-        orders: data
-      };
-      res.render("index", hbsObject);
+      res.render('index', { title: 'repairTracker - Employee', layout: 'main', orders: data });
     });
   });
 
   app.get("/invoice/:id", isAuthenticated, function (req, res) {
     order.one(req.params.id, (data) => {
-      //store them in an object for handlebars to use
-      let hbsObject = {
-        invoice: data
-      };
-      res.render("invoice", hbsObject);
+      console.log(data[0].firstName);
+      //create an object for handlebars to render, with options
+      res.render('invoice', { title: 'Invoice - ' + data[0].id, layout: 'main', invoice: data });
     });
   });
 
