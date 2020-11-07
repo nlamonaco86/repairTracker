@@ -37,22 +37,6 @@ $(function () {
         }
       );
     });
-    
-    // If the user is an admin, create a link to the admin page
-    const personalizePage = () => {
-      $.ajax("/api/user_data/", {
-        type: "GET"
-      }).then(function (response) {
-        if (response.position === "Admin") {
-          $(".theme").addClass("bg-info");
-          $("#navBar").append(
-            `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
-            href="/admin">ADMIN</a>`)
-        };
-      });
-    }
-    personalizePage();
-      
   });
   
   

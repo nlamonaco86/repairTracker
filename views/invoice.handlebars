@@ -1,5 +1,105 @@
 <div>
     {{#each invoice}}
-    {{> orders/invoice-block}}
-    {{/each}}
+    <div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <!-- Buttons don't work because it cant find the script - need to fix the pathing issue with handlebars -->
+            <button data-id="{{id}}" class="btn btn-info email"><i class="fa fa-envelope"></i> E-Mail</button>
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+
+                    <a target="_blank" href="/">
+                        <i class="fa fa-tools text-info fa-5x"></i>
+                    </a>
+                    <p class="display-4">repairTracker</p>
+
+                    <div class="col company-details">
+                        <h2 class="name">
+                            <a target="_blank" href="https://www.github.com/nlamonaco86" class="text-info">
+                                Nicholas La Monaco
+                            </a>
+                        </h2>
+                        <div>742 Evergreen Terrace, Roselle Park NJ 07204</div>
+                        <div><a class="text-info" href="tel:9083379307">(908) 337-9307</a></div>
+                        <div><a class="text-info" href="mailto:nlamonaco86@gmail.com">nlamonaco86@gmail.com</a></div>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        <h2 class="to">{{firstName}} {{lastName}}</h2>
+                        <div class="address">{{addr1}}, {{addr2}} {{city}} {{state}} {{zip}}</div>
+                        <div class=""><a href="mailto:{{email}}" class="text-info">{{email}}</a></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id text-dark">INVOICE: {{id}}</h1>
+                        <!-- Use SQL command in ORM to truncate the date -->
+                        <div class="date">{{createdAt}}</div>
+                        <div class="date">{{year}} {{make}} {{model}}</div>
+                        <div class="date">VIN: {{vin}}</div>
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-left">DESCRIPTION</th>
+                            <th class="text-right">HOURLY RATE</th>
+                            <th class="text-right">HOURS</th>
+                            <th class="text-right">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="no">01</td>
+                            <td class="text-left">
+                                <h3>Automotive Repair</h3>{{issue}}
+                            </td>
+                            <td class="unit">$99.00</td>
+                            <td class="qty">2</td>
+                            <td class="total">$198.00</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>$198.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">+ NJ Sales Tax</td>
+                            <td>$13.12</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">TOTAL</td>
+                            <td>$211.12</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Thank you!</div>
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice">All vehicles not picked up after 30 days will be crushed at the salvage yard.</div>
+                </div>
+            </main>
+            <footer>
+                Thank you for viewing my demonstration of repairTracker's invoice system.
+            </footer>
+        </div>
+        <div></div>
+    </div>
+</div>
+{{/each}}
 </div>
