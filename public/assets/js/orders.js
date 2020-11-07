@@ -38,60 +38,6 @@ $(function () {
     );
   });
 
-  // COLOR CHANGER FOR THE TRACKER PAGE
-  const changeColors = (target) => {
-    if (target.received === 1) {
-      $("#result").text("Your order has been received.")
-      $("#alert").addClass("alert-success")
-    }
-    if (target.inProgress === 1) {
-      $("#result").text("Your repair order is in progress.")
-      $("#alert").addClass("alert-success")
-    }
-    if (target.waiting === 1) {
-      $("#result").text("Your order is currently on hold. Please call 908-555-1234 for more information.")
-      $("#alert").addClass("alert-warning")
-    }
-    if (target.complete === 1) {
-      $("#result").text("Your order is ready for pickup")
-      $("#alert").addClass("alert-success")
-    }
-  }
-
-  //LOOKUP AN ORDER
-  $(".lookup").on("submit", function (event) {
-    //prevent page reload
-    event.preventDefault();
-    let id = $("#orderNumber").val()
-    // GET request
-    $.ajax("/api/orders/" + id, {
-      type: "GET"
-    }).then(
-      function (response) {
-        console.log(response)
-        $("#result").empty();
-        $("#alert").removeClass();
-        (response.error ? $("#result").text("Order Number not found! Please try again, or call 908-555-1234 for assistance.") && $("#alert").addClass("alert-danger") : changeColors(response))
-      }
-    );
-  });
-
-  // DYNAMIC MODAL
-  $(".info-modal-show").on("click", function (event) {
-    let id = $(this).data("id")
-    // GET request
-    $.ajax("/api/orders/" + id, {
-      type: "GET"
-    }).then(
-      function (response) {
-        $("#orderInfo").text("Order : " + response[0].id);
-        $("#custInfo").text(response[0].firstName + " " + response[0].lastName + "'s" + " " + response[0].year + " " + response[0].make + " " + response[0].model);
-        $("#issueU").text(response[0].issue);
-        $("#orderID").text(response[0].id)
-      }
-    );
-  });
-
   $(".photo-modal-show").on("click", function (event) {
     let id = $("#orderNumber").text();
     // GET request
@@ -254,16 +200,6 @@ $(function () {
     });
   });
 
-  $(".email").on("click", function (event) {
-
-    let id = $(this).data("id");
-    $.ajax("/api/email/invoice/" + id, {
-      type: "GET"
-    }).then(function (response) {
-      console.log(response)
-    });
-  });
-
   // If the user is an admin, create a link to the admin page
   const personalizePage = () => {
     $.ajax("/api/user_data/", {
@@ -278,52 +214,6 @@ $(function () {
     });
   }
   personalizePage();
-
-  // Populate the information card when a successful request has been received
-  const populateInfoCard = (response) => {
-
-    // $("#information").removeClass("hide");
-    // $("#orderNumber").text(response.id);
-    // $("#customerName").text(response.Customer.firstName + " " + response.Customer.lastName);
-    // $("#invoiceBtn").attr("href", `./invoice/${response.id}`);
-    // $("#emailAddr").html(`<a href="mailto:${response.Customer.email}" class="text-info font-weight-bold">${response.Customer.email}</a>`);
-    // $("#telNum").html(`<a id="phoneNum" href="tel:${response.Customer.tel}" class="font-weight-bold text-info">${response.Customer.tel}</a>`);
-    // $("#addr1").text(response.Customer.addr1);
-    // $("#addr2").text(response.Customer.addr2);
-    // $("#addr3").text(response.Customer.city + " " + response.Customer.state + " " + response.Customer.zip);
-    // $("#orderID").text(response.id);
-    // $("#vehicle").text(response.year + " " + response.make + " " + response.model);
-    // $("#issueU").text(response.issue);
-
-    // if (response.received) {
-    //   $("#updateInProgress").removeClass("hide");
-    //   $("#updateWaiting").removeClass("hide");
-    //   $("#updateComplete").addClass("hide");
-    //   $("#delete").removeClass("hide");
-    //   $("#markPaid").addClass("hide");
-    // };
-    // if (response.waiting) {
-    //   $("#updateInProgress").removeClass("hide");
-    //   $("#updateWaiting").addClass("hide");
-    //   $("#updateComplete").addClass("hide");
-    //   $("#delete").addClass("hide");
-    //   $("#markPaid").addClass("hide");
-    // };
-    // if (response.inProgress) {
-    //   $("#updateInProgress").addClass("hide");
-    //   $("#updateWaiting").removeClass("hide");
-    //   $("#updateComplete").removeClass("hide");
-    //   $("#delete").addClass("hide");
-    //   $("#markPaid").addClass("hide");
-    // };
-    // if (response.complete) {
-    //   $("#updateInProgress").addClass("hide");
-    //   $("#updateWaiting").addClass("hide");
-    //   $("#updateComplete").addClass("hide");
-    //   $("#delete").addClass("hide");
-    //   $("#markPaid").removeClass("hide");
-    // };
-  }
 
   // SIDE NAVBAR ON CLICK, view an order
   $(".order").on("click", function (event) {
@@ -387,11 +277,6 @@ $(function () {
         }
       );
      }
-  });
-
-  // PRINT AN INVOICE
-  $('#printInvoice').click(function () {
-    window.print();
   });
 
 });
