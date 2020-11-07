@@ -32,10 +32,10 @@ FUTURE UPDATES:
 Simply clone the repo, and/or visit the deployed page link to begin.
 
 ## Usage
-![repairTracker](./public/assets/screenshot.png) 
-![invoice](./public/assets/screenshot4.png) 
-![splash page](./public/assets/screenshot2.png) 
-![customer view](./public/assets/screenshot3.png) 
+![repairTracker](./views/assets/screenshot.png) 
+![invoice](./views/assets/screenshot4.png) 
+![splash page](./views/assets/screenshot2.png) 
+![customer view](./views/assets/screenshot3.png) 
 
 ## Questions
 
