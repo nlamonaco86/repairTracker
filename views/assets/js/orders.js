@@ -68,7 +68,7 @@ $(function () {
       data: newIssue
     }).then(
       function () {
-        console.log("done!")
+     window.reload();
       }
     );
   });
