@@ -73,7 +73,7 @@ module.exports = function (app) {
       // Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
         (result === null ? res.json({ error: "No Results Found! Please try again" }) : order.inView(result.Order.id, (result) => {
-          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+          (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.status(200).end())
         }))
       })
   });
@@ -81,7 +81,7 @@ module.exports = function (app) {
   // VIEW ORDER
   app.put("/api/orders/inView/:id", (req, res) => {
     order.inView(req.params.id, (result) => {
-      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+      (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.status(200).end() )
     });
   });
 

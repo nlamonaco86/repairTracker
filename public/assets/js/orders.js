@@ -340,24 +340,12 @@ $(function () {
     );
   })
 
-  // Functions to handle errors during a search
-  const handlePaidError = (event) => {
-    event.preventDefault();
-    $("#searchError").html(
-      `<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>This order is paid!</strong> Please search the completed orders database.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>`);
-    $("#information").addClass("hide");
-  }
-
-  const handleSearchError = (event) => {
+  // Function to handle errors during a search
+  const handleSearchError = (error, event) => {
     event.preventDefault();
     $("#searchError").html(
       `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>No results found!</strong> Please try again.
+    <strong>${error}</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -366,47 +354,39 @@ $(function () {
   }
 
   // Dynamic search function checks to see which term is being used to search and sends off the 
-  // proper request. Nested error handling takes all situations into account 
+  // proper request. Nested error handling takes different possibilities into account
   $(".searchForm").on("submit", function (event) {
     $("#searchError").empty();
     event.preventDefault();
+    let id = $("#searchTerm").val();
 
-    let searchType = $("#searchType").val();
+    // check if input is a a name or number to determine which API call to make
+    if ( isNaN(id) ) {
+      let lastName = id
+      $.ajax("/api/orders/named/" + lastName, {
+            type: "GET"
+          }).then(
+            function (response) {
+              if (response.error) {
+                handleSearchError(response.error, event);
+              }
+              else { location.reload(); }
+            }
+          );
+    }
 
-    if (searchType === "Order Number") {
-      let id = $("#searchTerm").val();
+    else { 
       $.ajax("/api/orders/inView/" + id, {
         type: "PUT"
       }).then(
         function (response) {
-          console.log("it ran")
           if (response.error) {
-            handleSearchError(event);
-          }
-          else if (response.paid === 1) {
-            handlePaidError(event);
+            handleSearchError(response.error, event);
           }
           else { location.reload(); }
         }
       );
-    }
-
-    if (searchType === "Last Name") {
-      let lastName = $("#searchTerm").val();
-      $.ajax("/api/orders/named/" + lastName, {
-        type: "GET"
-      }).then(
-        function (response) {
-          if (response.error) {
-            handleSearchError(event);
-          }
-          else if (response.paid === 1) {
-            handlePaidError(event);
-          }
-          else { location.reload(); }
-        }
-      );
-    };
+     }
   });
 
   // PRINT AN INVOICE
