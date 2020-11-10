@@ -18,41 +18,41 @@
                 </div>
                 <div class="row d-flex justify-content-around">
                     <div id="invoiceDiv">
-                        <a id="invoiceBtn" href="/invoice/{{id}}" target="_blank"><button class="btn btn-info btn-circle btn-lg"><i
-                                    class="fas fa-2x fa-file-invoice-dollar"></i></button></a>
+                        <a id="invoiceBtn" href="/invoice/{{id}}" target="_blank"><button class="btn btn-info btn-circle btn-lg" aria-label="invoice"><i
+                                    class="fas fa-3x fa-file-invoice-dollar"></i></button></a>
                     </div>
                     <button class="photo-modal-show btn btn-info btn-circle btn-lg" data-toggle="modal"
-                        data-target="#photoModal"><i class="fas fa-2x fa-image"></i></button>
+                        data-target="#photoModal" aria-label="view photo"><i class="fas fa-3x fa-image"></i></button>
 
                     {{#if received}}
                     <div id="updateInProgress">
-                        <button class="btn btn-success btn-circle btn-lg"><i class="fas fa-2x fa-wrench"></i></button>
+                        <button class="btn btn-success btn-circle btn-lg" aria-label="in progress"><i class="fas fa-3x fa-wrench"></i></button>
                     </div>
                     <div id="updateWaiting">
-                        <button class="btn btn-warning btn-circle btn-lg"><i class="fas fa-2x fa-pause"></i></button>
+                        <button class="btn btn-warning btn-circle btn-lg" aria-label="waiting"><i class="fas fa-3x fa-pause"></i></button>
                     </div>
                     <div id="delete">
                         <button class="btn btn-danger btn-circle btn-lg"><i
-                                class="fas fa-2x fa-times"></i></button></button>
+                                class="fas fa-3x fa-times" aria-label="delete"></i></button></button>
                     </div>
                     {{/if}}
                     {{#if inProgress}}
                     <div id="updateWaiting">
-                        <button class="btn btn-warning btn-circle btn-lg"><i class="fas fa-2x fa-pause"></i></button>
+                        <button class="btn btn-warning btn-circle btn-lg" aria-label="waiting"><i class="fas fa-3x fa-pause"></i></button>
                     </div>
                     <div id="updateComplete">
-                        <button class="btn btn-success btn-circle btn-lg"><i class="fas fa-2x fa-check"></i></button>
+                        <button class="btn btn-success btn-circle btn-lg" aria-label="complete"><i class="fas fa-3x fa-check"></i></button>
                     </div>
                     {{/if}}
                     {{#if waiting}}
                      <div id="updateInProgress">
-                        <button class="btn btn-success btn-circle btn-lg"><i class="fas fa-2x fa-wrench"></i></button>
+                        <button class="btn btn-success btn-circle btn-lg"><i class="fas fa-3x fa-wrench"></i></button>
                     </div>
                     {{/if}}
                     {{#if complete}}
                      <div id="markPaid">
-                        <button class="btn btn-success btn-circle btn-lg"><i
-                                class="fas fa-2x fa-dollar-sign"></i></button>
+                        <button class="btn btn-success btn-circle btn-lg" aria-label="paid"><i
+                                class="fas fa-3x fa-dollar-sign"></i></button>
                     </div>
                     {{/if}}
                     {{#if paid}}
@@ -65,15 +65,15 @@
         <div class="col-lg-6">
             <h5 class="card-title mt-3">{{year}} {{make}} {{model}}</h5>
 
-            <p class="font-weight-bold">Tech Instructions:</p>
+            <label for="issueU" class="font-weight-bold">Tech Instructions:</label>
             <form id="updateIssue">
                 <div class="form-group">
                     <textarea type="text" class="extended" id="issueU" rows="6">{{issue}}
                   </textarea>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success btn-circle btn-lg">
-                        <i class="fas fa-2x fa-save"></i></button>
+                    <button type="submit" class="btn btn-success btn-circle btn-lg" aria-label="update issue">
+                        <i class="fas fa-3x fa-save"></i></button>
                 </div>
             </form>
         </div>

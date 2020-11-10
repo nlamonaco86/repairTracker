@@ -1,40 +1,41 @@
-$(document).ready(function() {
-  // Getting references to our form and inputs
-  let loginForm = $("form.login");
-  let emailInput = $("input#email-input");
-  let passwordInput = $("input#password-input");
+// Getting references to our form and inputs
+let loginForm = document.querySelector('.login');
+let emailInput = document.getElementById('email-input');
+let passwordInput = document.getElementById('password-input');
 
-  // When the form is submitted, we validate there's an email and password entered
-  loginForm.on("submit", function(event) {
-    event.preventDefault();
-    let userData = {
-      email: emailInput.val().trim(),
-      password: passwordInput.val().trim()
-    };
+if (loginForm){
+loginForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  let userData = {
+    email: document.getElementById("email-input").value,
+    password: document.getElementById("password-input").value
+  };
 
-    if (!userData.email || !userData.password) {
-      return;
-    }
+  if (!userData.email || !userData.password) {
+    return;
+  };
 
-    // If we have an email and password we run the loginUser function and clear the form
-    loginUser(userData.email, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
-  });
-
-  // loginUser does a post to our "api/login" route and if successful, redirects us the the orders page
-  function loginUser(email, password) {
-    $.post("/api/login", {
-      email: email,
-      password: password
-    })
-      .then(function() {
-        window.location.replace("/orders");
-        // If there's an error, log the error
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  }
-
+  // If an email and password run the loginUser function and clear the form
+  loginUser(userData.email, userData.password);
+  emailInput.val("");
+  passwordInput.val("");
 });
+};
+
+// post the data to the server, and if it's correct, proceed
+const loginUser = (email, password) => {
+  const data = { email: email, password: password };
+
+  fetch('api/login', { 
+    method: 'POST', 
+    headers: {'Content-Type': 'application/json', },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(data => {
+      window.location.replace("/orders");
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+    });
+};

@@ -1,55 +1,54 @@
-$(document).ready(function() {
-  // Getting references to our form and input
-  var signUpForm = $("form.signup");
-  // var emailInput = $("input#email-input");
-  // var passwordInput = $("input#password-input");
+// Getting references to form
+let signUpForm = document.querySelector('.signup');
 
-  // When the signup button is clicked, we validate the email and password are not blank
-  signUpForm.on("submit", function(event) {
-    event.preventDefault();
-    let userData = {
-      email: $("input#email-input").val().trim(),
-      password: $("input#password-input").val().trim(),
-      first: $("input#first-input").val().trim(),
-      last: $("input#last-input").val().trim(),
-      position: $("input#position-input").val().trim(),
-      phone: $("input#phone-input").val().trim(),
-      dob: $("input#dob-input").val().trim(),
-      ssn: $("input#ssn-input").val().trim(),
-    };
+// When the signup button is clicked, validate the email and password are not blank
+if (signUpForm) {
+signUpForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  let userData = {
+    email: document.getElementById("email-input").value,
+    password: document.getElementById("password-input").value,
+    first: document.getElementById("first-input").value,
+    last: document.getElementById("last-input").value,
+    position: document.getElementById("position-input").value,
+    phone: document.getElementById("phone-input").value,
+    dob: document.getElementById("dob-input").value,
+    ssn: document.getElementById("ssn-input").value,
+  };
 
-    if (!userData.email || !userData.password) {
-      return;
-    }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password, userData.first, userData.last,
-      userData.position,  userData.phone,  userData.dob, userData.ssn);
-    emailInput.val("");
-    passwordInput.val("");
-  });
-
-  // Does a post to the signup route. If successful, we are redirected to the members page
-  // Otherwise we log any errors
-  function signUpUser(email, password, first, last, position, phone, dob, ssn) {
-    $.post("/api/signup", {
-      email: email,
-      password: password,
-      first: first, 
-      last: last, 
-      position: position, 
-      phone: phone,
-      dob: dob,
-      ssn: ssn
-    })
-      .then(function(data) {
-        window.location.replace("/orders");
-        // If there's an error, handle it by throwing up a bootstrap alert
-      })
-      .catch(handleLoginErr);
+  if (!userData.email || !userData.password) {
+    return;
   }
-
-  function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
-  }
+  // If email and password, run the signUpUser function
+  signUpUser(userData.email, userData.password, userData.first, userData.last,
+    userData.position, userData.phone, userData.dob, userData.ssn);
+    document.getElementById("email-input").value = "";
+    document.getElementById("password-input").value = "";
 });
+};
+
+const signUpUser = (email, password, first, last, position, phone, dob, ssn) => {
+  
+  let newUser = { email: email,
+    password: password,
+    first: first,
+    last: last,
+    position: position,
+    phone: phone,
+    dob: dob,
+    ssn: ssn 
+  };
+// Post to the signup route. If successful, redirect to the members page, otherwise log any errors
+  fetch('api/signup', { 
+    method: 'POST', 
+    headers: { 'Content-Type': 'application/json', },
+    body: JSON.stringify(newUser),
+  })
+    .then(response => response.json())
+    .then(data => {
+      window.location.replace("/orders");
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+    });
+};

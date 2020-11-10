@@ -1,20 +1,23 @@
-// Wait to attach handlers until the DOM is fully loaded
-$(function () {
+// Because elements are generated dynamically by Handlebars, they may not always be there. 
+// If they are not, then it breaks the page, so event listeners are conditional.
 
-    $(".email").on("click", function (event) {
-      let id = $(this).data("id");
-      $.ajax("/api/email/invoice/" + id, {
-        type: "GET"
-      }).then(function (response) {
-        console.log(response)
-      });
-    });
-     
-    // PRINT AN INVOICE
-    $('#printInvoice').click(function () {
-      window.print();
-    });
-  
+let printBtn = document.querySelector("#printInvoice");
+let emailBtn = document.querySelector(".email");
+
+if (printBtn){
+printBtn.addEventListener("click", () => {
+  window.print();
+}); 
+};
+
+if (emailBtn){
+emailBtn.addEventListener("click", () => {
+  let id = emailBtn.getAttribute("data-id");
+  fetch("/api/email/invoice/" + id, {type: "GET"}).then((response) => {
+    return response.json();
+  })
+  .then(function (body) {
+    console.log(body)
   });
-  
-  
+});
+};

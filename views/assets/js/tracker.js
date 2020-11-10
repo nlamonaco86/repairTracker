@@ -1,42 +1,48 @@
-// Wait to attach handlers until the DOM is fully loaded
-$(function () {
-    // COLOR CHANGER FOR THE TRACKER PAGE
-    const changeColors = (target) => {
-      if (target.received === 1) {
-        $("#result").text("Your order has been received.")
-        $("#alert").addClass("alert-success")
-      }
-      if (target.inProgress === 1) {
-        $("#result").text("Your repair order is in progress.")
-        $("#alert").addClass("alert-success")
-      }
-      if (target.waiting === 1) {
-        $("#result").text("Your order is currently on hold. Please call 908-555-1234 for more information.")
-        $("#alert").addClass("alert-warning")
-      }
-      if (target.complete === 1) {
-        $("#result").text("Your order is ready for pickup")
-        $("#alert").addClass("alert-success")
-      }
-    }
-  
-    //LOOKUP AN ORDER
-    $(".lookup").on("submit", function (event) {
-      //prevent page reload
-      event.preventDefault();
-      let id = $("#orderNumber").val()
-      // GET request
-      $.ajax("/api/orders/" + id, {
-        type: "GET"
-      }).then(
+let result = document.getElementById("result");
+let alertBox = document.getElementById("alert");
+let searchBtn = document.getElementById("search");
+
+//LOOKUP AN ORDER
+if (searchBtn){
+searchBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  result.innerHTML = ' ';
+  alertBox.className = ' ';
+
+  let id = document.getElementById("orderNumber").value;
+  if (id === "") {
+    result.innerHTML = "Order Number not found! Please try again, or call 908-555-1234 for assistance."
+    alertBox.classList.add("alert-danger")
+  }
+  else {
+    // GET request
+    fetch("/api/orders/" + id, { type: "GET" }).then((response) => {
+      return response.json();
+    })
+      .then(
         function (response) {
-          console.log(response)
-          $("#result").empty();
-          $("#alert").removeClass();
-          (response.error ? $("#result").text("Order Number not found! Please try again, or call 908-555-1234 for assistance.") && $("#alert").addClass("alert-danger") : changeColors(response))
+          if (response.received === 1) {
+            result.innerHTML = "Your order has been received.";
+            alertBox.classList.add("alert-success");
+          }
+          if (response.inProgress === 1) {
+            result.innerHTML = "Your repair order is in progress.";
+            alertBox.classList.add("alert-success");
+          }
+          if (response.waiting === 1) {
+            result.innerHTML = "Your order is currently on hold. Please call 908-555-1234 for more information.";
+            alertBox.classList.add("alert-warning");
+          }
+          if (response.complete === 1) {
+            result.innerHTML = "Your order is ready for pickup.";
+            alertBox.classList.add("alert-success");
+          }
+          if (response.error) {
+            result.innerHTML = "Order Number not found! Please try again, or call 908-555-1234 for assistance."
+            alertBox.classList.add("alert-danger")
+          }
         }
-      );
-    });
-  });
-  
-  
+      )
+  }
+});
+}
