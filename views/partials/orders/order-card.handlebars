@@ -1,4 +1,26 @@
-<div id="information">
+<div>
+    <div class="card-body row" id="photoViewer" style="display: none;">
+        <div class="col-lg-12">
+            <div class="d-flex flex-row justify-content-end">
+                <div>
+                    <div id="close">
+                        <button class="btn btn-danger btn-circle btn-md mb-3" id="close"><i
+                                class="fas fa-2x fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <div>
+                    {{#if photo}}
+                     <img src="{{photo}}" alt="auto repair" class="img-fluid" id="photo">
+                    {{/if}}
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="card-body row">
         <div class="col-lg-6">
             <h4 class="card-title">Order #<span id="orderID">{{id}}</span></h4>
@@ -18,7 +40,8 @@
                 </div>
                 <div class="row d-flex justify-content-around">
                     <div id="invoiceDiv">
-                        <a id="invoiceBtn" href="/invoice/{{id}}" target="_blank"><button class="btn btn-info btn-circle btn-lg" aria-label="invoice"><i
+                        <a id="invoiceBtn" href="/invoice/{{id}}" target="_blank"><button
+                                class="btn btn-info btn-circle btn-lg" aria-label="invoice"><i
                                     class="fas fa-3x fa-file-invoice-dollar"></i></button></a>
                     </div>
                     <button class="photo-modal-show btn btn-info btn-circle btn-lg" data-toggle="modal"
@@ -26,31 +49,36 @@
 
                     {{#if received}}
                     <div id="updateInProgress">
-                        <button class="btn btn-success btn-circle btn-lg" aria-label="in progress"><i class="fas fa-3x fa-wrench"></i></button>
+                        <button class="btn btn-success btn-circle btn-lg" aria-label="in progress"><i
+                                class="fas fa-3x fa-wrench"></i></button>
                     </div>
                     <div id="updateWaiting">
-                        <button class="btn btn-warning btn-circle btn-lg" aria-label="waiting"><i class="fas fa-3x fa-pause"></i></button>
+                        <button class="btn btn-warning btn-circle btn-lg" aria-label="waiting"><i
+                                class="fas fa-3x fa-pause"></i></button>
                     </div>
                     <div id="delete">
-                        <button class="btn btn-danger btn-circle btn-lg"><i
-                                class="fas fa-3x fa-times" aria-label="delete"></i></button></button>
+                        <button class="btn btn-danger btn-circle btn-lg"><i class="fas fa-3x fa-times"
+                                aria-label="delete"></i></button></button>
                     </div>
                     {{/if}}
                     {{#if inProgress}}
                     <div id="updateWaiting">
-                        <button class="btn btn-warning btn-circle btn-lg" aria-label="waiting"><i class="fas fa-3x fa-pause"></i></button>
+                        <button class="btn btn-warning btn-circle btn-lg" aria-label="waiting"><i
+                                class="fas fa-3x fa-pause"></i></button>
                     </div>
                     <div id="updateComplete">
-                        <button class="btn btn-success btn-circle btn-lg" aria-label="complete"><i class="fas fa-3x fa-check"></i></button>
+                        <button class="btn btn-success btn-circle btn-lg" aria-label="complete"><i
+                                class="fas fa-3x fa-check"></i></button>
                     </div>
                     {{/if}}
                     {{#if waiting}}
-                     <div id="updateInProgress">
-                        <button class="btn btn-success btn-circle btn-lg" aria-label="in progress"><i class="fas fa-3x fa-wrench"></i></button>
+                    <div id="updateInProgress">
+                        <button class="btn btn-success btn-circle btn-lg" aria-label="in progress"><i
+                                class="fas fa-3x fa-wrench"></i></button>
                     </div>
                     {{/if}}
                     {{#if complete}}
-                     <div id="markPaid">
+                    <div id="markPaid">
                         <button class="btn btn-success btn-circle btn-lg" aria-label="paid"><i
                                 class="fas fa-3x fa-dollar-sign"></i></button>
                     </div>

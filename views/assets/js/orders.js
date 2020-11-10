@@ -44,18 +44,18 @@ let photoModal = document.querySelector('.photo-modal-show');
 if (photoModal) {
   photoModal.addEventListener('click', (event) => {
     event.preventDefault();
-    let id = document.getElementById("orderID").textContent;
-    // GET request
-    fetch("/api/orders/" + id, { type: "GET" }).then((response) => {
-      return response.json();
-    })
-      .then((response) => {
-        let currentPhoto = document.getElementById("currentPhoto");
-        let orderInfoPhoto = document.getElementById("orderInfoPhoto");
-        (response.photo ? currentPhoto.src = response.photo : currentPhoto.src = "../assets/nophoto.png")
-        if (response.id){ orderInfoPhoto.innerHTML = "Order : " + response.id }
-      }
-      );
+    let photoViewer = document.getElementById("photoViewer");
+    let photo = document.getElementById("photo")
+    photoViewer.style = ""
+  })
+};
+
+let closeBtn = document.getElementById('close');
+if (closeBtn) {
+ closeBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    let photoViewer = document.getElementById("photoViewer");
+    photoViewer.style = "display: none;"
   })
 };
 
