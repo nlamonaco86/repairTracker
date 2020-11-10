@@ -41,7 +41,7 @@ module.exports = function (app) {
 
   // ADMIN FUNCTION
   app.get("/admin", isAuthenticated, function (req, res) {
-    (req.user.position === "Admin" ?  res.render('admin', { title: 'repairTracker - Administrator'}) :  res.render('fourohfour', { title: '404 - Page Not Found'}) );
+    (req.user.position === "Admin" ?  res.render('admin', { title: 'repairTracker - Administrator' }) :  res.render('fourohfour', { title: '404 - Page Not Found'}) );
   });
 
   app.get("/error", isAuthenticated, function (req, res) {

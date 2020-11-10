@@ -1,4 +1,7 @@
-$.get("/api/user_data").then(cloudData => {
+fetch("/api/user_data/", {type: "GET"}).then((cloudData) => {
+    return cloudData.json();
+  })
+.then(cloudData => {
     
     var myWidget = cloudinary.createUploadWidget({
         cloudName: cloudData.cloudUploadName, 
@@ -10,8 +13,10 @@ $.get("/api/user_data").then(cloudData => {
         }
     )
     
-    document.getElementById("upload_widget").addEventListener("click", function(){
+    let widget = document.getElementById("upload_widget")
+    if (widget){ 
+        widget.addEventListener("click", function(){
         myWidget.open();
     }, false);
-
+    }
 });

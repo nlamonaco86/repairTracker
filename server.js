@@ -6,6 +6,10 @@ const app = express();
 const session = require("express-session");
 // Requiring passport as configured
 const passport = require("./config/passport");
+const compression = require("compression");
+
+// compress static assets for fast load times
+app.use(compression());
 
 // Serve static content for the app from the "public" directory
 app.use(express.static("views"));

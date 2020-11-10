@@ -1,21 +1,20 @@
-<div>
-    {{#each invoice}}
-    <div id="invoice">
+{{#each invoice}}
+<div id="invoice">
 
     <div class="toolbar hidden-print">
         <div class="text-right">
-            <!-- Buttons don't work because it cant find the script - need to fix the pathing issue with handlebars -->
-            <button data-id="{{id}}" class="btn btn-info email"><i class="fa fa-envelope"></i> E-Mail</button>
-            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <button data-id="{{id}}" class="btn btn-info email" aria-label="email"><i class="fa fa-envelope"></i>
+                E-Mail</button>
+            <button id="printInvoice" class="btn btn-info" aria-label="print"><i class="fa fa-print"></i> Print</button>
         </div>
         <hr>
     </div>
-    <div class="invoice overflow-auto">
+    <div class="invoice">
         <div style="min-width: 600px">
             <header>
                 <div class="row">
 
-                    <a target="_blank" href="/">
+                    <a target="_blank" href="/" class="ml-4">
                         <i class="fa fa-tools text-info fa-5x"></i>
                     </a>
                     <p class="display-4">repairTracker</p>
@@ -91,7 +90,8 @@
                 <div class="thanks">Thank you!</div>
                 <div class="notices">
                     <div>NOTICE:</div>
-                    <div class="notice">All vehicles not picked up after 30 days will be crushed at the salvage yard.</div>
+                    <div class="notice">All vehicles not picked up after 30 days will be crushed at the salvage yard.
+                    </div>
                 </div>
             </main>
             <footer>
@@ -102,4 +102,3 @@
     </div>
 </div>
 {{/each}}
-</div>
