@@ -41,7 +41,7 @@
                     </div>
                     <div class="col invoice-details">
                         <h1 class="invoice-id text-dark">INVOICE: {{id}}</h1>
-                        <!-- Use SQL command in ORM to truncate the date -->
+                        <!-- SQL command in ORM to truncate the date -->
                         <div class="date">{{createdAt}}</div>
                         <div class="date">{{year}} {{make}} {{model}}</div>
                         <div class="date">VIN: {{vin}}</div>
@@ -50,40 +50,59 @@
                 <table border="0" cellspacing="0" cellpadding="0">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th class="text-left">DESCRIPTION</th>
+                            <th></th>
+                            <th class="text-left"></th>
                             <th class="text-right">HOURLY RATE</th>
                             <th class="text-right">HOURS</th>
                             <th class="text-right">TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr>
-                            <td class="no">01</td>
+                            <td class="no"></td>
                             <td class="text-left">
-                                <h3>Automotive Repair</h3>{{issue}}
+                                <h3 class="font-weight-bold font-weight-bold text-dark">DESCRIPTION:</h3>
+                                {{issue}}
                             </td>
-                            <td class="unit">$99.00</td>
-                            <td class="qty">2</td>
-                            <td class="total">$198.00</td>
+                            <td class="unit">${{rate}}</td>
+                            <td class="qty">{{hours}}</td>
+                            <td class="total">${{laborTotal}}</td>
                         </tr>
                     </tbody>
+                     <thead>
+                        <tr>
+                            <th></th>
+                            <th class="text-left"></th>
+                            <th class="text-right"></th>
+                            <th class="text-right"></th>
+                            <th class="text-right">PRICE</th>
+                        </tr>
+                    </thead>
+                     <tr>
+                            <td class="no"></td>
+                            <td class="text-left">
+                                 <h3 class="font-weight-bold font-weight-bold text-dark">REPLACEMENT PARTS:</h3>
+                                {{partsNeeded}}
+                            </td>
+                            <td class="unit"></td>
+                            <td class="qty"></td>
+                            <td class="total">${{partsPrice}}</td>
+                        </tr>
                     <tfoot>
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">SUBTOTAL</td>
-                            <td>$198.00</td>
+                            <td>${{subTotal}}</td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">+ NJ Sales Tax</td>
-                            <td>$13.12</td>
+                            <td>${{salesTax}}</td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">TOTAL</td>
-                            <td>$211.12</td>
+                            <td>${{total}}</td>
                         </tr>
                     </tfoot>
                 </table>
