@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg bg-info" id="mainNav">
+    <div class="container">
+        <a href='/orders'><i class="fas fa-tools fa-3x text-light" aria-label="home"></i></a>
+        <a href='/orders' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
+        <button class="navbar-toggler navbar-toggler-right font-weight-bold text-white rounded" type="button"
+            data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation" aria-label="nav toggler">Menu <i
+                class="fas fa-bars"></i></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1" id="adminLink">
+                </li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+                        href="#new">NEW WORK ORDER</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+                        href="/logout">LOG OUT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+
+    <section class="mt-4 bg-light text-dark mb-0" id="main">
+
+        <div class="">
+            <!-- SIDE NAVIGATION -->
+            <div class="row">
+                <div class="col-lg-4 ml-auto">
+
+                    <!-- Error handling -->
+                    <div id="messageError">
+
+                    </div>
+                    <!-- SEARCH BAR GOES HERE-->
+                    <form class="searchForm bg-info">
+                        <div class="form-row ml-1 d-flex justify-content-around">
+                            <div class="col-lg-9 mt-1">
+                                {{!-- <label for="searchTerm"></label> --}}
+                                <input type="text" class="" placeholder="Enter Order # or Last Name" id="searchTerm"
+                                    aria-label="search term">
+                            </div>
+                            <button class="btn bg-info text-white btn-circle" type="submit" aria-label="search"><i
+                                    class="fas fa-2x fa-search"></i></button>
+                        </div>
+                    </form>
+
+                    <nav class="navbar bg-white">
+                        <div class="container">
+                            <button
+                                class="navbar-toggler navbar-toggler-right font-weight-bold bg-warning text-dark rounded col-lg-12 ml-auto"
+                                type="button" data-toggle="collapse" data-target="#receivedList"
+                                aria-controls="receivedList" aria-expanded="false" aria-label="Toggle navigation"
+                                aria-label="nav toggler"> UNREAD </button>
+                            <div class="collapse navbar-collapse" id="receivedList">
+                                <ul class="navbar-nav ml-auto font-weight-bold">
+                                    {{#each messages}}
+                                    {{#if unread}}
+                                    {{> message-nav unread=true}}
+                                    {{/if}}
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <nav class="navbar bg-white">
+                        <div class="container">
+                            <button
+                                class="navbar-toggler navbar-toggler-right font-weight-bold bg-warning text-dark rounded col-lg-12 ml-auto"
+                                type="button" data-toggle="collapse" data-target="#receivedList"
+                                aria-controls="receivedList" aria-expanded="false" aria-label="Toggle navigation"
+                                aria-label="nav toggler"> READ </button>
+                            <div class="collapse navbar-collapse" id="receivedList">
+                                <ul class="navbar-nav ml-auto font-weight-bold">
+                                    {{#each messagea}}
+                                    {{#if read}}
+                                    {{> message-nav unread=false}}
+                                    {{/if}}
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <div class="col-lg-8 mr-auto" id="infoCard">
+
+                    <div class="card text-left">
+                        <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
+                            Information:</div>
+                        {{#each messages}}
+                        {{#if inView}}
+                        {{> message-box inView=true}}
+                        {{/if}}
+                        {{/each}}
+                    </div>
+
+                </div>
+            </div>
+    </section>
+</div>

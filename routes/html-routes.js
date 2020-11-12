@@ -1,6 +1,7 @@
 // Requiring path to use relative routes to HTML
 let path = require("path");
 const order = require("../config/order.js");
+const message = require("../config/message.js")
 // Requiring our custom middleware for checking if a user is logged in
 let isAuthenticated = require("../config/middleware/isAuthenticated");
 
@@ -36,6 +37,12 @@ module.exports = function (app) {
     order.one(req.params.id, (data) => {
       //create an object for handlebars to render, with options
       res.render('invoice', { title: 'Invoice - ' + data[0].id, layout: 'main', invoice: data });
+    });
+  });
+
+  app.get("/messages", isAuthenticated, function (req, res) {
+    message.all((data) => {
+      res.render('messages', { title: 'repairTracker - Messages', messages: data });
     });
   });
 

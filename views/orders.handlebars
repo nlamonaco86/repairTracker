@@ -12,26 +12,6 @@
         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
             href="#new">NEW WORK ORDER</a>
         </li>
-        <!-- COLOR CHANGER -->
-        {{!-- <li class="nav-item dropdown mx-0 mx-lg-1">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-palette"></i>
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<div class="row" >
-								<a class="dropdown-item">A</a>
-								<a class="dropdown-item">B</a>
-								<a class="dropdown-item">C</a>
-								<a class="dropdown-item">D</a>
-								<a class="dropdown-item">E</a>
-								<a class="dropdown-item">F</a>
-								<a class="dropdown-item">G</a>
-								<a class="dropdown-item">H</a>
-							</div>
-
-						</div>
-					</li> --}}
         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
             href="/logout">LOG OUT</a>
         </li>
@@ -57,7 +37,8 @@
             <div class="form-row ml-1 d-flex justify-content-around">
               <div class="col-lg-9 mt-1">
                 {{!-- <label for="searchTerm"></label> --}}
-                <input type="text" class="" placeholder="Enter Order # or Last Name" id="searchTerm" aria-label="search term">
+                <input type="text" class="" placeholder="Enter Order # or Last Name" id="searchTerm"
+                  aria-label="search term">
               </div>
               <button class="btn bg-info text-white btn-circle" type="submit" aria-label="search"><i
                   class="fas fa-2x fa-search"></i></button>
@@ -238,46 +219,9 @@
               </div>
             </form>
             <button id="upload_widget" class="btn btn-info btn-circle btn-lg" aria-label="image upload"><i
-                class="fas fa-2x fa-image" ></i></button>
+                class="fas fa-2x fa-image"></i></button>
           </div>
         </div>
-
-
-
       </div>
-
   </section>
 </div>
-{{!-- 
-<!-- Modal -->
-<div class="modal fade" id="photoModal" data-backdrop="static" tabindex="-1" aria-labelledby="infoModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div>
-          <h4 class="modal-title" id="orderInfoPhoto"></h4>
-          <div>
-            <h5 id="custInfo"></h5>
-          </div>
-        </div>
-        <button type="button" class="btn-md btn-danger btn-circle" data-dismiss="modal" aria-label="Close"><i
-            class="fas fa-2x fa-times" aria-label="exit"></i>
-        </button>
-      </div>
-      <img src="../assets/nophoto.png" id="currentPhoto" class="img-fluid" alt="repair photo">
-      <div class="d-flex justify-content-around pad">
-        {{!-- <button id="upload_widget" class="btn-lg btn-info btn-circle"><i class="fas fa-2x fa-image"></i></button> --}}
-        <form class="updatePhoto pad">
-          <div id="photoID" class="hide"></div>
-          <div id="newURL" class="hide"></div>
-          <div class="d-flex justify-content">
-            <button type="submit" class="btn-lg btn-circle btn-success">
-              <i class="fas fa-2x fa-save" aria-label="image upload"></i></button>
-          </div>
-        </form>
-        {{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
-      </div>
-    </div>
-  </div>
-</div> --}}
