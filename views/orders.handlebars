@@ -207,6 +207,20 @@
                 <label for="vin">VIN</label>
                 <input type="text" class="" id="vin" placeholder="(Optional)">
               </div>
+              <div class="form-row justify-content-center">
+                <div class="form-group col-md-4">
+                  <label for="hours">Labor Hours</label>
+                  <input type="number" class="" id="hours" min="1" max="80">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="make">Parts Price</label>
+                  <input type="text" class="" id="partsPrice">
+                </div>
+              </div>
+                <div class="form-group">
+                  <label for="partsNeeded">Parts Needed</label>
+                   <input type="text" class="" id="partsNeeded" rows="1"></input>
+                </div>
               <div class="form-group">
                 <label for="issue">Issue:</label>
                 <textarea class="" id="issue" rows="3"></textarea>
@@ -228,36 +242,3 @@
 
   </section>
 </div>
-{{!-- 
-<!-- Modal -->
-<div class="modal fade" id="photoModal" data-backdrop="static" tabindex="-1" aria-labelledby="infoModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div>
-          <h4 class="modal-title" id="orderInfoPhoto"></h4>
-          <div>
-            <h5 id="custInfo"></h5>
-          </div>
-        </div>
-        <button type="button" class="btn-md btn-danger btn-circle" data-dismiss="modal" aria-label="Close"><i
-            class="fas fa-2x fa-times" aria-label="exit"></i>
-        </button>
-      </div>
-      <img src="../assets/nophoto.png" id="currentPhoto" class="img-fluid" alt="repair photo">
-      <div class="d-flex justify-content-around pad">
-        {{!-- <button id="upload_widget" class="btn-lg btn-info btn-circle"><i class="fas fa-2x fa-image"></i></button> --}}
-        <form class="updatePhoto pad">
-          <div id="photoID" class="hide"></div>
-          <div id="newURL" class="hide"></div>
-          <div class="d-flex justify-content">
-            <button type="submit" class="btn-lg btn-circle btn-success">
-              <i class="fas fa-2x fa-save" aria-label="image upload"></i></button>
-          </div>
-        </form>
-        {{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
-      </div>
-    </div>
-  </div>
-</div> --}}

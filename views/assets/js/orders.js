@@ -6,6 +6,10 @@ if (createForm) {
     //define a new order as an object based on input from the form
     let newOrder = {
       id: Math.floor(10000000 + Math.random() * 9000000),
+      hours: document.getElementById("hours").value,
+      rate: 99,
+      partsPrice: document.getElementById("partsPrice").value,
+      partsNeeded: document.getElementById("partsNeeded").value,
       firstName: document.getElementById("firstname").value,
       lastName: document.getElementById("lastname").value,
       tel: document.getElementById("tel").value,

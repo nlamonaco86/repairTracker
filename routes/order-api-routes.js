@@ -10,6 +10,10 @@ module.exports = function (app) {
     // Order entry
     db.Order.create({
       id: req.body.id,
+      hours: req.body.hours,
+      rate: req.body.rate,
+      partsPrice: req.body.partsPrice,
+      partsNeeded: req.body.partsNeeded,
       year: req.body.year,
       make: req.body.make,
       model: req.body.model,
