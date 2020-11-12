@@ -40,8 +40,8 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/messages", isAuthenticated, function (req, res) {
-    message.all((data) => {
+  app.get("/messages/:id", isAuthenticated, function (req, res) {
+    message.all(req.params.id, (data) => {
       res.render('messages', { title: 'repairTracker - Messages', messages: data });
     });
   });

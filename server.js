@@ -36,6 +36,7 @@ require("./routes/html-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/order-api-routes.js")(app);
 require("./routes/email-api.js")(app);
+require("./routes/message-api.js")(app);
 
 // Start the server so it can listening to client requests.
 db.sequelize.sync().then(function() {
