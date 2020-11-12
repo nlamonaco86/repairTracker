@@ -1,0 +1,283 @@
+<nav class="navbar navbar-expand-lg bg-info" id="mainNav">
+  <div class="container">
+    <a href='/orders'><i class="fas fa-tools fa-3x text-light" aria-label="home"></i></a>
+    <a href='/orders' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
+    <button class="navbar-toggler navbar-toggler-right font-weight-bold text-white rounded" type="button"
+      data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+      aria-label="Toggle navigation" aria-label="nav toggler">Menu <i class="fas fa-bars"></i></button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mx-0 mx-lg-1" id="adminLink">
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+            href="#new">NEW WORK ORDER</a>
+        </li>
+        <!-- COLOR CHANGER -->
+        {{!-- <li class="nav-item dropdown mx-0 mx-lg-1">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-palette"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<div class="row" >
+								<a class="dropdown-item">A</a>
+								<a class="dropdown-item">B</a>
+								<a class="dropdown-item">C</a>
+								<a class="dropdown-item">D</a>
+								<a class="dropdown-item">E</a>
+								<a class="dropdown-item">F</a>
+								<a class="dropdown-item">G</a>
+								<a class="dropdown-item">H</a>
+							</div>
+
+						</div>
+					</li> --}}
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+            href="/logout">LOG OUT</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+
+  <section class="mt-4 bg-light text-dark mb-0" id="main">
+
+    <div class="">
+      <!-- SIDE NAVIGATION -->
+      <div class="row">
+        <div class="col-lg-4 ml-auto">
+
+          <!-- Error handling -->
+          <div id="searchError">
+
+          </div>
+          <!-- SEARCH BAR GOES HERE-->
+          <form class="searchForm bg-info">
+            <div class="form-row ml-1 d-flex justify-content-around">
+              <div class="col-lg-9 mt-1">
+                {{!-- <label for="searchTerm"></label> --}}
+                <input type="text" class="" placeholder="Enter Order # or Last Name" id="searchTerm" aria-label="search term">
+              </div>
+              <button class="btn bg-info text-white btn-circle" type="submit" aria-label="search"><i
+                  class="fas fa-2x fa-search"></i></button>
+            </div>
+          </form>
+
+          <nav class="navbar bg-white">
+            <div class="container">
+              <button
+                class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+                type="button" data-toggle="collapse" data-target="#receivedList" aria-controls="receivedList"
+                aria-expanded="false" aria-label="Toggle navigation" aria-label="nav toggler"> RECEIVED </button>
+              <div class="collapse navbar-collapse" id="receivedList">
+                <ul class="navbar-nav ml-auto font-weight-bold">
+                  {{#each orders}}
+                  {{#if received}}
+                  {{> orders/order-nav received=true}}
+                  {{/if}}
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          <nav class="navbar bg-white">
+            <div class="container">
+              <button
+                class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+                type="button" data-toggle="collapse" data-target="#inProgressList" aria-controls="inProgressList"
+                aria-expanded="false" aria-label="Toggle navigation" aria-label="nav toggler"> IN PROGRESS </button>
+              <div class="collapse navbar-collapse" id="inProgressList">
+                <ul class="navbar-nav ml-auto font-weight-bold">
+                  {{#each orders}}
+                  {{#if inProgress}}
+                  {{> orders/order-nav inProgress=true}}
+                  {{/if}}
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          <nav class="navbar bg-white">
+            <div class="container">
+              <button
+                class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+                type="button" data-toggle="collapse" data-target="#waitingList" aria-controls="waitingList"
+                aria-expanded="false" aria-label="Toggle navigation" aria-label="nav toggler"> ON HOLD </button>
+              <div class="collapse navbar-collapse" id="waitingList">
+                <ul class="navbar-nav ml-auto font-weight-bold">
+                  {{#each orders}}
+                  {{#if waiting}}
+                  {{> orders/order-nav waiting=true}}
+                  {{/if}}
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          <nav class="navbar bg-white">
+            <div class="container">
+              <button
+                class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded col-lg-12 ml-auto"
+                type="button" data-toggle="collapse" data-target="#completeList" aria-controls="completeList"
+                aria-expanded="false" aria-label="Toggle navigation" aria-label="nav toggler"> COMPLETE </button>
+              <div class="collapse navbar-collapse" id="completeList">
+                <ul class="navbar-nav ml-auto font-weight-bold">
+                  {{#each orders}}
+                  {{#if complete}}
+                  {{> orders/order-nav complete=true}}
+                  {{/if}}
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+        </div>
+
+        <div class="col-lg-8 mr-auto" id="infoCard">
+
+          <div class="card text-left">
+            <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
+              Information:</div>
+            {{#each orders}}
+            {{#if inView}}
+            {{> orders/order-card inView=true}}
+            {{/if}}
+            {{/each}}
+          </div>
+
+          <!-- form goes here -->
+          <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center mt-4" id="new">
+            Input Order:</div>
+          <div class="card-body font-weight-bold">
+            <form class="create">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="firstname">First Name</label>
+                  <input type="text" class="" id="firstname">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lastname">Last Name</label>
+                  <input type="text" class="" id="lastname">
+                </div>
+              </div>
+              <div class="hide" id="photo"></div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="email">Email</label>
+                  <input type="email" class="" id="email" placeholder="customer@email.com">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="tel">Telephone</label>
+                  <input type="text" class="" id="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="addr">Address</label>
+                <input type="text" class="" id="addr" placeholder="1234 Main St"></input>
+              </div>
+              <div class="form-group">
+                <label for="addrB">Address 2</label>
+                <input type="text" class="" id="addrB" placeholder="Apartment, studio, or floor"></input>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="city">City</label>
+                  <input type="text" class="" id="city"></input>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="state">State</label>
+                  <select id="state" class="">
+                    <option>CT</option>
+                    <option>DE</option>
+                    <option>MA</option>
+                    <option>MD</option>
+                    <option>ME</option>
+                    <option>NH</option>
+                    <option selected>NJ</option>
+                    <option>NY</option>
+                    <option>PA</option>
+                    <option>VT</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="zip">ZIP</label>
+                  <input type="text" class="" id="zip">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="year">Year</label>
+                  <input type="number" class="" id="year" min="1912" max="2025">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="make">Make</label>
+                  <input type="text" class="" id="make">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="model">Model</label>
+                  <input type="text" class="" id="model">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="vin">VIN</label>
+                <input type="text" class="" id="vin" placeholder="(Optional)">
+              </div>
+              <div class="form-group">
+                <label for="issue">Issue:</label>
+                <textarea class="" id="issue" rows="3"></textarea>
+              </div>
+              <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-success btn-circle btn-lg" aria-label="create work order"><i
+                    class="fas fa-3x fa-plus"></i></button>
+                {{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
+              </div>
+            </form>
+            <button id="upload_widget" class="btn btn-info btn-circle btn-lg" aria-label="image upload"><i
+                class="fas fa-2x fa-image" ></i></button>
+          </div>
+        </div>
+
+
+
+      </div>
+
+  </section>
+</div>
+{{!-- 
+<!-- Modal -->
+<div class="modal fade" id="photoModal" data-backdrop="static" tabindex="-1" aria-labelledby="infoModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h4 class="modal-title" id="orderInfoPhoto"></h4>
+          <div>
+            <h5 id="custInfo"></h5>
+          </div>
+        </div>
+        <button type="button" class="btn-md btn-danger btn-circle" data-dismiss="modal" aria-label="Close"><i
+            class="fas fa-2x fa-times" aria-label="exit"></i>
+        </button>
+      </div>
+      <img src="../assets/nophoto.png" id="currentPhoto" class="img-fluid" alt="repair photo">
+      <div class="d-flex justify-content-around pad">
+        {{!-- <button id="upload_widget" class="btn-lg btn-info btn-circle"><i class="fas fa-2x fa-image"></i></button> --}}
+        <form class="updatePhoto pad">
+          <div id="photoID" class="hide"></div>
+          <div id="newURL" class="hide"></div>
+          <div class="d-flex justify-content">
+            <button type="submit" class="btn-lg btn-circle btn-success">
+              <i class="fas fa-2x fa-save" aria-label="image upload"></i></button>
+          </div>
+        </form>
+        {{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
+      </div>
+    </div>
+  </div>
+</div> --}}

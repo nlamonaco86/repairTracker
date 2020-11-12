@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "2.4.3",
+    "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.0",
     "express-handlebars": "^5.1.0",
@@ -19,11 +20,11 @@
     "fs": "0.0.1-security",
     "mysql": "^2.18.1",
     "mysql2": "^1.6.5",
+    "nodemailer": "^6.4.14",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "sequelize": "^5.8.6",
-    "uuid": "^8.3.1"
+    "sequelize": "^5.8.6"
   },
   "description": "",
   "devDependencies": {

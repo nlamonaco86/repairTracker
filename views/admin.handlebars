@@ -1,0 +1,73 @@
+	<nav class="navbar navbar-expand-lg bg-info" id="mainNav">
+		<div class="container">
+			<a href='/'><i class="fas fa-tools fa-3x text-light"></i></a>
+			<a href='/' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
+			<button class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded"
+				type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+							href="#new">NEW WORK ORDER</a>
+					</li>
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
+							href="/logout">LOG OUT</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+  </nav>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2 class="display-4">Admin</h2>
+        <form class="signup">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="email-input" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="password-input" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="firstName">First</label>
+            <input type="text" class="form-control" id="first-input" placeholder="First Name">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last</label>
+            <input type="text" class="form-control" id="last-input" placeholder="Last Name">
+          </div>
+          <div class="form-group">
+            <label for="position">Position</label>
+            <input type="text" class="form-control" id="position-input" placeholder="Position">
+          </div>
+          <div class="form-group">
+            <label for="phone number">Phone</label>
+            <input type="text" class="form-control" id="phone-input" placeholder="Phone">
+          </div>
+          <div class="form-group">
+            <label for="date of bith">D.O.B.</label>
+            <input type="text" class="form-control" id="dob-input" placeholder="DOB">
+          </div>
+          <div class="form-group">
+            <label for="ssn">SSN</label>
+            <input type="text" class="form-control" id="ssn-input" placeholder="SSN">
+          </div>
+          <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span> <span class="msg"></span>
+          </div>
+          <button type="submit" class="btn btn-default">Sign Up</button>
+        </form>
+        <br />
+        <p>Or log in <a href="/login">here</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottomed"><a class="text-dark" href="http://www.github.com/nlamonaco86">Contact</a></div>
+</body>
+
+</html>

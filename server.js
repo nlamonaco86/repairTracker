@@ -4,11 +4,15 @@ const express = require("express");
 const PORT = process.env.PORT || 8080;
 const app = express();
 const session = require("express-session");
-// Requiring passport as we've configured it
+// Requiring passport as configured
 const passport = require("./config/passport");
+const compression = require("compression");
+
+// compress static assets for fast load times
+app.use(compression());
 
 // Serve static content for the app from the "public" directory
-app.use(express.static("public"));
+app.use(express.static("views"));
 
 // Parse application body as JSON
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +35,7 @@ const db = require("./models");
 require("./routes/html-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/order-api-routes.js")(app);
+require("./routes/email-api.js")(app);
 
 // Start the server so it can listening to client requests.
 db.sequelize.sync().then(function() {

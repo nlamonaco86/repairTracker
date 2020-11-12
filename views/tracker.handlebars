@@ -1,0 +1,47 @@
+ <nav class="navbar navbar-expand-lg fixed-top bg-info" id="mainNav">
+    <div class="container">
+      <a href='/'><i class="fas fa-tools fa-3x text-light"></i></a>
+      <a href='/' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
+      <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded"
+        type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+              href="/about">ABOUT</a>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+              href="mailto:nlamonaco86@gmail.com">CONTACT</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <header class="masthead bg-light text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <i class="fas fa-question fa-7x text-info pad"></i>
+  
+        <h1 class="masthead-heading mb-0 text-dark mt-5 mb-4">Track Your Order</h1>
+
+        <div id="alert" role="alert" class="">
+          <h4 id="result"></h4>
+        </div>
+
+        <form class="lookup text-dark">
+
+          <div class="form-group">
+            <label for="orderNumber" class="mt-4">Please enter your 8-digit order ID.</label>
+            <input type="text" class="" id="orderNumber" aria-describedby="orderHelp">
+            <small id="orderHelp" class="form-text text-muted">Don't have your Order ID? Call us at 908-555-1234.</small>
+          </div>
+          <div class="row justify-content-center pad"><button type="submit" class="btn-lg btn-info display-4 shadow"
+              id="search" aria-label="search">Search</button></div>
+        </form>
+
+      </div>
+    </header>
+
+  </div>

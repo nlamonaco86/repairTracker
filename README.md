@@ -18,7 +18,8 @@ repairTracker is intended for use on an iPad in a mobile setting, but is respons
 Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
-- Integration with CarMD API for detailed maintenance time/cost estimations, VIN decoder and Technical Service Bulletins
+- Integration with CarMD or similar API for detailed maintenance time/cost estimations, VIN decoder and Technical Service Bulletins
+
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
 
@@ -32,10 +33,10 @@ FUTURE UPDATES:
 Simply clone the repo, and/or visit the deployed page link to begin.
 
 ## Usage
-![repairTracker](./public/assets/screenshot.png) 
-![invoice](./public/assets/screenshot4.png) 
-![splash page](./public/assets/screenshot2.png) 
-![customer view](./public/assets/screenshot3.png) 
+![repairTracker](./views/assets/screenshot.png) 
+![invoice](./views/assets/screenshot4.png) 
+![splash page](./views/assets/screenshot2.png) 
+![customer view](./views/assets/screenshot3.png) 
 
 ## Questions
 
