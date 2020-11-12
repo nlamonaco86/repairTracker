@@ -43,7 +43,10 @@ module.exports = function (sequelize, DataTypes) {
         inView: {
             type: DataTypes.TINYINT,
             default: 0
-        }
+        },
+        replied:{
+            type: DataTypes.STRING
+        },
     });
     return Message;
 };

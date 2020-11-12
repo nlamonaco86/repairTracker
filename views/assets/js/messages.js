@@ -8,7 +8,6 @@ if (messageTag) {
         event.preventDefault();
       // target the element's ID by class
       let id = messageTag[i].id
-      console.log(id)
       // the view is actually an update query / set the DB record inView to true and all others to false
       fetch('../api/messages/inView/' + id, {
         method: 'PUT',
