@@ -1,26 +1,38 @@
 // Order model
 module.exports = function (sequelize, DataTypes) {
   const Order = sequelize.define("Order", {
-      year: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      make: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      model: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-     vin: {
-        type: DataTypes.STRING
-      },
-     color: {
-        type: DataTypes.STRING
-      },
-    issue: {
+    hours: {
+      type: DataTypes.INTEGER
+    },
+    rate: { 
+      type: DataTypes.INTEGER
+    },
+    partsPrice: {
+      type: DataTypes.INTEGER
+    },
+    partsNeeded: {
+      type: DataTypes.BLOB
+    },
+    year: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    make: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    model: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    vin: {
+      type: DataTypes.STRING
+    },
+    color: {
+      type: DataTypes.STRING
+    },
+    issue: {
+      type: DataTypes.BLOB,
       allowNull: false
     },
     photo: {

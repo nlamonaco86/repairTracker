@@ -19,6 +19,7 @@ Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
 - Integration with CarMD or similar API for detailed maintenance time/cost estimations, VIN decoder and Technical Service Bulletins
+
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
 
