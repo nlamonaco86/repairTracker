@@ -8,13 +8,19 @@ const promQuery = util.promisify(connection.query).bind(connection);
 const message = {
   all: function (cb) {
     //Get all messages
-    promQuery("SELECT * FROM Messages", function (err, result) {
+    promQuery("SELECT id, senderID, receiverID, senderEmail, receiverEmail, senderName, subject, body, unread, seen, inView, SUBSTRING(createdAt, 1, 16) AS createdAt FROM Messages", function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   one: function (val, cb) {
-    promQuery("SELECT * FROM Messages WHERE id = ?", val, function (err, result) {
+    promQuery("SELECT id, senderID, receiverID, senderEmail, receiverEmail, senderName, subject, body, unread, seen, inView, SUBSTRING(createdAt, 1, 16) AS createdAt FROM Messages WHERE id = ?", val, function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  },
+  byReceiver: function (val, cb) {
+    promQuery("SELECT id, senderID, receiverID, senderEmail, receiverEmail, senderName, subject, body, unread, seen, inView, SUBSTRING(createdAt, 1, 16) AS createdAt FROM Messages WHERE receiverID = ?", val, function (err, result) {
       if (err) throw err;
       cb(result);
     });
@@ -25,64 +31,18 @@ const message = {
       cb(result);
     });
   },
-//   // create: function (vals, cb) {
-//   //     promQuery("INSERT INTO Messages (firstName, lastName, tel, email, year, make, model, issue, orderNum, photo) VALUES (?,?,?,?,?,?,?,?,?,?)", vals, function (err, result) {
-//   //       if (err) {
-//   //         throw err;
-//   //       }
-//   //       cb(result);
-//   //     });
-//   // },
-//   // findOne: function (val, cb) {
-//   //   promQuery("SELECT * FROM Messages WHERE orderNum = ?", val, function (err, result) {
-//   //     if (err) throw err;
-//   //     cb(result);
-//   //   });
-//   // },
-//   // updateIssue: function (id, issue, cb) {
-
-//   //   let queryString = "UPDATE Messages SET issue = " 
-//   //   queryString += "'"
-//   //   queryString += issue
-//   //   queryString += "'"
-//   //   queryString += " WHERE id = "
-//   //   queryString += id
-//   //   promQuery(queryString, function (err, result) {
-//   //     if (err) throw err;
-//   //     cb(result);
-//   //   });
-//   // },
-//   //  // redundant, optimize and combine
-//   updateInProgress: function (condition, cb) {
-//     promQuery("UPDATE Messages SET complete = 0, inProgress = 1, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
-//       if (err) throw err;
-//       cb(result);
-//     });
-//   },
-//   updateWaiting: function (condition, cb) {
-//     promQuery("UPDATE Messages SET complete = 0, inProgress = 0, waiting = 1, received = 0 WHERE id = ?", condition, function (err, result) {
-//       if (err) throw err;
-//       cb(result);
-//     });
-//   },
-//   updateComplete: function (condition, cb) {
-//     promQuery("UPDATE Messages SET complete = 1, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
-//       if (err) throw err;
-//       cb(result);
-//     });
-//   },
-//   updatePaid: function (condition, cb) {
-//     promQuery("UPDATE Messages SET paid = 1, complete = 0, inProgress = 0, waiting = 0, received = 0 WHERE id = ?", condition, function (err, result) {
-//       if (err) throw err;
-//       cb(result);
-//     });
-//   }
-  // delete: function (id, cb) {
-  //   promQuery("DELETE FROM Messages WHERE id = ?", id, function (err, result) {
-  //     if (err) throw err;
-  //     cb(result);
-  //   });
-  // }
+  markRead: function (val, cb) {
+    promQuery("UPDATE Messages SET unread = 0, seen = 1, WHERE id = ?", val, function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  },
+  markUnread: function (val, cb) {
+    promQuery("UPDATE Messages SET unread = 1, seen = 0, WHERE id = ?", val, function (err, result) {
+      if (err) throw err;
+      cb(result);
+    });
+  },
 };
 // Export the database functions for the controller.
 module.exports = message;

@@ -1,71 +1,21 @@
-<div>IT WORKS</div>
-{{!-- <div>
-    {{!-- <div class="card-body row" id="photoViewer" style="display: none;"> --}}
-    <div class="card-body row" id="photoViewer" style="display: none;">
-        <div class="col-lg-12">
-            <div class="d-flex flex-row justify-content-end">
-                <div>
-                    <div id="close">
-                        <button class="btn btn-danger btn-circle btn-md mb-3" id="close"><i
-                                class="fas fa-2x fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row justify-content-center">
-                <div>
-                    {{#if photo}}
-                     <img src="" alt="auto repair" class="img-fluid" id="photo">
-                    {{/if}}
-                   
-                </div>
-            </div>
-
-        </div>
+<div class="card-body row">
+    <div class="col-lg-12">
+        <p class="card-title"><span class="lead font-weight-bold">From: {{senderName}}</span> @<span class="small">{{createdAt}}</span></p>
+        <p><span class="font-weight-bold lead">Subject:</span> {{subject}}</p>
+        <p style="border-style: groove;border-radius:14px;font-size:18px;padding:10px;">{{body}}</p>
     </div>
 
-    <div class="card-body row">
-        <div class="col-lg-6">
-            <h4 class="card-title">Order #<span id="orderID"></span></h4>
-            <h5 class="card-title"></h5>
-            <div class="mt-3">
-                <a href="mailto:" class="text-info font-weight-bold"></a>
-            </div>
-            <div class="mt-2">
-                <a href="tel:" class="font-weight-bold text-info"></a>
-            </div>
-            <div class="mt-3"></div>
-            <div></div>
-            <div></div>
-            <div class="mt-3" id="buttonDiv">
-                <div class="d-flex justify-content-center">
-                    <p class="font-weight-bold mt-2">ACTIONS:</p>
-                </div>
-                <div class="row d-flex justify-content-around">
-                    <div id="invoiceDiv">
-                        <a id="invoiceBtn" href="/invoice/" target="_blank"><button
-                                class="btn btn-info btn-circle btn-lg" aria-label="invoice"><i
-                                    class="fas fa-3x fa-file-invoice-dollar"></i></button></a>
-                    </div>
-                    <button class="photo-modal-show btn btn-info btn-circle btn-lg" data-toggle="modal"
-                        data-target="#photoModal" aria-label="view photo"><i class="fas fa-3x fa-image"></i></button>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            <h5 class="card-title mt-3"></h5>
-
-            <label for="issueU" class="font-weight-bold">Tech Instructions:</label>
-            <form id="updateIssue">
-                <div class="form-group">
-                    <textarea type="text" class="extended" id="issueU" rows="6">
+    <div class="col-lg-12">
+        <h5 class="card-title mt-3"></h5>
+        <form id="msgReply">
+            <div class="form-group">
+                <textarea type="text" class="extended" id="msg" rows="6">
                   </textarea>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success btn-circle btn-lg" aria-label="update issue">
-                        <i class="fas fa-3x fa-save"></i></button>
-                </div>
-            </form>
-        </div>
-    </div> --}}
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success btn-circle btn-lg" aria-label="message reply">
+                    <i class="fas fa-3x fa-reply"></i></button>
+            </div>
+        </form>
+    </div>
+</div>

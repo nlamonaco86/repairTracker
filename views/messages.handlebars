@@ -50,10 +50,10 @@
                         <div class="container">
                             <button
                                 class="navbar-toggler navbar-toggler-right font-weight-bold bg-warning text-dark rounded col-lg-12 ml-auto"
-                                type="button" data-toggle="collapse" data-target="#receivedList"
-                                aria-controls="receivedList" aria-expanded="false" aria-label="Toggle navigation"
+                                type="button" data-toggle="collapse" data-target="#unreadList"
+                                aria-controls="unreadList" aria-expanded="false" aria-label="Toggle navigation"
                                 aria-label="nav toggler"> UNREAD </button>
-                            <div class="collapse navbar-collapse" id="receivedList">
+                            <div class="collapse navbar-collapse" id="unreadList">
                                 <ul class="navbar-nav ml-auto font-weight-bold">
                                     {{#each messages}}
                                     {{#if unread}}
@@ -68,14 +68,14 @@
                         <div class="container">
                             <button
                                 class="navbar-toggler navbar-toggler-right font-weight-bold bg-warning text-dark rounded col-lg-12 ml-auto"
-                                type="button" data-toggle="collapse" data-target="#receivedList"
-                                aria-controls="receivedList" aria-expanded="false" aria-label="Toggle navigation"
+                                type="button" data-toggle="collapse" data-target="#readList"
+                                aria-controls="readList" aria-expanded="false" aria-label="Toggle navigation"
                                 aria-label="nav toggler"> READ </button>
-                            <div class="collapse navbar-collapse" id="receivedList">
+                            <div class="collapse navbar-collapse" id="readList">
                                 <ul class="navbar-nav ml-auto font-weight-bold">
-                                    {{#each messagea}}
-                                    {{#if read}}
-                                    {{> message-nav unread=false}}
+                                    {{#each messages}}
+                                    {{#if seen}}
+                                    {{> message-nav seen=true}}
                                     {{/if}}
                                     {{/each}}
                                 </ul>
@@ -88,7 +88,7 @@
 
                     <div class="card text-left">
                         <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
-                            Information:</div>
+                            MESSAGE:</div>
                         {{#each messages}}
                         {{#if inView}}
                         {{> message-box inView=true}}

@@ -26,3 +26,9 @@ VALUES ('16187009', 'Penelope','King','908-555-1234', '123 Main Sreet','','Anyto
        ('12396078', 'John','Piper','908-555-6297', '17 Picket Fence Lane','','Smallton','NJ','07737', 'piperFamily@email.com', '2020-09-29 17:45:51', '2020-09-29 17:45:51', '63619486'),
        ('12362500', 'Roger','Buckland','856-555-8534', '331 Jefferson Way','','Anytown','NJ','08819', 'buckRogers@email.com', '2020-09-29 17:45:51', '2020-09-29 17:45:51', '94576125'),
        ('15505040', 'Dennis','Meyers','908-555-1212', '12 Skylark Drive','Apt. 512','BigCity','NJ','07729', 'meyerCoConsulting@email.com', '2020-09-29 17:45:51', '2020-09-29 17:45:51', '48532174');
+
+-- MESSAGE SEEDS
+INSERT INTO Messages (id, senderID, receiverID, senderEmail, receiverEmail, senderName, tel, 'subject',body,unread, 'read', inView,createdAt,updatedAt) 
+VALUES('1','1','2','sender@test.com', 'receiver@test.com','Karen Baker','9085551234','test email subject','HELLO. I have been trying to reach you for several days now. I keep calling and calling, and every time your employee tells me someone will call back. BUT THEY NEVER DO. I have missed brunch now THREE times because of your STUPID technician.','1','0','1','2020-09-29 17:45:51', '2020-09-29 17:45:51'),
+('2','1','2','sender@test.com', 'receiver@test.com','Karen Baker','9085551234','test email subject','I am looking to speak to your manager RIGHT NOW','0','1','0','2020-09-29 17:45:51', '2020-09-29 17:45:51'),
+('3','1','2','sender@test.com', 'receiver@test.com','Karen Baker','9085551234','test email subject','I need to speak to your managers managers manager, thats how i will get things done!','0','1','0','2020-09-29 17:45:51', '2020-09-29 17:45:51');

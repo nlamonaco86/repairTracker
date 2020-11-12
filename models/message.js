@@ -17,6 +17,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
+        senderName:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         tel: {
             type: DataTypes.STRING,
         },
@@ -25,12 +29,16 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         },
         body: {
-            type: DataTypes.STRING,
+            type: DataTypes.BLOB,
             allowNull: false
         },
         unread: {
             type: DataTypes.TINYINT,
             default: 1
+        },
+        seen:{
+            type: DataTypes.TINYINT,
+            default: 0
         },
         inView: {
             type: DataTypes.TINYINT,
