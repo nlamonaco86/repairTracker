@@ -40,8 +40,9 @@ require("./routes/email-api.js")(app);
 
 // Start the server so it can listening to client requests.
 db.sequelize.sync().then(function () {
-
+// When the server runs for the first time, it looks to see if there is an Admin user
   db.User.findOne({ where: { position: "Admin" } })
+// If there is no Admin, it will automatically create the following Admin account for you:
     .then((response) => {
       if (response === null) {
         db.User.create({
@@ -56,7 +57,7 @@ db.sequelize.sync().then(function () {
         })
       }
     })
-
+// Then it's ready to go!
   app.listen(PORT, function () {
     console.log("🌎 Now working at: http://localhost:" + PORT);
   });

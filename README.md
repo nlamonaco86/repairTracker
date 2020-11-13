@@ -42,9 +42,9 @@ Next, open mySQL Workbench and "CREATE DATABASE repair_db;"
 Afterwards, create a file ".env" in the root directory. Inside this file, you'll need to set the following environment variables:
 
 ```
-ADMIN_PASSWORD=
+ADMIN_PASSWORD=yourPassword1
 ```
-The first time the application runs, it will automatically create an administrator account if one doesn't exist. This password MUST be set before running the app. Once you log in as the administrator, you can then create other other accounts on the admin page. 
+Admin password must contain a Capital letter and at least one number. The first time the application runs, it will automatically create an administrator account if one doesn't exist. This password MUST be set before running the app. Once you log in as the administrator, you can then create other other accounts on the admin page. 
 
 The .env file should also include:
 ```
@@ -56,8 +56,7 @@ EMAIL_USERNAME=yourName@email.com
 EMAIL_PASSWORD=yourPassword
 ```
 
-
-Cloudinary requires an account at Cloudinary, if omit this step the app will run but the image features won't work. Likewise if if there is no environment avriables for email set, the e-mail features will not work. 
+Cloudinary requires an account at Cloudinary, if omit this step the app will run but the image features won't work. Likewise if if there is no environment avriables for email set, the e-mail features will not work. Note that gmail and other providers may require you to enable "less secure" options in order to work with Nodemailer - consider using a spare or temporary email for this purpose. 
 
 ## Usage
 ![repairTracker](./views/assets/screenshot.png) 
