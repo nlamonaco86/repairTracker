@@ -1,4 +1,5 @@
 // Dependencies
+require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const PORT = process.env.PORT || 8080;
@@ -38,8 +39,25 @@ require("./routes/order-api-routes.js")(app);
 require("./routes/email-api.js")(app);
 
 // Start the server so it can listening to client requests.
-db.sequelize.sync().then(function() {
-  app.listen(PORT, function() {
+db.sequelize.sync().then(function () {
+
+  db.User.findOne({ where: { position: "Admin" } })
+    .then((response) => {
+      if (response === null) {
+        db.User.create({
+          email: "Admin@Company.com",
+          password: process.env.ADMIN_PASSWORD,
+          first: "Administrator",
+          last: "Account",
+          position: "Admin",
+          phone: "9998887777",
+          dob: "11/13/2020",
+          ssn: "123456789",
+        })
+      }
+    })
+
+  app.listen(PORT, function () {
     console.log("🌎 Now working at: http://localhost:" + PORT);
   });
 });
