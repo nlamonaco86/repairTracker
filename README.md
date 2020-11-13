@@ -30,7 +30,27 @@ FUTURE UPDATES:
 
 ## Installation
 
-Simply clone the repo, and/or visit the deployed page link to begin.
+Once you've cloned the repo, you'll need to make sure the following environment variabels are set:
+
+```
+MYSQL_USERNAME
+MYSQL_PASSWORD
+```
+
+Next, open mySQL Workbench and "CREATE DATABASE repair_db;"
+
+Afterwards, create a file ".env" in the root directory. Inside this file, you'll need to set the following environment variables:
+
+```
+CLOUDINARY_CLOUDNAME=
+CLOUDINARY_UPLOAD_PRESET=
+
+EMAIL_SERVICE=serviceName
+EMAIL_USERNAME=yourName@email.com
+EMAIL_PASSWORD=yourPassword
+```
+
+Cloudinary requires an account at Cloudinary, if omit this step the app will run but the image features won't work. Likewise if if there is no environment avriables for email set, the e-mail features will not work. 
 
 ## Usage
 ![repairTracker](./views/assets/screenshot.png) 

@@ -1,12 +1,30 @@
 'use strict';
-
 const fs        = require('fs');
 const path      = require('path');
 const Sequelize = require('sequelize');
 const basename  = path.basename(module.filename);
 const env       = process.env.NODE_ENV || 'development';
-const config    = require(__dirname + '/../config/config.json')[env];
-const db        = {};
+const config    = {
+  development: {
+    username: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: "repair_db",
+    host: "127.0.0.1",
+    dialect: "mysql"
+  },
+  test: {
+    username: "root",
+    password: null,
+    database: "database_test",
+    host: "127.0.0.1",
+    dialect: "mysql"
+  },
+  production: {
+    use_env_variable: "JAWSDB_URL"
+  }
+}[env];
+
+const db = {};
 
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
