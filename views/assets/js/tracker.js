@@ -1,13 +1,15 @@
 let result = document.getElementById("result");
 let alertBox = document.getElementById("alert");
 let searchBtn = document.getElementById("search");
+let invoiceBox = document.getElementById("invoiceBox");
 
 //LOOKUP AN ORDER
 if (searchBtn){
 searchBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  result.innerHTML = ' ';
-  alertBox.className = ' ';
+  result.innerHTML = "";
+  invoiceBox.innerHTML = "";
+  alertBox.className = "";
 
   let id = document.getElementById("orderNumber").value;
   if (id === "") {
@@ -21,6 +23,9 @@ searchBtn.addEventListener("click", (event) => {
     })
       .then(
         function (response) {
+          if (!response.error){ 
+            invoiceBox.innerHTML = `<h4>Click <a id="invoiceBtn" href="../customer/invoice/${response.id}" target="_blank" class="font-weight-bold">here</a> to view your invoice</h4>`
+          }
           if (response.received === 1) {
             result.innerHTML = "Your order has been received.";
             alertBox.classList.add("alert-success");

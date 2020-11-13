@@ -39,6 +39,12 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/customer/invoice/:id", function (req, res) {
+    order.one(req.params.id, (data) => {
+      res.render('invoice', { title: 'Invoice - ' + data[0].id, layout: 'main', invoice: data });
+    });
+  });
+
   // ADMIN FUNCTION
   app.get("/admin", isAuthenticated, function (req, res) {
     (req.user.position === "Admin" ?  res.render('admin', { title: 'repairTracker - Administrator' }) :  res.render('fourohfour', { title: '404 - Page Not Found'}) );

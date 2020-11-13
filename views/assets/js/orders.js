@@ -193,7 +193,7 @@ if (deleteBtn) {
     })
       .then(response => {
         console.log(response.position)
-        if (response.position === "Manager") {
+        if (response.position === "Admin") {
           let id = document.getElementById("orderID").textContent;
           fetch("/api/orders/" + id, { method: "DELETE" }).then((response) => {
             event.preventDefault();
