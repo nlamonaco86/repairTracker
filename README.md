@@ -50,7 +50,7 @@ EMAIL_USERNAME=yourName@email.com
 EMAIL_PASSWORD=yourPassword
 ```
 
-Cloudinary requires an account at Cloudinary, if omit this step the app will run but the image features won't work. Likewise if if there is no environment avriables for email set, the e-mail features will not work. 
+Cloudinary requires an account at Cloudinary, if omit this step the app will run but the image features won't work. Likewise if if there is no environment avriables for email set, the e-mail features will not work. Note that gmail and other providers may require you to enable "less secure" options in order to work with Nodemailer - consider using a spare or temporary email for this purpose. 
 
 ## Usage
 ![repairTracker](./views/assets/screenshot.png) 
