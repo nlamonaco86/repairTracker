@@ -14,8 +14,9 @@ Customers can view the Tracker page to lookup the current status of their order.
 
 repairTracker is intended for use on an iPad in a mobile setting, but is responsive to all screen sizes. 
 
-## LOGIN CREDENTIALS: TECHNICIAN: Username:Tech2@company.com / Password: Technician2 (case sesitive)
-Deployed Site: https://repairtracker.herokuapp.com/
+## Deployed Site: https://repairtracker.herokuapp.com/
+Username:Tech2@company.com / Password: Technician2 (case sesitive)
+This account can be used to test the application on Heroku. 
 
 FUTURE UPDATES: 
 - Integration with CarMD or similar API for detailed maintenance time/cost estimations, VIN decoder and Technical Service Bulletins
