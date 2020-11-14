@@ -10,8 +10,9 @@ This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a re
 
 The server automatically creates an Administrator account on the first startup, which can then be user to create user (employee, manager, etc.) accounts.
 
+```
 DEMO Employee Account: Tech2@company.com / Password: Technician2 (case sesitive)
-
+```
 Anyone can create a Customer account as well, but only access customer sections of the app. 
 
 All users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
@@ -34,9 +35,8 @@ repairTracker is intended for use on an iPad in a mobile setting, but is respons
 ## Username:Tech2@company.com / Password: Technician2 (case sesitive)
 This account can be used to test the application on Heroku. 
 
-
 FUTURE UPDATES: 
-- Customer Portal and front-end functions to view more data. 
+- Improved Customer Portal and front-end functions to view more data. 
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
 
