@@ -10,7 +10,9 @@ This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a re
 
 The server automatically creates an Administrator account on the first startup, which can then be user to create user (employee, manager, etc.) accounts.
 
-Customers can create an account as well, but only access customer sections of the app. 
+DEMO Employee Account: Tech2@company.com / Password: Technician2 (case sesitive)
+
+Anyone can create a Customer account as well, but only access customer sections of the app. 
 
 All users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
 
