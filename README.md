@@ -32,7 +32,9 @@ Customers can view the Tracker page to lookup the current status of their order,
 repairTracker is intended for use on an iPad in a mobile setting, but is responsive to all screen sizes. 
 
 ## Deployed Site: https://repairtracker.herokuapp.com/
-## Username:Tech2@company.com / Password: Technician2 (case sesitive)
+```
+Username:Tech2@company.com / Password: Technician2 (case sesitive)
+```
 This account can be used to test the application on Heroku. 
 
 FUTURE UPDATES: 
@@ -78,7 +80,7 @@ Cloudinary requires an account at Cloudinary, if you omit this step the app will
 ## Usage
 ![repairTracker](./views/assets/screenshot.png) 
 ![invoice](./views/assets/screenshot4.png) 
-![splash page](./views/assets/screenshot5.png) 
+![forgot password](./views/assets/screenshot6.png) 
 ![customer view](./views/assets/screenshot3.png) 
 
 ## Questions
