@@ -73,7 +73,7 @@ Cloudinary requires an account at Cloudinary, if you omit this step the app will
 ## Usage
 ![repairTracker](./views/assets/screenshot.png) 
 ![invoice](./views/assets/screenshot4.png) 
-![splash page](./views/assets/screenshot2.png) 
+![splash page](./views/assets/screenshot5.png) 
 ![customer view](./views/assets/screenshot3.png) 
 
 ## Questions
