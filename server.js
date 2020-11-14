@@ -48,14 +48,17 @@ db.sequelize.sync().then(function () {
         db.User.create({
           email: "Admin@Company.com",
           password: process.env.ADMIN_PASSWORD,
+          employee: 1,
           first: "Administrator",
           last: "Account",
           position: "Admin",
           phone: "9998887777",
-          dob: "11/13/2020",
+          dob: "09/04/2020",
           ssn: "123456789",
         })
+        console.log("Admin Account CREATED")
       }
+      else { console.log("Admin Account FOUND") }
     })
 // Then it's ready to go!
   app.listen(PORT, function () {

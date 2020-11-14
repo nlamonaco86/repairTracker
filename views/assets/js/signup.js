@@ -1,9 +1,9 @@
 // Getting references to form
-let adminSignUpForm = document.querySelector('.adminSignup');
+let signUpForm = document.querySelector('.signup');
 
 // When the signup button is clicked, validate the email and password are not blank
-if (adminSignUpForm) {
-adminSignUpForm.addEventListener('submit', (event) => {
+if (signUpForm) {
+signUpForm.addEventListener('submit', (event) => {
   event.preventDefault();
   let userData = {
     email: document.getElementById("email-input").value,
@@ -11,37 +11,31 @@ adminSignUpForm.addEventListener('submit', (event) => {
     // this would be omitted, and a random password would be generated server-side, hased and sent to 
     // the user as an e-mail, if we were working with real people. 
     password: document.getElementById("password-input").value,
-    employee: 1,
+    employee: 0,
     first: document.getElementById("first-input").value,
     last: document.getElementById("last-input").value,
-    position: document.getElementById("position-input").value,
     phone: document.getElementById("phone-input").value,
-    dob: document.getElementById("dob-input").value,
-    ssn: document.getElementById("ssn-input").value,
   };
 
   if (!userData.email || !userData.password) {
     return;
   }
   // If email and password, run the signUpUser function
-  adminSignUp(userData.email, userData.password, userData.first, userData.last,
-    userData.position, userData.phone, userData.dob, userData.ssn);
+  signUpUser(userData.email, userData.password, userData.employee, userData.first, userData.last,
+    userData.phone);
     document.getElementById("email-input").value = "";
     document.getElementById("password-input").value = "";
 });
 };
 
-const adminSignUp = (email, password, employee, first, last, position, phone, dob, ssn) => {
+const signUpUser = (email, password, employee, first, last, phone) => {
   
   let newUser = { email: email,
     password: password,
     employee: employee,
     first: first,
     last: last,
-    position: position,
-    phone: phone,
-    dob: dob,
-    ssn: ssn 
+    phone: phone
   };
 // Post to the signup route. If successful, redirect to the members page, otherwise log any errors
   fetch('../api/signup', { 
@@ -51,7 +45,7 @@ const adminSignUp = (email, password, employee, first, last, position, phone, do
   })
     .then(response => response.json())
     .then(data => {
-      window.location.replace("/orders");
+      window.location.replace("/tracker");
     })
     .catch((error) => {
       console.log('Error:', error);
