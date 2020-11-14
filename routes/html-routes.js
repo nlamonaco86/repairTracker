@@ -31,6 +31,10 @@ module.exports = function (app) {
     res.render('signup', { title: 'Create Customer Account' })
   });
 
+  app.get("/about", function (req, res) {
+    res.redirect("https://www.github.com/nlamonaco86")
+  });
+
   app.get("/forgot", function (req, res) {
     res.render('forgot', { title: 'Forgot Password' })
   });

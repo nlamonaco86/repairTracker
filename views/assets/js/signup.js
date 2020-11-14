@@ -17,14 +17,20 @@ signUpForm.addEventListener('submit', (event) => {
     phone: document.getElementById("phone-input").value,
   };
 
-  if (!userData.email || !userData.password) {
-    return;
+  if (!userData.email || !userData.password || !userData.first || !userData.last || userData.phone) {
+    let searchError = document.getElementById("signupError")
+    searchError.innerHTML =
+      `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Please check the information you entered, and try again!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`
   }
   // If email and password, run the signUpUser function
-  signUpUser(userData.email, userData.password, userData.employee, userData.first, userData.last,
+  else { signUpUser(userData.email, userData.password, userData.employee, userData.first, userData.last,
     userData.phone);
-    document.getElementById("email-input").value = "";
-    document.getElementById("password-input").value = "";
+  }
 });
 };
 
@@ -48,6 +54,13 @@ const signUpUser = (email, password, employee, first, last, phone) => {
       window.location.replace("/tracker");
     })
     .catch((error) => {
-      console.log('Error:', error);
+      let searchError = document.getElementById("signupError")
+        searchError.innerHTML =
+          `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Please check the information you entered, and try again!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
     });
 };

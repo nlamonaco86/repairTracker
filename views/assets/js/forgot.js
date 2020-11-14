@@ -14,7 +14,14 @@ const forgotPassword = (email) => {
         window.location.replace("/login");
       })
       .catch((error) => {
-        console.log('Error:', error);
+        let searchError = document.getElementById("forgotError")
+        searchError.innerHTML =
+          `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Please check your username, and try again!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
       });
   };
   
@@ -26,8 +33,15 @@ const forgotPassword = (email) => {
       };
     
       if (!userData.email) {
-        //error handling goes here 
-        return;
+        event.preventDefault();
+        let searchError = document.getElementById("forgotError")
+        searchError.innerHTML =
+          `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Please check your username, and try again!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
       };
     
       // If an email and password run the loginUser function and clear the form

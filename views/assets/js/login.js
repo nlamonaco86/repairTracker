@@ -12,13 +12,17 @@ loginForm.addEventListener('submit', (event) => {
   };
 
   if (!userData.email || !userData.password) {
-    return;
-  };
-
-  // If an email and password run the loginUser function and clear the form
-  loginUser(userData.email, userData.password);
-  emailInput.innerHTML = "";
-  passwordInput.innerHTML = "";
+      event.preventDefault();
+      let searchError = document.getElementById("loginError")
+      searchError.innerHTML =
+        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Please check your username or password, and try again!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>`
+  }
+  else { loginUser(userData.email, userData.password) };
 });
 };
 
@@ -37,7 +41,14 @@ const loginUser = (email, password) => {
       else { window.location.replace("/orders") };
     })
     .catch((error) => {
-      console.log('Error:', error);
+      let searchError = document.getElementById("loginError")
+      searchError.innerHTML =
+        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Please check your username or password, and try again!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>`
     });
 };
 
