@@ -10,7 +10,9 @@ This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a re
 
 The server automatically creates an Administrator account on the first startup, which can then be user to create user (employee, manager, etc.) accounts.
 
-Users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
+Customers can create an account as well, but only access customer sections of the app. 
+
+All users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
 
 ## Track and Manage Repair Order Statuses
 
@@ -22,7 +24,7 @@ Technicians can also generate a printable or .pdf invoice for each work order. T
 
 ## Customer Portal
 
-Customers can view the Tracker page to lookup the current status of their order, as well as retrieve their invoice. 
+Customers can view the Tracker page to lookup the current status of their order, with or without an account, as well as retrieve their invoice. 
 
 repairTracker is intended for use on an iPad in a mobile setting, but is responsive to all screen sizes. 
 
@@ -32,6 +34,7 @@ This account can be used to test the application on Heroku.
 
 
 FUTURE UPDATES: 
+- Customer Portal and front-end functions to view more data. 
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
 
