@@ -1,11 +1,24 @@
-  // Require models and passport
+// Require models and passport
 require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
+const bcrypt = require("bcryptjs");
+// nodemailer module
+const nodemailer = require('nodemailer');
+const email = require('../config/email');
+
+// Configuration for Nodemailer to send Forgot Password e-mails. 
+let transporter = nodemailer.createTransport({
+  service: process.env.EMAIL_SERVICE,
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
 
 module.exports = function (app) {
- // LOGIN route with error handling
- app.post("/api/login", passport.authenticate("local"), function (req, res) {
+  // LOGIN route with error handling
+  app.post("/api/login", passport.authenticate("local"), function (req, res) {
     res.json(req.user);
   });
 
@@ -22,7 +35,7 @@ module.exports = function (app) {
       ssn: req.body.ssn,
     })
       .then(function () {
-        res.redirect(307, "/api/login");
+        res.redirect("./orders");
       })
       .catch(function (err) {
         res.status(401).json(err);
@@ -48,5 +61,42 @@ module.exports = function (app) {
       cloudUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
     }))
   });
-  
+
+  // FORGOT PASSWORD
+  app.get("/api/user_data/forgotpassword/:email", function (req, res) {
+    // Take in user email, search the database for a user where that email is a match
+    db.User.findOne({ where: { email: req.params.email } })
+      .then((response) => {
+        // if no match, send back an error, otherwise, update the user's password to a random one
+        if (response === null) {  res.json({error: "No result found. Please check the e-mail address you entered."}) }
+          // Hash the random password so that it can be safely stored in the database
+        else {  
+          let randomPassword = Math.floor(10000000 + Math.random() * 9000000).toString();
+          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null) }, { where: { id: response.id } })
+        let mailOptions = {
+          from: process.env.EMAIL_USERNAME,
+          to: response.email,
+          subject: `repairTracker: Forgot Password`,
+          text: `Your password has been temporarily reset to: ${randomPassword}`
+        };
+        // send the e-mail to the user 
+        transporter.sendMail(mailOptions, function (error, info) {
+          // error handling
+          (error ? console.log(error) : console.log('Email sent: ' + info.response))
+        })}  
+      })
+      .then((response) => {
+      // Redirect the user to the login page
+        res.redirect("/login")
+      })
+  });
+
+  // possibly set a boolean on the user such as "needsPassword:true" to know theyve logged in with a temp
+  // then email the user that 8-digit number
+
+  //add this to LOGIN:
+  // if a user logs in with a password while marked temp
+  // prompt them for a new password, then update that password record in the database
+  // then redirect the login as usual
+
 };
