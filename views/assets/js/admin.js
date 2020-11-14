@@ -7,6 +7,9 @@ signUpForm.addEventListener('submit', (event) => {
   event.preventDefault();
   let userData = {
     email: document.getElementById("email-input").value,
+    // For testing purposes, this allows admin to choose a user's password, in a production version,
+    // this would be omitted, and a random password would be generated server-side, hased and sent to 
+    // the user as an e-mail, if we were working with real people. 
     password: document.getElementById("password-input").value,
     first: document.getElementById("first-input").value,
     last: document.getElementById("last-input").value,
@@ -39,7 +42,7 @@ const signUpUser = (email, password, first, last, position, phone, dob, ssn) => 
     ssn: ssn 
   };
 // Post to the signup route. If successful, redirect to the members page, otherwise log any errors
-  fetch('api/signup', { 
+  fetch('../api/signup', { 
     method: 'POST', 
     headers: { 'Content-Type': 'application/json', },
     body: JSON.stringify(newUser),
