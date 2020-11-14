@@ -1,16 +1,28 @@
 # repairTracker
 
-## Description
-
 repairTracker is a full-stack application using Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, JQuery and Bootstrap. 
 
 This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair based on five different statuses (received, in progress, waiting on parts, complete, paid) as one would in an automobile, electronics, appliance or other repair shop. 
 
-Repair techs can log into the Employees section with a valid login (provided by the company's administrator) to manage order status, add photos, view work notes, and update either as needed. Technicians can also generate a printable or .pdf invoice for each work order.  
+# Features:
 
-Administrators are able to create new users and delete orders from the database. Managers can also delete orders.
+## Complete User Authentication System
 
-Customers can view the Tracker page to lookup the current status of their order. 
+The server automatically creates an Administrator account on the first startup, which can then be user to create user (employee, manager, etc.) accounts.
+
+Users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
+
+## Track and Manage Repair Order Statuses
+
+Repair techs can log into the Employees section to create work orders, manage work order statuses, add photos, as well as view and edit work notes. 
+
+## Complete Invoice system
+
+Technicians can also generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax. 
+
+## Customer Portal
+
+Customers can view the Tracker page to lookup the current status of their order, as well as retrieve their invoice. 
 
 repairTracker is intended for use on an iPad in a mobile setting, but is responsive to all screen sizes. 
 
@@ -18,8 +30,6 @@ repairTracker is intended for use on an iPad in a mobile setting, but is respons
 Deployed Site: https://repairtracker.herokuapp.com/
 
 FUTURE UPDATES: 
-- Integration with CarMD or similar API for detailed maintenance time/cost estimations, VIN decoder and Technical Service Bulletins
-
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
 - Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
 

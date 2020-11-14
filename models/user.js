@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     tempPassword: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.INTEGER,
       default: 0
     },
     first: {

@@ -28,6 +28,10 @@ module.exports = function (app) {
     res.render('forgot', { title: 'Forgot Password'})
   });
 
+  app.get("/newpassword", isAuthenticated, function (req, res) {
+    res.render('newpassword', { title: 'New Password', email: req.user.email})
+  });
+
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/orders", isAuthenticated, function (req, res) {

@@ -42,7 +42,7 @@ const signUpUser = (email, password, first, last, position, phone, dob, ssn) => 
     ssn: ssn 
   };
 // Post to the signup route. If successful, redirect to the members page, otherwise log any errors
-  fetch('api/signup', { 
+  fetch('../api/signup', { 
     method: 'POST', 
     headers: { 'Content-Type': 'application/json', },
     body: JSON.stringify(newUser),

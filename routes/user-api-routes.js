@@ -26,9 +26,9 @@ module.exports = function (app) {
   app.post("/api/signup", function (req, res) {
     db.User.create({
       email: req.body.email,
-    // For testing purposes, this allows admin to choose a user's password, in a production version,
-    // this would be omitted, and a random password would be generated server-side, hased and sent to 
-    // the user as an e-mail, similar to the forgot password route below, if we were working with real people. 
+      // For testing purposes, this allows admin to choose a user's password, in a production version,
+      // this would be omitted, and a random password would be generated server-side, hased and sent to 
+      // the user as an e-mail, similar to the forgot password route below, if we were working with real people. 
       password: req.body.password,
       first: req.body.first,
       last: req.body.last,
@@ -37,10 +37,10 @@ module.exports = function (app) {
       dob: req.body.dob,
       ssn: req.body.ssn,
     })
-      .then(function () {
+      .then(() => {
         res.redirect("./orders");
       })
-      .catch(function (err) {
+      .catch((err) => {
         res.status(401).json(err);
       });
   });
@@ -67,41 +67,52 @@ module.exports = function (app) {
 
   // FORGOT PASSWORD
   app.post("/api/user_data/forgotpassword", function (req, res) {
-    console.log(req.body)
     // Take in user email, search the database for a user where that email is a match
     db.User.findOne({ where: { email: req.body.email } })
       .then((response) => {
         // if no match, send back an error, otherwise, update the user's password to a random one
-        if (response === null) {  res.json({error: "No result found. Please check the e-mail address you entered."}) }
-          // Hash the random password so that it can be safely stored in the database
-        else {  
+        if (response === null) { res.json({ error: "No result found. Please check the e-mail address you entered." }) }
+        // Hash the random password so that it can be safely stored in the database
+        else {
           let randomPassword = Math.floor(10000000 + Math.random() * 9000000).toString();
           // Update the user in DB with the hashed password, and flag their account as using a temp password
-          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null), tempPassword: true }, { where: { id: response.id } })
-        let mailOptions = {
-          from: process.env.EMAIL_USERNAME,
-          to: response.email,
-          subject: `repairTracker: Forgot Password`,
-          text: `Your password has been temporarily reset to: ${randomPassword}`
-        };
-        // send the e-mail to the user 
-        transporter.sendMail(mailOptions, function (error, info) {
-          // error handling
-          (error ? console.log(error) : console.log('Email sent: ' + info.response))
-        })}  
+          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null), tempPassword: 1 }, { where: { id: response.id } })
+          let mailOptions = {
+            from: process.env.EMAIL_USERNAME,
+            to: response.email,
+            subject: `repairTracker: Forgot Password`,
+            text: `Your password has been temporarily reset to: ${randomPassword}
+            If you did not request a new password, please contact your administrator.`
+          };
+          // send the e-mail to the user 
+          transporter.sendMail(mailOptions, function (error, info) {
+            // error handling
+            (error ? console.log(error) : console.log('Email sent: ' + info.response))
+          })
+        }
       })
       .then((response) => {
-      // Redirect the user to the login page
-      res.json({message: "success"})
+        // Send a success message
+        res.json({ message: "success" })
       })
+      .catch((err) => {
+        res.status(401).json(err);
+      });
   });
 
-  // possibly set a boolean on the user such as "needsPassword:true" to know theyve logged in with a temp
-  // then email the user that 8-digit number
-
-  //add this to LOGIN:
-  // if a user logs in with a password while marked temp
-  // prompt them for a new password, then update that password record in the database
-  // then redirect the login as usual
-
+  // if a user logs in with a password while marked temp, they will be redirected to a page to make a new password
+  // this takes in their new password from that page and updates their account
+  app.put("/api/user_data/changepassword", function (req, res) {
+    console.log(req.body)
+    // hash the password, update the record, and set temp to false now. 
+    db.User.update({ password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null), tempPassword: 0 }, { where: { email: req.body.email } })
+    .then((data) => {
+      // Redirect the user to the login page
+      res.json({ message: "success" })
+    })
+    .catch((err) => {
+      res.status(401).json(err);
+    });
+  })
+  
 };

@@ -33,7 +33,8 @@ const loginUser = (email, password) => {
   })
     .then(response => response.json())
     .then(data => {
-      window.location.replace("/orders");
+      if(data.tempPassword === 1) { window.location.replace("/newpassword"); }
+      else { window.location.replace("/orders") };
     })
     .catch((error) => {
       console.log('Error:', error);
