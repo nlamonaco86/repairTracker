@@ -26,6 +26,9 @@ module.exports = function (app) {
   app.post("/api/signup", function (req, res) {
     db.User.create({
       email: req.body.email,
+    // For testing purposes, this allows admin to choose a user's password, in a production version,
+    // this would be omitted, and a random password would be generated server-side, hased and sent to 
+    // the user as an e-mail, similar to the forgot password route below, if we were working with real people. 
       password: req.body.password,
       first: req.body.first,
       last: req.body.last,
@@ -63,16 +66,18 @@ module.exports = function (app) {
   });
 
   // FORGOT PASSWORD
-  app.get("/api/user_data/forgotpassword/:email", function (req, res) {
+  app.post("/api/user_data/forgotpassword", function (req, res) {
+    console.log(req.body)
     // Take in user email, search the database for a user where that email is a match
-    db.User.findOne({ where: { email: req.params.email } })
+    db.User.findOne({ where: { email: req.body.email } })
       .then((response) => {
         // if no match, send back an error, otherwise, update the user's password to a random one
         if (response === null) {  res.json({error: "No result found. Please check the e-mail address you entered."}) }
           // Hash the random password so that it can be safely stored in the database
         else {  
           let randomPassword = Math.floor(10000000 + Math.random() * 9000000).toString();
-          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null) }, { where: { id: response.id } })
+          // Update the user in DB with the hashed password, and flag their account as using a temp password
+          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null), tempPassword: true }, { where: { id: response.id } })
         let mailOptions = {
           from: process.env.EMAIL_USERNAME,
           to: response.email,
@@ -87,7 +92,7 @@ module.exports = function (app) {
       })
       .then((response) => {
       // Redirect the user to the login page
-        res.redirect("/login")
+      res.json({message: "success"})
       })
   });
 

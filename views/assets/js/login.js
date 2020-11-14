@@ -17,14 +17,14 @@ loginForm.addEventListener('submit', (event) => {
 
   // If an email and password run the loginUser function and clear the form
   loginUser(userData.email, userData.password);
-  emailInput.val("");
-  passwordInput.val("");
+  emailInput.innerHTML = "";
+  passwordInput.innerHTML = "";
 });
 };
 
 // post the data to the server, and if it's correct, proceed
 const loginUser = (email, password) => {
-  const data = { email: email, password: password };
+  let data = { email: email, password: password };
 
   fetch('api/login', { 
     method: 'POST', 
@@ -39,3 +39,5 @@ const loginUser = (email, password) => {
       console.log('Error:', error);
     });
 };
+
+  
