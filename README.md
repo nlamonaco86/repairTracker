@@ -8,12 +8,9 @@ This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a re
 
 ## Complete User Authentication System
 
-The server automatically creates an Administrator account on the first startup, which can then be user to create user (employee, manager, etc.) accounts.
+The server automatically creates an Administrator account on the first startup, which can then be user to create employee, manager, etc. accounts.
 
-```
-DEMO Employee Account: Tech2@company.com / Password: Technician2 (case sesitive)
-```
-Anyone can create a Customer account as well, but only access customer sections of the app. 
+Anyone can create a Customer account as well, but only access customer sections of the app with it. 
 
 All users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
 
