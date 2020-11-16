@@ -59,6 +59,7 @@ Afterwards, create a file ".env" in the root directory. Inside this file, you'll
 
 ```
 ADMIN_PASSWORD=yourPassword1
+TECH_PASSWORD=yourPassword1
 ```
 Admin password must contain a Capital letter and at least one number. The first time the application runs, it will automatically create an administrator account if one doesn't exist. This password MUST be set before running the app. Once you log in as the administrator, you can then create other other accounts on the admin page. 
 

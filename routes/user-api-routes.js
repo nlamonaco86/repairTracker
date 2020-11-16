@@ -30,6 +30,7 @@ module.exports = function (app) {
       // this would be omitted, and a random password would be generated server-side, hased and sent to 
       // the user as an e-mail, similar to the forgot password route below, if we were working with real people. 
       password: req.body.password,
+      employee: req.body.employee,
       first: req.body.first,
       last: req.body.last,
       position: req.body.position,

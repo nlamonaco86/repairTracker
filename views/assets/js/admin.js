@@ -20,7 +20,7 @@ adminSignUpForm.addEventListener('submit', (event) => {
     ssn: document.getElementById("ssn-input").value,
   };
 
-  if (!userData.email || !userData.password || !userData.first || !userData.last || !userData.phone  || !userData.position ||! userData.ssn || !userData.dob) {
+  if (!userData.email || !userData.password || !userData.first || !userData.last || !userData.phone  || !userData.position || !userData.ssn || !userData.dob) {
     let searchError = document.getElementById("adminSignupError")
     searchError.innerHTML =
       `<div class="alert alert-danger alert-dismissible fade show" role="alert">

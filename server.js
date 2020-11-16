@@ -60,6 +60,25 @@ db.sequelize.sync().then(function () {
       }
       else { console.log("Admin Account FOUND") }
     })
+    db.User.findOne({ where: { position: "Technician" } })
+    // If there is no Technician, it will automatically create the following Technician account for you:
+        .then((response) => {
+          if (response === null) {
+            db.User.create({
+              email: "Tech2@Company.com",
+              password: process.env.TECH_PASSWORD,
+              employee: 1,
+              first: "Technician",
+              last: "Account",
+              position: "Technician",
+              phone: "9998887777",
+              dob: "09/04/2020",
+              ssn: "123456789",
+            })
+            console.log("Technician Account CREATED")
+          }
+          else { console.log("Technician Account FOUND") }
+        })
 // Then it's ready to go!
   app.listen(PORT, function () {
     console.log("🌎 Now working at: http://localhost:" + PORT);

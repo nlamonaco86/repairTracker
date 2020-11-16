@@ -1,5 +1,5 @@
 let result = document.getElementById("result");
-let alertBox = document.getElementById("alert");
+let alertBox = document.getElementById("trackerError");
 let searchBtn = document.getElementById("search");
 let invoiceBox = document.getElementById("invoiceBox");
 
