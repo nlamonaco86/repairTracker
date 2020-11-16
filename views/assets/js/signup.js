@@ -17,7 +17,7 @@ signUpForm.addEventListener('submit', (event) => {
     phone: document.getElementById("phone-input").value,
   };
 
-  if (!userData.email || !userData.password || !userData.first || !userData.last || userData.phone) {
+  if (!userData.email || !userData.password || !userData.phone || !userData.first || !userData.last) {
     let searchError = document.getElementById("signupError")
     searchError.innerHTML =
       `<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -29,8 +29,8 @@ signUpForm.addEventListener('submit', (event) => {
   }
   // If email and password, run the signUpUser function
   else { signUpUser(userData.email, userData.password, userData.employee, userData.first, userData.last,
-    userData.phone);
-  }
+    userData.phone) }
+  
 });
 };
 
@@ -51,6 +51,7 @@ const signUpUser = (email, password, employee, first, last, phone) => {
   })
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       window.location.replace("/tracker");
     })
     .catch((error) => {

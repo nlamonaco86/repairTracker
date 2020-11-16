@@ -10,14 +10,19 @@ const forgotPassword = (email) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        window.location.replace("/login");
+        searchError.innerHTML =
+        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Your password has been reset! Please check your e-mail.</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>`
       })
       .catch((error) => {
         let searchError = document.getElementById("forgotError")
         searchError.innerHTML =
           `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Please check your username, and try again!
+          <strong>An error occured, please try again!</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -34,8 +39,8 @@ const forgotPassword = (email) => {
     
       if (!userData.email) {
         event.preventDefault();
-        let searchError = document.getElementById("forgotError")
-        searchError.innerHTML =
+        let forgotError = document.getElementById("forgotError")
+        forgotError.innerHTML =
           `<div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Please check your username, and try again!
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -38,7 +38,7 @@ module.exports = function (app) {
       ssn: req.body.ssn,
     })
       .then(() => {
-        res.redirect("./orders");
+        res.json({message: "success"});
       })
       .catch((err) => {
         res.status(401).json(err);
