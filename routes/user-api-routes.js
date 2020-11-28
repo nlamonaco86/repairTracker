@@ -1,4 +1,4 @@
-// Require models and passport
+// models and passport
 require('dotenv').config();
 const db = require("../models");
 const passport = require("../config/passport");
@@ -6,6 +6,11 @@ const bcrypt = require("bcryptjs");
 // nodemailer module
 const nodemailer = require('nodemailer');
 const email = require('../config/email');
+// Twilio module
+let twilio = require('twilio');
+let accountSid = process.env.ACCOUNT_SID
+let authToken = process.env.AUTH_TOKEN
+let client = new twilio(accountSid, authToken);
 
 // Configuration for Nodemailer to send Forgot Password e-mails. 
 let transporter = nodemailer.createTransport({
@@ -39,7 +44,7 @@ module.exports = function (app) {
       ssn: req.body.ssn,
     })
       .then(() => {
-        res.json({message: "success"});
+        res.json({ message: "success" });
       })
       .catch((err) => {
         res.status(401).json(err);
@@ -67,7 +72,8 @@ module.exports = function (app) {
   });
 
   // FORGOT PASSWORD
-  app.post("/api/user_data/forgotpassword", function (req, res) {
+  app.post("/api/user_data/forgotpassword", (req, res) => {
+    let resetType = req.body.type
     // Take in user email, search the database for a user where that email is a match
     db.User.findOne({ where: { email: req.body.email } })
       .then((response) => {
@@ -78,18 +84,31 @@ module.exports = function (app) {
           let randomPassword = Math.floor(10000000 + Math.random() * 9000000).toString();
           // Update the user in DB with the hashed password, and flag their account as using a temp password
           db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null), tempPassword: 1 }, { where: { id: response.id } })
-          let mailOptions = {
-            from: process.env.EMAIL_USERNAME,
-            to: response.email,
-            subject: `repairTracker: Forgot Password`,
-            text: `Your password has been temporarily reset to: ${randomPassword}
+          // If they selected SMS, send the temp password that way
+          if (resetType === "SMS") { 
+          // Create the message and send it to the user
+            client.messages.create({
+              body: `repairTracker: Your password has been temporarily reset to: ${randomPassword}.`,
+              to: "+1" + response.phone,  
+              from: process.env.PHONE_NUMBER
+            })
+              .then((message) => console.log(message.sid));
+          }
+          // Otherwise, email it to them
+          else {
+            let mailOptions = {
+              from: process.env.EMAIL_USERNAME,
+              to: response.email,
+              subject: `repairTracker: Forgot Password`,
+              text: `Your password has been temporarily reset to: ${randomPassword}
             If you did not request a new password, please contact your administrator.`
-          };
-          // send the e-mail to the user 
-          transporter.sendMail(mailOptions, function (error, info) {
-            // error handling
-            (error ? console.log(error) : console.log('Email sent: ' + info.response))
-          })
+            };
+            // send the e-mail to the user 
+            transporter.sendMail(mailOptions, function (error, info) {
+              // error handling
+              (error ? console.log(error) : console.log('Email sent: ' + info.response))
+            })
+          }
         }
       })
       .then((response) => {
@@ -107,13 +126,13 @@ module.exports = function (app) {
     console.log(req.body)
     // hash the password, update the record, and set temp to false now. 
     db.User.update({ password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null), tempPassword: 0 }, { where: { email: req.body.email } })
-    .then((data) => {
-      // Redirect the user to the login page
-      res.json({ message: "success" })
-    })
-    .catch((err) => {
-      res.status(401).json(err);
-    });
+      .then((data) => {
+        // Redirect the user to the login page
+        res.json({ message: "success" })
+      })
+      .catch((err) => {
+        res.status(401).json(err);
+      });
   })
-  
+
 };

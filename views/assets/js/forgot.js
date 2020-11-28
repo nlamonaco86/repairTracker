@@ -1,7 +1,8 @@
 let resetForm = document.querySelector('.reset');
+let forgotError = document.getElementById("forgotError")
 
-const forgotPassword = (email) => {
-    let resetInfo = { email: email };
+const forgotPassword = (email, type) => {
+    let resetInfo = { email: email, type: type };
   
     fetch('../api/user_data/forgotpassword', { 
       method: 'POST', 
@@ -10,8 +11,9 @@ const forgotPassword = (email) => {
     })
       .then(response => response.json())
       .then(data => {
-        searchError.innerHTML =
-        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        console.log(data)
+        forgotError.innerHTML =
+        `<div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Your password has been reset! Please check your e-mail.</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -19,8 +21,8 @@ const forgotPassword = (email) => {
       </div>`
       })
       .catch((error) => {
-        let searchError = document.getElementById("forgotError")
-        searchError.innerHTML =
+        console.log(error)
+        forgotError.innerHTML =
           `<div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>An error occured, please try again!</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,6 +37,7 @@ const forgotPassword = (email) => {
       event.preventDefault();
       let userData = {
         email: document.getElementById("emailForgot").value,
+        type: document.getElementById("resetMethod").value,
       };
     
       if (!userData.email) {
@@ -50,6 +53,6 @@ const forgotPassword = (email) => {
       };
     
       // If an email and password run the loginUser function and clear the form
-      forgotPassword(userData.email);
+      forgotPassword(userData.email, userData.type);
     });
     };
