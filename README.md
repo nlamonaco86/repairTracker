@@ -12,7 +12,7 @@ The server automatically creates an Administrator account on the first startup, 
 
 Anyone can create a Customer account as well, but only access customer sections of the app with it. 
 
-All users are able to reset their password with a temporary code sent to their e-mail, and will be prompted to make a new password on their next login.
+All users are able to reset their password with a temporary code sent to their e-mail or via SMS, and will be prompted to make a new password on their next login.
 
 ## Track and Manage Repair Order Statuses
 
