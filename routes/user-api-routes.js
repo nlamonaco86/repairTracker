@@ -21,14 +21,14 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-module.exports = function (app) {
+module.exports = (app) => {
   // LOGIN route with error handling
-  app.post("/api/login", passport.authenticate("local"), function (req, res) {
+  app.post("/api/login", passport.authenticate("local"), (req, res) => {
     res.json(req.user);
   });
 
   // SIGNUP route with error handling
-  app.post("/api/signup", function (req, res) {
+  app.post("/api/signup", (req, res) => {
     db.User.create({
       email: req.body.email,
       // For testing purposes, this allows admin to choose a user's password, in a production version,
@@ -52,13 +52,13 @@ module.exports = function (app) {
   });
 
   // LOGOUT route
-  app.get("/logout", function (req, res) {
+  app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
 
   // user data client-side route
-  app.get("/api/user_data", function (req, res) {
+  app.get("/api/user_data", (req, res) => {
     (!req.user ? res.json({}) : res.json({
       email: req.user.email,
       phone: req.user.phone,
@@ -104,7 +104,7 @@ module.exports = function (app) {
             If you did not request a new password, please contact your administrator.`
             };
             // send the e-mail to the user 
-            transporter.sendMail(mailOptions, function (error, info) {
+            transporter.sendMail(mailOptions, (error, info) => {
               // error handling
               (error ? console.log(error) : console.log('Email sent: ' + info.response))
             })
@@ -122,7 +122,7 @@ module.exports = function (app) {
 
   // if a user logs in with a password while marked temp, they will be redirected to a page to make a new password
   // this takes in their new password from that page and updates their account
-  app.put("/api/user_data/changepassword", function (req, res) {
+  app.put("/api/user_data/changepassword", (req, res) => {
     console.log(req.body)
     // hash the password, update the record, and set temp to false now. 
     db.User.update({ password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null), tempPassword: 0 }, { where: { email: req.body.email } })

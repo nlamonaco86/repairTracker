@@ -5,16 +5,16 @@ const order = require("../config/order.js");
 let isAuthenticated = require("../config/middleware/isAuthenticated");
 const user = require("../models/user.js");
 
-module.exports = function (app) {
+module.exports = (app) => {
 
-  app.get("/", function (req, res) {
+  app.get("/", (req, res) => {
     // If the user visits the main page and is already logged in, send them to the orders page
     // query the ORM and store the response in an object for handlebars to use
     // otherwise send them back to the splash page
     (req.user && req.user.employee === 1 ? order.all((data) => { let hbsObject = { orders: data }; res.render("orders", hbsObject); }) : res.render('splash', { title: 'Welcome to repairTracker' }))
   });
 
-  app.get("/login", function (req, res) {
+  app.get("/login", (req, res) => {
     // If the user visits the login page while logged in, send them to the orders page
     // query the ORM and store the response in an object for handlebars to use
     // otherwise send them to the login page
@@ -23,29 +23,29 @@ module.exports = function (app) {
     else { res.render('login', { title: 'Log In to repairTracker' }) }
   });
 
-  app.get("/tracker", function (req, res) {
+  app.get("/tracker", (req, res) => {
     res.render('tracker', { title: 'Track Your Order' })
   });
 
-  app.get("/signup", function (req, res) {
+  app.get("/signup", (req, res) => {
     res.render('signup', { title: 'Create Customer Account' })
   });
 
-  app.get("/about", function (req, res) {
+  app.get("/about", (req, res) => {
     res.redirect("https://www.github.com/nlamonaco86")
   });
 
-  app.get("/forgot", function (req, res) {
+  app.get("/forgot", (req, res) => {
     res.render('forgot', { title: 'Forgot Password' })
   });
 
-  app.get("/newpassword", isAuthenticated, function (req, res) {
+  app.get("/newpassword", isAuthenticated, (req, res) => {
     res.render('newpassword', { title: 'New Password', email: req.user.email })
   });
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/orders", isAuthenticated, function (req, res) {
+  app.get("/orders", isAuthenticated, (req, res) => {
     if (req.user.employee === 1) {
       order.all((data) => {
         res.render('orders', { title: 'repairTracker - Employee', orders: data });
@@ -54,25 +54,25 @@ module.exports = function (app) {
     else { res.render('tracker', { title: 'Track Your Order' }) }
   });
 
-  app.get("/invoice/:id", isAuthenticated, function (req, res) {
+  app.get("/invoice/:id", isAuthenticated, (req, res) => {
     order.one(req.params.id, (data) => {
       //create an object for handlebars to render, with options
       res.render('invoice', { title: 'Invoice - ' + data[0].id, layout: 'main', invoice: data });
     });
   });
 
-  app.get("/customer/invoice/:id", function (req, res) {
+  app.get("/customer/invoice/:id", (req, res) => {
     order.one(req.params.id, (data) => {
       res.render('invoice', { title: 'Invoice - ' + data[0].id, layout: 'main', invoice: data });
     });
   });
 
-  // ADMIN FUNCTION
-  app.get("/admin", isAuthenticated, function (req, res) {
+  // ADMIN   
+  app.get("/admin", isAuthenticated, (req, res) => {
     (req.user.position === "Admin" ? res.render('admin', { title: 'repairTracker - Administrator' }) : res.render('fourohfour', { title: '404 - Page Not Found' }));
   });
 
-  app.get("/error", isAuthenticated, function (req, res) {
+  app.get("/error", isAuthenticated, (req, res) => {
     res.render('fourohfour', { title: '404 - Page Not Found' });
   });
 

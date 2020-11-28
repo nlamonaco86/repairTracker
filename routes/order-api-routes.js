@@ -3,8 +3,8 @@ require('dotenv').config();
 const db = require("../models");
 const order = require("../config/order.js");
 
-module.exports = function (app) {
-  app.post("/api/orders", function (req, res) {
+module.exports = (app) => {
+  app.post("/api/orders", (req, res) => {
     // Data from the form gets inserted into three separate but associated tables
     // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
     // Order entry
@@ -40,10 +40,10 @@ module.exports = function (app) {
       zip: req.body.zip,
       OrderId: req.body.id
     })
-      .then(function () {
+      .then(() => {
         res.send("success")
       })
-      .catch(function (err) {
+      .catch((err) => {
         res.status(401).json(err);
       });
   });
@@ -57,7 +57,7 @@ module.exports = function (app) {
     })
   }
 
-  app.get("/api/orders/:id", function (req, res) {
+  app.get("/api/orders/:id", (req, res) => {
     getOneOrder(req.params.id)
       .then(result => {
         (result === null ? res.json({ error: "No Results Found! Please try again" }) : res.json(result))
@@ -67,7 +67,7 @@ module.exports = function (app) {
   // In order to minimize confusion, when a user searches by Customer last name, Sequelize will find the Customer with that last name, 
   // then find their associated order, then search the Orders table for that order, and sends it back with its associated customer
   // this is to ensure uniformity of objects sent back to the front end 
-  app.get("/api/orders/named/:lastName", function (req, res) {
+  app.get("/api/orders/named/:lastName", (req, res) => {
     db.Customer.findOne({
       where: { lastName: req.params.lastName },
       include: [
