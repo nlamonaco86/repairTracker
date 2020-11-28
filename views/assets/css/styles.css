@@ -28,6 +28,10 @@
   color: var(--dark);
 }
   
+.order{
+  cursor: pointer;
+}
+
   .btn-circle.btn-md { 
       width: 30px; 
       height: 30px; 

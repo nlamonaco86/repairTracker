@@ -76,6 +76,13 @@ EMAIL_USERNAME=yourName@email.com
 EMAIL_PASSWORD=yourPassword
 ```
 
+You'll need a Twilio account and the following environment variables:
+```
+ACCOUNT_SID=yourAccountSID
+AUTH_TOKEN=yourAuthToken
+PHONE_NUMBER=yourPhoneNumber
+```
+
 Cloudinary requires an account at Cloudinary, if you omit this step the app will run but the image features won't work. Likewise if if there is no environment variables for email set, the e-mail features will not work. Note that gmail and other providers may require you to enable "less secure" options in order to work with Nodemailer - consider using a spare or temporary email for this purpose. 
 
 ## Usage
