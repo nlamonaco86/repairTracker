@@ -1,10 +1,10 @@
 // Require models and passport
 require('dotenv').config();
 const db = require("../models");
-const order = require("../config/order.js");
 
 module.exports = (app) => {
 
+  // Helper function
   const getOneCustomer = (lastName, firstName) => {
     return db.Customer.findOne({
       where: { lastName: lastName, firstName: firstName },
@@ -19,6 +19,20 @@ module.exports = (app) => {
       ]
     })
   }
+
+  const updateStatus = async (rcv, inP, wait, com, paid, targetId, req, res) => {
+    let data = await db.Order.update({ received: rcv, inProgress: inP, waiting: wait, complete: com, paid: paid }, { where: { id: targetId } })
+    return data
+  };
+
+  const viewOrder = async (orderId, req, res) => {
+    let data = await db.sequelize.query("UPDATE Orders SET inView = IF(id = :id, 1, 0)",
+      {
+        replacements: { id: orderId },
+        type: db.sequelize.QueryTypes.UPDATE
+      });
+    return data
+  };
 
   app.post("/api/orders", (req, res) => {
     // Check to see if the customer is already in the database
@@ -127,57 +141,43 @@ module.exports = (app) => {
       // Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
         // If a customer has more than one order, result.Orders.length would be > 1
-        let others = result.Orders
         if (result === null) { res.json({ error: "No Results Found! Please try again" }) }
         else {
-          order.inView(result.Orders[0].id, (result) => {
-           if (result.changedRows == 0) { res.json({ error: "No Results Found! Please try again" }) }
-           // Along with the success message, also return the other orders associated with this customer
-           else { res.json({ message: "Success!", otherOrders: others }) }
-          });
-        } 
+          viewOrder(result.Orders[0].id).then((result) =>{
+            (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }) )
+          })
+        }
       });
   });
 
   // VIEW ORDER
   app.put("/api/orders/inView/:id", (req, res) => {
-    order.inView(req.params.id, (result) => {
-      (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }))
-    });
+    viewOrder(req.params.id).then((result) => {
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+    })
   });
 
   //UPDATE ISSUE
   app.put("/api/orders/:id", (req, res) => {
-    db.Order.update(
-      { issue: req.body.issue },
-      { where: { id: req.params.id } }, (result) => {
-        (result.changedRows == 0 ? res.status(404).end() : res.json({ message: "Success!" }))
-      }
-    );
+    db.Order.update({ issue: req.body.issue }, { where: { id: req.params.id } }).then((result) => {
+      (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
+    })
   });
 
   // UPDATE REPAIR ORDER STATUSES
   app.put("/api/orders/:status/:id", (req, res) => {
     switch (req.params.status) {
       case "inProgress":
-        order.updateInProgress(req.params.id, (result) => {
-          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-        });
+        updateStatus(0, 1, 0, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "waiting":
-        order.updateWaiting(req.params.id, (result) => {
-          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-        });
+        updateStatus(0, 0, 1, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "complete":
-        order.updateComplete(req.params.id, (result) => {
-          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-        });
+        updateStatus(0, 0, 0, 1, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "paid":
-        order.updatePaid(req.params.id, (result) => {
-          (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
-        });
+        updateStatus(0, 0, 0, 0, 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       default:
     }
