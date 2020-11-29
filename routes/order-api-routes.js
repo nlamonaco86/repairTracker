@@ -11,6 +11,15 @@ module.exports = (app) => {
     })
   }
 
+  const getOneOrder = (searchId) => {
+    return db.Order.findOne({
+      where: { id: searchId },
+      include: [
+        { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+      ]
+    })
+  }
+
   app.post("/api/orders", (req, res) => {
     // Check to see if the customer is already in the database
     // Attempt to match their first and last name, as it's the least likely to change 
@@ -98,15 +107,6 @@ module.exports = (app) => {
       });
   });
 
-  const getOneOrder = (searchId) => {
-    return db.Order.findOne({
-      where: { id: searchId },
-      include: [
-        { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
-      ]
-    })
-  }
-
   app.get("/api/orders/:id", (req, res) => {
     getOneOrder(req.params.id)
       .then(result => {
@@ -126,9 +126,16 @@ module.exports = (app) => {
     })
       // Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
-        (result === null ? res.json({ error: "No Results Found! Please try again" }) : order.inView(result.Orders[0].id, (result) => {
-          (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }));
-        }));
+        // If a customer has more than one order, result.Orders.length would be > 1
+        let others = result.Orders
+        if (result === null) { res.json({ error: "No Results Found! Please try again" }) }
+        else {
+          order.inView(result.Orders[0].id, (result) => {
+           if (result.changedRows == 0) { res.json({ error: "No Results Found! Please try again" }) }
+           // Along with the success message, also return the other orders associated with this customer
+           else { res.json({ message: "Success!", otherOrders: others }) }
+          });
+        } 
       });
   });
 

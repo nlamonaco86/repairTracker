@@ -274,7 +274,11 @@ if (searchForm) {
             console.log(response.error)
             handleSearchError(response.error, event);
           }
-          else { location.reload(); }
+          else { 
+            location.reload();
+            // Other orders associated with the customer will also be returned
+            console.log(response.otherOrders.map(x => x.id)) 
+          }
         }
         );
     }
