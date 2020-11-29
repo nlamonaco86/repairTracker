@@ -274,7 +274,11 @@ if (searchForm) {
             console.log(response.error)
             handleSearchError(response.error, event);
           }
-          else { location.reload(); }
+          else { 
+            location.reload();
+            // Other orders associated with the customer will also be returned
+            console.log(response.otherOrders.map(x => x.id)) 
+          }
         }
         );
     }
@@ -283,17 +287,13 @@ if (searchForm) {
       fetch('api/orders/inView/' + id, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', }
-      }).then((response) => {
-        return response.json();
       })
-        .then(response => {
-          console.log(response)
-          if (response.error) {
-            handleSearchError(response.error, event);
-          }
-          else { location.reload(); }
-        }
-        );
+      .then(response => {
+        location.reload();
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
     }
   });
 };

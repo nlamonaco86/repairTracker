@@ -6,15 +6,15 @@ Packages such as Twilio, Nodemailer, dotenv, util, and more provide supporting f
 
 This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair based on five different statuses (received, in progress, waiting on parts, complete, paid) as one would in an automobile, electronics, appliance or other repair shop. 
 
-The UI and certain fields are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry. 
+The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry. 
 
 # Features:
 
 ## Complete User Authentication System
 
-The server automatically creates an Administrator account on the first startup, which can then be user to create employee, manager, etc. accounts.
+The server automatically creates an Administrator account on the first startup, which can then be user to create employee, manager, etc. accounts for different levels of employee access to the platform.
 
-Anyone can create a Customer account as well, but can only access customer sections of the app with it. 
+Anyone can create a Customer account as well, but can only access the customer sections of the app with it. 
 
 All users are able to reset their password with a temporary code sent to their e-mail or via SMS, and will be prompted to make a new password on their next login.
 
