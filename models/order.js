@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     hours: {
       type: DataTypes.INTEGER
     },
-    rate: { 
+    rate: {
       type: DataTypes.INTEGER
     },
     partsPrice: {
@@ -63,19 +63,9 @@ module.exports = function (sequelize, DataTypes) {
       default: 0
     }
   });
-  // Order.associate = function (models) {
-  //   Order.hasOne(models.Vehicle, {
-  //     foreignKey:
-  //     {
-
-  //     }
-  //   });
-  // };
   Order.associate = function (models) {
-    Order.hasOne(models.Customer, {
-      foreignKey:
-      {
-
+    Order.belongsTo(models.Customer, {
+      foreignKey: {
       }
     });
   };

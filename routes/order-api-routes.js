@@ -4,41 +4,91 @@ const db = require("../models");
 const order = require("../config/order.js");
 
 module.exports = (app) => {
-  app.post("/api/orders", (req, res) => {
-    // Data from the form gets inserted into three separate but associated tables
-    // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
-    // Order entry
-    db.Order.create({
-      id: req.body.id,
-      hours: req.body.hours,
-      rate: req.body.rate,
-      partsPrice: req.body.partsPrice,
-      partsNeeded: req.body.partsNeeded,
-      year: req.body.year,
-      make: req.body.make,
-      model: req.body.model,
-      vin: req.body.vin,
-      issue: req.body.issue,
-      photo: req.body.photo,
-      received: 1,
-      waiting: 0,
-      inProgress: 0,
-      complete: 0,
-      paid: 0
+
+  const getOneCustomer = (lastName, firstName) => {
+    return db.Customer.findOne({
+      where: { lastName: lastName, firstName: firstName },
     })
-    // Create the customer entry
-    db.Customer.create({
-      id: req.body.genCustomerId,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      tel: req.body.tel,
-      email: req.body.email,
-      addr1: req.body.addr1,
-      addr2: req.body.addr2,
-      city: req.body.city,
-      state: req.body.state,
-      zip: req.body.zip,
-      OrderId: req.body.id
+  }
+
+  app.post("/api/orders", (req, res) => {
+    // Check to see if the customer is already in the database
+    // Attempt to match their first and last name, as it's the least likely to change 
+    getOneCustomer(req.body.lastName, req.body.firstName).then((result) => {
+      // if there is no record of that customer, create a customer record
+      if (result === null) {
+        db.Customer.create({
+          id: req.body.genCustomerId,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          tel: req.body.tel,
+          email: req.body.email,
+          addr1: req.body.addr1,
+          addr2: req.body.addr2,
+          city: req.body.city,
+          state: req.body.state,
+          zip: req.body.zip,
+        })
+        // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
+        // Order entry
+        db.Order.create({
+          id: req.body.id,
+          hours: req.body.hours,
+          rate: req.body.rate,
+          partsPrice: req.body.partsPrice,
+          partsNeeded: req.body.partsNeeded,
+          year: req.body.year,
+          make: req.body.make,
+          model: req.body.model,
+          vin: req.body.vin,
+          issue: req.body.issue,
+          photo: req.body.photo,
+          received: 1,
+          waiting: 0,
+          inProgress: 0,
+          complete: 0,
+          paid: 0,
+          CustomerId: req.body.genCustomerId
+        })
+      }
+      else {
+        // if the customer already exists, update their information to reflect the recent entry
+        db.Customer.update(
+          {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            tel: req.body.tel,
+            email: req.body.email,
+            addr1: req.body.addr1,
+            addr2: req.body.addr2,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip
+          },
+          {
+            where: { lastName: req.body.lastName, firstName: req.body.firstName }
+          })
+        // And create a new order associated to them
+        db.Order.create({
+          id: req.body.id,
+          hours: req.body.hours,
+          rate: req.body.rate,
+          partsPrice: req.body.partsPrice,
+          partsNeeded: req.body.partsNeeded,
+          year: req.body.year,
+          make: req.body.make,
+          model: req.body.model,
+          vin: req.body.vin,
+          issue: req.body.issue,
+          photo: req.body.photo,
+          received: 1,
+          waiting: 0,
+          inProgress: 0,
+          complete: 0,
+          paid: 0,
+          CustomerId: result.id
+        })
+      }
     })
       .then(() => {
         res.send("success")
@@ -76,16 +126,16 @@ module.exports = (app) => {
     })
       // Nested if/elses will send an error message to the frontend if an error occurs at any point during the search
       .then(result => {
-        (result === null ? res.json({ error: "No Results Found! Please try again" }) : order.inView(result.Order.id, (result) => {
-          (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }))
-        }))
-      })
+        (result === null ? res.json({ error: "No Results Found! Please try again" }) : order.inView(result.Orders[0].id, (result) => {
+          (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }));
+        }));
+      });
   });
 
   // VIEW ORDER
   app.put("/api/orders/inView/:id", (req, res) => {
     order.inView(req.params.id, (result) => {
-      (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }) )
+      (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }))
     });
   });
 
