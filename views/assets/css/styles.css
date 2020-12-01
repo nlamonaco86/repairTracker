@@ -11,7 +11,7 @@
 }.masthead
 
 .hidden{
-    display: none
+    display: none !important;
   }
 
   .splashBtn{
@@ -32,9 +32,18 @@
   cursor: pointer;
 }
 
+.btn-circle.btn-sm { 
+  width: 18px; 
+  height: 18px; 
+  padding: 4px 3px; 
+  border-radius: 24px; 
+  font-size: 8px; 
+  text-align: center; 
+} 
+
   .btn-circle.btn-md { 
-      width: 30px; 
-      height: 30px; 
+      width: 40px; 
+      height: 40px; 
       padding: 7px 3px; 
       border-radius: 24px; 
       font-size: 8px; 
@@ -96,6 +105,10 @@
       border: 1;
       box-shadow:4px 4px 10px rgba(0,0,0,0.06);
       height:150px;
+    }
+
+    .pad{
+      padding: 10px
     }
   
     .extended{

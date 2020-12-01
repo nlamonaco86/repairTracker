@@ -4,12 +4,12 @@ const db = require("../models");
 
 module.exports = (app) => {
 
-  // Helper function
+  // Helper functions
   const getOneCustomer = (lastName, firstName) => {
     return db.Customer.findOne({
       where: { lastName: lastName, firstName: firstName },
     })
-  }
+  };
 
   const getOneOrder = (searchId) => {
     return db.Order.findOne({
@@ -18,7 +18,7 @@ module.exports = (app) => {
         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
       ]
     })
-  }
+  };
 
   const updateStatus = async (rcv, inP, wait, com, paid, targetId, req, res) => {
     let data = await db.Order.update({ received: rcv, inProgress: inP, waiting: wait, complete: com, paid: paid }, { where: { id: targetId } })
@@ -143,8 +143,8 @@ module.exports = (app) => {
         // If a customer has more than one order, result.Orders.length would be > 1
         if (result === null) { res.json({ error: "No Results Found! Please try again" }) }
         else {
-          viewOrder(result.Orders[0].id).then((result) =>{
-            (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }) )
+          viewOrder(result.Orders[0].id).then((result) => {
+            (result.changedRows == 0 ? res.json({ error: "No Results Found! Please try again" }) : res.json({ message: "Success!" }))
           })
         }
       });
@@ -166,6 +166,7 @@ module.exports = (app) => {
 
   // UPDATE REPAIR ORDER STATUSES
   app.put("/api/orders/:status/:id", (req, res) => {
+    console.log(req)
     switch (req.params.status) {
       case "inProgress":
         updateStatus(0, 1, 0, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
@@ -183,8 +184,32 @@ module.exports = (app) => {
     }
   });
 
+  // UPDATE CUSTOMER INFO
+  app.put("/customer-api/update", (req, res) => {
+    db.Customer.update(
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        tel: req.body.tel,
+        email: req.body.email,
+        addr1: req.body.addr1,
+        addr2: req.body.addr2,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip
+      },
+      {
+        where: { id: req.body.customerId }
+      }).then(() => {
+        res.send("success")
+      })
+      .catch((err) => {
+        res.status(401).json(err);
+      });
+  });
+
   //DELETE
-  app.delete("/api/orders/:id", (req, res) => {
+  app.delete("/api/information/update/:id", (req, res) => {
     console.log(req)
     db.Order.destroy({
       where: { id: req.params.id }

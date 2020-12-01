@@ -29,7 +29,7 @@
         <div class="col-lg-4 ml-auto">
 
           <!-- Error handling -->
-          <div id="searchError"  style="padding:10px;border-radius:25px;">
+          <div id="searchError" style="padding:10px;border-radius:25px;">
 
           </div>
           <!-- SEARCH BAR GOES HERE-->
@@ -37,7 +37,8 @@
             <div class="form-row ml-1 d-flex justify-content-around">
               <div class="col-lg-9 mt-1">
                 {{!-- <label for="searchTerm"></label> --}}
-                <input type="text" class="" placeholder="Enter Order # or Last Name" id="searchTerm" aria-label="search term">
+                <input type="text" class="" placeholder="Enter Order # or Last Name" id="searchTerm"
+                  aria-label="search term">
               </div>
               <button class="btn bg-info text-white btn-circle" type="submit" aria-label="search"><i
                   class="fas fa-2x fa-search"></i></button>
@@ -121,8 +122,14 @@
         <div class="col-lg-8 mr-auto" id="infoCard">
 
           <div class="card text-left">
-            <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
-              Information:</div>
+            <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-between">
+              <div>Information:</div>
+              <div>
+                <i id="customerCardBtn" aria-label="edit" class="fa fa-edit"></i>
+                <i id="escBtn" aria-label="edit" class="fa fa-times" style="display:none;"></i>
+                <i id="saveBtn" aria-label="edit" class="fa fa-save" style="display:none;"></i>
+              </div>
+            </div>
             {{#each orders}}
             {{#if inView}}
             {{> orders/order-card inView=true}}
@@ -217,10 +224,10 @@
                   <input type="number" step="0.01" min="0" max="20000" class="" id="partsPrice" placeholder="">
                 </div>
               </div>
-                <div class="form-group">
-                  <label for="partsNeeded">Parts Needed</label>
-                   <input type="text" class="" id="partsNeeded" rows="1" placeholder="List required parts here"></input>
-                </div>
+              <div class="form-group">
+                <label for="partsNeeded">Parts Needed</label>
+                <input type="text" class="" id="partsNeeded" rows="1" placeholder="List required parts here"></input>
+              </div>
               <div class="form-group">
                 <label for="issue">Issue:</label>
                 <textarea class="" id="issue" rows="3"></textarea>
@@ -231,7 +238,7 @@
               </div>
             </form>
             <button id="upload_widget" class="btn btn-info btn-circle btn-lg" aria-label="image upload"><i
-                class="fas fa-2x fa-image" ></i></button>
+                class="fas fa-2x fa-image"></i></button>
           </div>
         </div>
 

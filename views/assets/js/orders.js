@@ -56,7 +56,7 @@ if (photoModal) {
 
 let closeBtn = document.getElementById('close');
 if (closeBtn) {
- closeBtn.addEventListener('click', (event) => {
+  closeBtn.addEventListener('click', (event) => {
     event.preventDefault();
     let photoViewer = document.getElementById("photoViewer");
     photoViewer.style = "display: none;"
@@ -255,9 +255,9 @@ const handleSearchError = (error, event) => {
   </div>`
 }
 
+
 // Dynamic search function checks to see which term is being used to search and sends off the 
 // proper request. Nested error handling takes different possibilities into account
-
 let searchForm = document.querySelector(".searchForm");
 if (searchForm) {
   searchForm.addEventListener('submit', (event) => {
@@ -274,26 +274,137 @@ if (searchForm) {
             console.log(response.error)
             handleSearchError(response.error, event);
           }
-          else { 
+          else {
             location.reload();
             // Other orders associated with the customer will also be returned
-            console.log(response.otherOrders.map(x => x.id)) 
+            console.log(response.otherOrders.map(x => x.id))
           }
         }
         );
     }
-// The nested API calls above and below take care of response and error handling
+    // The nested API calls above and below take care of response and error handling
     else {
       fetch('api/orders/inView/' + id, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', }
       })
+        .then(response => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log('Error:', error);
+        });
+    }
+  });
+};
+
+// Functions to edit Customer information on the fly
+
+// To cancel an edit, just reload the page
+let escBtn = document.querySelector("#escBtn");
+if (escBtn) {
+  escBtn.addEventListener('click', (event) => {
+    location.reload();
+  })
+}
+
+// populate a form with the current information - user can then edit the info, and click save to submit to the database
+let saveBtn = document.querySelector("#saveBtn");
+if (saveBtn) {
+  saveBtn.addEventListener('click', (event) => {
+    let customerId = document.getElementById("editCustomerId").textContent;
+    let editedInfo = {
+      customerId: document.getElementById("editCustomerId").textContent,
+      firstName: document.getElementById("editFirstname").value,
+      lastName: document.getElementById("editLastname").value,
+      email: document.getElementById("editEmail").value,
+      tel: document.getElementById("editTel").value,
+      addr1: document.getElementById("editAddr1").value,
+      addr2: document.getElementById("editAddr2").value,
+      city: document.getElementById("editCity").value,
+      zip: document.getElementById("editZip").value
+    };
+    fetch('customer-api/update/', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify(editedInfo),
+    })
       .then(response => {
-        location.reload();
+        if (response.err) { console.log(err) }
+       location.reload();
       })
       .catch((error) => {
         console.log('Error:', error);
       });
-    }
   });
+};
+
+let customerCardBtn = document.querySelector("#customerCardBtn");
+if (customerCardBtn) {
+  customerCardBtn.addEventListener('click', (event) => {
+    let orderID = document.getElementById("orderID").textContent;
+    let firstName = document.getElementById("fN").textContent;
+    let lastName = document.getElementById("lN").textContent;
+    let email = document.getElementById("custEmail").textContent;
+    let tel = document.getElementById("custTel").textContent;
+    let addr1 = document.getElementById("caddr1").textContent;
+    let addr2 = document.getElementById("caddr2").textContent;
+    let city = document.getElementById("cCity").textContent;
+    let zip = document.getElementById("cZip").textContent;
+
+    saveBtn.style.removeProperty('display');
+    escBtn.style.removeProperty('display');
+    customerCardBtn.style.display = 'none';
+
+    document.getElementById("customerCard").innerHTML =
+      `<h4 class="card-title">Order #<span>${orderID}</span></h4>
+    <form class="edit">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="" id="editFirstname" value="${firstName}"></input>
+      </div>
+      <div class="form-group col-md-6">
+      <input type="text" class="" id="editLastname" value="${lastName}"></input>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="email" class="" id="editEmail" value="${email}"></input>
+      </div>
+      <div class="form-group col-md-6">
+       <input type="text" class="" id="editTel" pattern="[0-9]{10}" value="${tel}"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="" id="editAddr1" value="${addr1}"></input>
+    </div>
+    <div class="form-group">
+      <input type="text" class="" id="editAddr2" value="${addr2}"></input>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-5">
+         <input type="text" class="" id="editCity" value="${city}"></input>
+      </div>
+      <div class="form-group col-md-3">
+        <select id="editState" class="">
+          <option>CT</option>
+          <option>DE</option>
+          <option>MA</option>
+          <option>MD</option>
+          <option>ME</option>
+          <option>NH</option>
+          <option selected>NJ</option>
+          <option>NY</option>
+          <option>PA</option>
+          <option>VT</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="" id="editZip" value="${zip}"></input>
+      </div>
+    </div>
+    <div class="d-flex justify-content-around">
+  </div>
+</form>`
+  })
 };
