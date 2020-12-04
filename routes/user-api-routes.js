@@ -32,7 +32,7 @@ module.exports = (app) => {
     db.User.create({
       email: req.body.email,
       // For testing purposes, this allows admin to choose a user's password, in a production version,
-      // this would be omitted, and a random password would be generated server-side, hased and sent to 
+      // this would be omitted, and a random password would be generated server-side, hashed and sent to 
       // the user as an e-mail, similar to the forgot password route below, if we were working with real people. 
       password: req.body.password,
       employee: req.body.employee,
@@ -76,20 +76,20 @@ module.exports = (app) => {
     let resetType = req.body.type
     // Take in user email, search the database for a user where that email is a match
     db.User.findOne({ where: { email: req.body.email } })
-      .then((response) => {
+      .then((result) => {
         // if no match, send back an error, otherwise, update the user's password to a random one
-        if (response === null) { res.json({ error: "No result found. Please check the e-mail address you entered." }) }
+        if (result === null) { res.json({ error: "No result found. Please check the e-mail address you entered." }) }
         // Hash the random password so that it can be safely stored in the database
         else {
           let randomPassword = Math.floor(10000000 + Math.random() * 9000000).toString();
           // Update the user in DB with the hashed password, and flag their account as using a temp password
-          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null), tempPassword: 1 }, { where: { id: response.id } })
+          db.User.update({ password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10), null), tempPassword: 1 }, { where: { id: result.id } })
           // If they selected SMS, send the temp password that way
           if (resetType === "SMS") { 
           // Create the message and send it to the user
             client.messages.create({
               body: `repairTracker: Your password has been temporarily reset to: ${randomPassword}.`,
-              to: "+1" + response.phone,  
+              to: "+1" + result.phone,  
               from: process.env.PHONE_NUMBER
             })
               .then((message) => console.log(message.sid));
@@ -98,7 +98,7 @@ module.exports = (app) => {
           else {
             let mailOptions = {
               from: process.env.EMAIL_USERNAME,
-              to: response.email,
+              to: result.email,
               subject: `repairTracker: Forgot Password`,
               text: `Your password has been temporarily reset to: ${randomPassword}
             If you did not request a new password, please contact your administrator.`
@@ -106,12 +106,12 @@ module.exports = (app) => {
             // send the e-mail to the user 
             transporter.sendMail(mailOptions, (error, info) => {
               // error handling
-              (error ? console.log(error) : console.log('Email sent: ' + info.response))
+              (error ? console.log(error) : console.log('Email sent: ' + info.result))
             })
           }
         }
       })
-      .then((response) => {
+      .then((result) => {
         // Send a success message
         res.json({ message: "success" })
       })
@@ -134,5 +134,29 @@ module.exports = (app) => {
         res.status(401).json(err);
       });
   })
+
+  // EDIT USER DATA
+  app.put("/api/user_data/editUser", (req, res) => {
+    db.User.update({ first: req.body.first, last: req.body.last, position: req.body.position, 
+      phone: req.body.phone, dob: req.body.dob, ssn: req.body.ssn }, { where: { id: req.body.id } })
+      .then((data) => {
+        res.json({ message: "User Successfully Updated" })
+      })
+      .catch((err) => {
+        res.status(401).json(err);
+      });
+  })
+
+  // DELETE USER
+  app.delete("/api/user_data/deleteUser", (req, res) => {
+    db.User.destroy({
+      where: { id: req.body.id } })
+      .then((data) => {
+        res.json({ message: "User Successfully Deleted" })
+      })
+      .catch((err) => {
+        res.status(401).json(err);
+      });
+  });
 
 };
