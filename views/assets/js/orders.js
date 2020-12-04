@@ -213,7 +213,12 @@ const personalizePage = () => {
     return response.json();
   })
     .then(response => {
-      (response.position === "Admin" ? document.getElementById('adminLink').innerHTML = `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger" href="/admin">ADMIN</a>` : "")
+      let adminLink = document.getElementById('adminLink')
+      if (response.position === "Admin") {
+        if (adminLink) {
+          adminLink.innerHTML = `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger" href="/admin">ADMIN</a>`
+        }
+      }
     });
 }
 personalizePage();
@@ -331,7 +336,7 @@ if (saveBtn) {
     })
       .then(response => {
         if (response.err) { console.log(err) }
-       location.reload();
+        location.reload();
       })
       .catch((error) => {
         console.log('Error:', error);

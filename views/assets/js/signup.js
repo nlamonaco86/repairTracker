@@ -17,7 +17,6 @@ if (signUpForm) {
       // this would be omitted, and a random password would be generated server-side, hased and sent to 
       // the user as an e-mail, if we were working with real people. 
       password: document.getElementById("password-input").value,
-      employee: 0,
       first: document.getElementById("first-input").value,
       last: document.getElementById("last-input").value,
       phone: document.getElementById("phone-input").value,
@@ -36,7 +35,7 @@ if (signUpForm) {
     // If email and password, run the signUpUser function
     else {
       if (checkPassword(userData.password) === true) {
-        signUpUser(userData.email, userData.password, userData.employee, userData.first, userData.last,
+        signUpUser(userData.email, userData.password, userData.first, userData.last,
           userData.phone)
       }
       else{
@@ -52,12 +51,13 @@ if (signUpForm) {
   });
 };
 
-const signUpUser = (email, password, employee, first, last, phone) => {
+const signUpUser = (email, password, first, last, phone) => {
 
   let newUser = {
     email: email,
     password: password,
-    employee: employee,
+    employee: 0,
+    position: "customer",
     first: first,
     last: last,
     phone: phone

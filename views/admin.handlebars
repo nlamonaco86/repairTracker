@@ -19,8 +19,7 @@
 </nav>
 
 <div class="col-lg-12 mt-4 mr-auto" id="infoCard">
-
-  <div class="card text-left">
+  <div class="card">
     <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
       CREATE EMPLOYEE ACCOUNT:
     </div>
@@ -78,7 +77,25 @@
       </div>
     </div>
   </div>
+</div>
 
-  </body>
+<div class="col-lg-12 mt-4 mr-auto">
+  <div class="card">
+    <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">EDIT USER RECORDS:
+    </div>
+    <div class="card-body row justify-content-center">
+      <div id="editRecordError" class="mt-2" style="padding:20px;border-radius:50px;"></div>
+      <div class="col-lg-12">
 
-  </html>
+        {{#each users}}
+        {{> users/user-record}}
+        {{/each}}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

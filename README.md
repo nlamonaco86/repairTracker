@@ -4,7 +4,7 @@ repairTracker is a full-stack application using Node.js, Express, MySQL, Sequeli
 
 Packages such as Twilio, Nodemailer, dotenv, util, and more provide supporting features.
 
-This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair based on five different statuses (received, in progress, waiting on parts, complete, paid) as one would in an automobile, electronics, appliance or other repair shop. 
+This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair order as one would in an automobile, electronics, appliance or other repair shop. 
 
 The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry. 
 
@@ -18,17 +18,23 @@ Anyone can create a Customer account as well, but can only access the customer s
 
 All users are able to reset their password with a temporary code sent to their e-mail or via SMS, and will be prompted to make a new password on their next login.
 
+The Administrator account is able to edit or delete employee or customer user information through the admin control panel. 
+
 ## Track and Manage Repair Order Statuses
 
-Repair techs can log into the Employees section to create work orders, manage work order statuses, add photos, as well as view and edit work notes. 
+Repair techs can log into the Employees section. 
+
+From there, they can create new work orders along with cloud uploaded images, notes, and industry-specific data
+
+Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
 
 ## Complete Invoice system
 
-Technicians can also generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax. 
+Technicians can generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax, and displays all the information in a customer-friendly manner.  
 
 ## Customer Portal
 
-Customers can view the Tracker page to lookup the current status of their order, with or without an account, as well as retrieve their invoice. 
+Customers can view the Tracker page to lookup the current status of their order, with or without an account, and view their invoice, from the customer portal.  
 
 repairTracker is intended for use on an iPad in a mobile setting, but is responsive to all screen sizes. 
 

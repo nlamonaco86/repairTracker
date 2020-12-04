@@ -1,5 +1,6 @@
 // Getting references to form
-let adminSignUpForm = document.querySelector('.adminSignup');
+let adminSignUpForm = document.querySelector(".adminSignup");
+let editRecordError = document.getElementById("editRecordError")
 
 const checkRegex = (password) => {
   let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
@@ -80,3 +81,76 @@ const adminSignUp = (email, password, employee, first, last, position, phone, do
       console.log('Error:', error);
     });
 };
+
+// EDIT USER function
+let userRecord = document.getElementsByClassName("editUser");
+if (userRecord) {
+  for (let i = 0; i < userRecord.length; i++) {
+    userRecord[i].addEventListener('click', (event) => {
+      event.preventDefault();
+      // Handlebars will generate a form for each user, each of the forms has a parent element with the user ID as its ID
+      // And each of the form's fields is given an ID unique to that form and user ID
+      // By combining the two, extrapolate a unique object for each user's data
+      let userId = userRecord[i].parentElement.id
+
+      let userData = {
+        id: userRecord[i].parentElement.id,
+        first: document.getElementById("first" + userId).value,
+        last: document.getElementById("last" + userId).value,
+        position:  document.getElementById("position" + userId).value,
+        phone:  document.getElementById("phone" + userId).value,
+        dob: document.getElementById("dob" + userId).value,
+        ssn:  document.getElementById("ssn" + userId).value,
+      }
+
+      fetch('../api/user_data/editUser', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(userData),
+      })
+        .then(response => response.json())
+        .then(data => {
+         location.reload();
+        })
+        .catch((error) => {
+          editRecordError.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>An error occured! If the problem persists, please contact your administrator. 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
+        });
+    })
+  }
+}
+
+// DELETE USER function
+let deleteUser = document.getElementsByClassName("deleteUser");
+if (deleteUser) {
+  for (let i = 0; i < deleteUser.length; i++) {
+    deleteUser[i].addEventListener('click', (event) => {
+      event.preventDefault();
+    // Same logic as before, but with a delete function
+      let userId = { id: userRecord[i].parentElement.id }
+
+      fetch('../api/user_data/deleteUser', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(userId),
+      })
+        .then(response => response.json())
+        .then(data => {
+         location.reload();
+        })
+        .catch((error) => {
+          editRecordError.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>An error occured! If the problem persists, please contact your administrator. 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
+        });
+    })
+  }
+}
+
