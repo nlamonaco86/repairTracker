@@ -96,6 +96,7 @@ Cloudinary requires an account at Cloudinary, if you omit this step the app will
 ![invoice](./views/assets/screenshot4.png) 
 ![forgot password](./views/assets/screenshot7.png) 
 ![customer view](./views/assets/screenshot3.png) 
+![admin page](./views/assets/screenshot8.png) 
 
 ## Questions
 
