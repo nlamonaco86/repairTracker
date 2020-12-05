@@ -1,12 +1,10 @@
 # repairTracker
 
-repairTracker is a full-stack application using Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap. 
+repair Tracker is a convenient, easy to use, repair order status and invoice management system for businesses and customers.
 
-Packages such as Twilio, Nodemailer, dotenv, util, and more provide supporting features.
+This full-stack application uses Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap, and packages such as Twilio, Nodemailer, dotenv, util, and more provide supporting features.
 
-This demonstrates full usage of C-R-U-D in a realistic scenario by tracking a repair order as one would in an automobile, electronics, appliance or other repair shop. 
-
-The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry. 
+The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry, such as appliance or electronics repair shops, food delivery service, and much more. 
 
 # Features:
 
@@ -56,7 +54,7 @@ FUTURE UPDATES:
 
 ## Installation
 
-Once you've cloned the repo, you'll need to make sure the following environment variabels are set:
+Once you've cloned the repo, you'll need to make sure the following environment variables are set:
 
 ```
 MYSQL_USERNAME

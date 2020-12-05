@@ -51,6 +51,8 @@ if (signUpForm) {
   });
 };
 
+let signupError = document.getElementById("signupError")
+
 const signUpUser = (email, password, first, last, phone) => {
 
   let newUser = {
@@ -70,11 +72,19 @@ const signUpUser = (email, password, first, last, phone) => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      window.location.replace("/tracker");
+      if (data.name === "SequelizeUniqueConstraintError"){
+        signupError.innerHTML =
+        `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>An account with that e-mail already exists. Please click <a href="/login" class="text-white">here<a> to log in. 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
+      }
+        else { window.location.replace("/tracker") };
     })
     .catch((error) => {
-      let signupError = document.getElementById("signupError")
+      event.preventDefault
       signupError.innerHTML =
         `<div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Please check the information you entered, and try again!

@@ -52,7 +52,7 @@ module.exports = (app) => {
   });
 
   app.get("/about", (req, res) => {
-    res.redirect("https://www.github.com/nlamonaco86")
+    res.redirect("https://www.nicholaslamonaco.com")
   });
 
   app.get("/forgot", (req, res) => {

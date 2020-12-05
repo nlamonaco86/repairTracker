@@ -3,6 +3,9 @@ let alertBox = document.getElementById("trackerError");
 let searchBtn = document.getElementById("search");
 let invoiceBox = document.getElementById("invoiceBox");
 
+result.innerHTML = `Welcome to demo mode! To view the employee dashboard, please visit the <a href="https://github.com/nlamonaco86/repairTracker" class="text-white">Github Repo</a> for more information. Otherwise, enter an Order Number to continue.`;
+alertBox.classList.add("alert-success");
+
 //LOOKUP AN ORDER
 if (searchBtn){
 searchBtn.addEventListener("click", (event) => {
