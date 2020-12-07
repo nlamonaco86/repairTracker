@@ -25,7 +25,9 @@
         <div class="col-lg-6">
              <div id="editCustomerId" style="display:none;">{{CustomerId}}</div>
             <div id="customerCard">
-                <h4 class="card-title">Order #<span id="orderID">{{id}}</span></h4>
+                <h4 class="card-title">Order #<span id="orderID">{{id}}</span> {{#if paid}}
+                 <div><span class="text-danger font-weight-bold">PAID</span></div>
+                 {{/if}}</h4>
                 <h5 class="card-title"><span id="fN">{{firstName}}</span><span id="lN"> {{lastName}} </span></h5>
                 <div class="mt-3">
                     <a href="mailto:{{email}}" class="text-info font-weight-bold" id="custEmail">{{email}}</a>
@@ -86,8 +88,6 @@
                         <button class="btn btn-success btn-circle btn-lg" aria-label="paid"><i
                                 class="fas fa-3x fa-dollar-sign"></i></button>
                     </div>
-                    {{/if}}
-                    {{#if paid}}
                     {{/if}}
                 </div>
 

@@ -20,10 +20,15 @@ module.exports = (app) => {
     })
   };
 
-  const updateStatus = async (rcv, inP, wait, com, paid, targetId, req, res) => {
-    let data = await db.Order.update({ received: rcv, inProgress: inP, waiting: wait, complete: com, paid: paid }, { where: { id: targetId } })
+  const updateStatus = async (rcv, inP, wait, com, targetId, req, res) => {
+    let data = await db.Order.update({ received: rcv, inProgress: inP, waiting: wait, complete: com }, { where: { id: targetId } })
     return data
   };
+
+  const markPaid = async (paid, targetId, req, res) => {
+    let data = await db.Order.update({paid: paid }, { where: { id: targetId } })
+    return data
+  };  
 
   const viewOrder = async (orderId, req, res) => {
     let data = await db.sequelize.query("UPDATE Orders SET inView = IF(id = :id, 1, 0)",
@@ -169,16 +174,16 @@ module.exports = (app) => {
     console.log(req)
     switch (req.params.status) {
       case "inProgress":
-        updateStatus(0, 1, 0, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        updateStatus(0, 1, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "waiting":
-        updateStatus(0, 0, 1, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        updateStatus(0, 0, 1, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "complete":
-        updateStatus(0, 0, 0, 1, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        updateStatus(0, 0, 0, 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "paid":
-        updateStatus(0, 0, 0, 0, 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        markPaid( 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       default:
     }

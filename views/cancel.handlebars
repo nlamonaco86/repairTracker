@@ -1,0 +1,21 @@
+{{#each receipt}}
+<div class="container">
+
+    <header class="masthead bg-light text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <a href="/invoice/{{id}}"><i class="fas fa-exclamation fa-7x text-danger mt-5"></i></a>
+
+            {{!-- <h1 class="masthead-heading mb-0 text-dark mt-5">Payment Failed!</h1> --}}
+            <div class="mt-4" style="padding:20px;border-radius:50px;"></div>
+            <h3 class="text-dark"> We're sorry, {{firstName}}</h3>
+            <h4 class="text-dark mt-2">An error occured while processing your payment. Please Check the information
+                provided, and try again. If the problem persists, please <a href="tel:9085551234"
+                    class="text-danger">contact us.</a></h4>
+            <h5 class="text-dark mt-4">Order #{{id}}</h5>
+            <h5 class="text-dark mt-4">Total: {{total}}</h5>
+            <a href="/invoice/{{id}}" style="text-decoration:none;"><h2 class="text-danger mt-4">Try Again.</h2></a>
+        </div>
+    </header>
+
+</div>
+{{/each}}

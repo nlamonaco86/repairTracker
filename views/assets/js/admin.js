@@ -75,7 +75,7 @@ const adminSignUp = (email, password, employee, first, last, position, phone, do
   })
     .then(response => response.json())
     .then(data => {
-      window.location.replace("/orders");
+     location.reload();
     })
     .catch((error) => {
       console.log('Error:', error);
