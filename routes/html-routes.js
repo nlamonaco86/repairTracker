@@ -97,4 +97,13 @@ module.exports = (app) => {
     res.render('fourohfour', { title: '404 - Page Not Found' });
   });
 
+  // PAYMENT ROUTES
+  app.get("/success", (req, res) => {
+    res.render('success', { title: 'Payment - SUCCESS' })
+  });
+
+  app.get("/cancel", (req, res) => {
+    res.render('cancel', { title: 'Payment - ERROR' })
+  });
+
 };
