@@ -2,9 +2,9 @@
 
 repair Tracker is a convenient, easy to use, repair order status and invoice management system for businesses and customers.
 
-This full-stack application uses Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap, and packages such as Twilio, Nodemailer, dotenv, util, and more provide supporting features.
+This full-stack application uses Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap, and packages such as Twilio, Stripe, Nodemailer, dotenv, util, and more provide supporting features.
 
-The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry, such as appliance or electronics repair shops, food delivery service, and much more. 
+The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry, such as appliance or electronics repair shops, food delivery services, and much more. 
 
 # Features:
 
@@ -22,7 +22,7 @@ The Administrator account is able to edit or delete employee or customer user in
 
 Technicians can generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax, and displays all the information in a customer-friendly manner.  
 
-Customers can pay for the balance of their invoice, either in person or remotely, using their credit card or Google Pay via integration with Stripe. Technicians are able to see if an invoice has been paid for or not. 
+Customers can pay for the balance of their invoice, either in person or remotely, using their credit card or Google Pay via integration with Stripe. Technicians are able to see if an invoice is paid or not. 
 
 ## Track and Manage Repair Order Statuses
 
