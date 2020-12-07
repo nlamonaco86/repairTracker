@@ -153,7 +153,7 @@ if (markPaid) {
   markPaid.addEventListener('click', (event) => {
     event.preventDefault();
     let id = document.getElementById("orderID").textContent;
-    let newStatus = { received: 0, inProgress: 0, waiting: 0, complete: 0, paid: 0 }
+    let newStatus = { paid: 1 }
 
     fetch('api/orders/paid/' + id, {
       method: 'PUT',

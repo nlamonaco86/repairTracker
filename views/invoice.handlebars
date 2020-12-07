@@ -2,9 +2,9 @@
 <div id="invoice">
 
     <div class="toolbar hidden-print">
-        <div class="text-right">
-            <button id="checkout-button">Checkout</button>
-            <button data-id="{{id}}" class="btn btn-info email" aria-label="email"><i class="fa fa-envelope"></i>
+        <div class="d-flex justify-content-end">
+            <div id="invBtns" style="margin-right:10px;"></div>
+            <button data-id="{{id}}" class="btn btn-info email" aria-label="email" style="margin-right:10px;"><i class="fa fa-envelope"></i>
                 E-Mail</button>
             <button id="printInvoice" class="btn btn-info" aria-label="print"><i class="fa fa-print"></i> Print</button>
         </div>
@@ -70,7 +70,7 @@
                             <td class="total">${{laborTotal}}</td>
                         </tr>
                     </tbody>
-                     <thead>
+                    <thead>
                         <tr>
                             <th></th>
                             <th class="text-left"></th>
@@ -79,16 +79,16 @@
                             <th class="text-right">PRICE</th>
                         </tr>
                     </thead>
-                     <tr>
-                            <td class="no"></td>
-                            <td class="text-left">
-                                 <h3 class="font-weight-bold font-weight-bold text-dark">REPLACEMENT PARTS:</h3>
-                                {{partsNeeded}}
-                            </td>
-                            <td class="unit"></td>
-                            <td class="qty"></td>
-                            <td class="total">${{partsPrice}}</td>
-                        </tr>
+                    <tr>
+                        <td class="no"></td>
+                        <td class="text-left">
+                            <h3 class="font-weight-bold font-weight-bold text-dark">REPLACEMENT PARTS:</h3>
+                            {{partsNeeded}}
+                        </td>
+                        <td class="unit"></td>
+                        <td class="qty"></td>
+                        <td class="total">${{partsPrice}}</td>
+                    </tr>
                     <tfoot>
                         <tr>
                             <td colspan="2"></td>
@@ -126,33 +126,39 @@
 <script type="text/javascript">
     // Create an instance of the Stripe object with publishable API key - this one is a TEST key
     let stripe = Stripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
-    let checkoutButton = document.getElementById("checkout-button");
-    checkoutButton.addEventListener('click', () => {
-    let invoiceData = {
-        item: "Auto Repair",
-        // Handlebars fills in the script variable 
-        cost: {{total}}
+    // If an order is NOT paid, create a checkout button, add event listener, and provide necessary data for checkout
+    if ({{paid}} === 0) {
+        document.getElementById("invBtns").innerHTML = `<button class="btn btn-info" aria-label="checkout" id="checkout-button"><i class="fa fa-credit-card"></i> Checkout</button>`
+       let checkoutButton = document.getElementById("checkout-button");
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', () => {
+                let invoiceData = {
+                    item: "Auto Repair",
+                    // Handlebars fills in the script variable 
+                    cost: {{total}},
+                invoiceId: {{id}}
     }
-    console.log(invoiceData)
-      fetch('/api/payment/stripe/create-session', {
+    fetch('/api/payment/stripe/create-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(invoiceData),
-      })
+    })
         .then((response) => {
-          return response.json();
+            return response.json();
         })
         .then((session) => {
-          return stripe.redirectToCheckout({ sessionId: session.id });
+            return stripe.redirectToCheckout({ sessionId: session.id });
         })
         .then((result) => {
-          if (result.error) {
-            alert(result.error.message);
-          }
+            if (result.error) {
+                alert(result.error.message);
+            }
         })
         .catch((error) => {
-          console.error("Error:", error);
+            console.error("Error:", error);
         });
     });
-  </script>
+        }
+    }
+</script>
 {{/each}}

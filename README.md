@@ -18,17 +18,18 @@ All users are able to reset their password with a temporary code sent to their e
 
 The Administrator account is able to edit or delete employee or customer user information through the admin control panel. 
 
-## Track and Manage Repair Order Statuses
-
-Repair techs can log into the Employees section. 
-
-From there, they can create new work orders along with cloud uploaded images, notes, and industry-specific data
-
-Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
-
-## Complete Invoice system
+## Complete Invoice & Payment System
 
 Technicians can generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax, and displays all the information in a customer-friendly manner.  
+
+Customers can pay for the balance of their invoice, either in person or remotely, using their credit card or Google Pay via integration with Stripe. Technicians are able to see if an invoice has been paid for or not. 
+
+## Track and Manage Repair Order Statuses
+
+Repair techs can create new work orders for customers along with cloud uploaded images, notes, and industry-specific data related to the work order. 
+
+Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
+ 
 
 ## Customer Portal
 

@@ -22,8 +22,9 @@ module.exports = (app) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${YOUR_DOMAIN}/success`,
-            cancel_url: `${YOUR_DOMAIN}/cancel`,
+            // Handlebars redirect will use req.params to bring along the invoice ID for customer's receipt
+            success_url: `${YOUR_DOMAIN}/success/${req.body.invoiceId}`,
+            cancel_url: `${YOUR_DOMAIN}/cancel/${req.body.invoiceId}`,
         });
         res.json({ id: session.id });
     });
