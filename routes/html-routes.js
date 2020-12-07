@@ -108,13 +108,16 @@ module.exports = (app) => {
     oneInvoice(req.params.invoiceId).then((result) => {
       // Mark the Invoice as Paid
       paidWithStripe( 1, req.params.invoiceId).then((result) => { (result.changedRows == 0 ? res.status(404).end() : console.log("Order Marked Paid via Stripe")) });
-      // Render a Receipt page with Handlebars
+      // Render a Receipt page
       res.render('success', { title: 'Payment - SUCCESS', receipt: result});
     });
   });
 
   app.get("/cancel/:invoiceId", (req, res) => {
-    res.render('cancel', { title: 'Payment - ERROR' })
+    oneInvoice(req.params.invoiceId).then((result) => {
+     // Render a personalized error page
+      res.render('cancel', { title: 'Payment - ERROR', receipt: result});
+    });
   });
 
 };

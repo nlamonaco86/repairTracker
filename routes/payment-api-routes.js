@@ -1,6 +1,7 @@
 require('dotenv').config();
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-const YOUR_DOMAIN = 'http://localhost:8080';
+const PORT = process.env.PORT || 8080
+const YOUR_DOMAIN = `http://localhost:${PORT}`
 
 module.exports = (app) => {
     app.post('/api/payment/stripe/create-session', async (req, res) => {
