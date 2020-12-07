@@ -93,6 +93,7 @@ Cloudinary requires an account at Cloudinary, if you omit this step the app will
 ## Usage
 ![repairTracker](./views/assets/screenshot.png) 
 ![invoice](./views/assets/screenshot4.png) 
+![pay via Stripe](./views/assets/screenshot9.png) 
 ![forgot password](./views/assets/screenshot7.png) 
 ![customer view](./views/assets/screenshot3.png) 
 ![admin page](./views/assets/screenshot8.png) 
