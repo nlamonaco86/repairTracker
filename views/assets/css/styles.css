@@ -101,10 +101,8 @@
       width:100%;
       resize: vertical;
       padding:15px;
-      border-radius:15px;
-      border: 1;
-      box-shadow:4px 4px 10px rgba(0,0,0,0.06);
-      height:150px;
+      border-radius:5px;
+      height:300px;
     }
 
     .pad{
@@ -120,7 +118,6 @@
     resize: vertical;
     padding:5px;
     border-radius:10px;
-    box-shadow:4px 4px 10px rgba(0,0,0,0.06);
     height:40px;
   } 
 

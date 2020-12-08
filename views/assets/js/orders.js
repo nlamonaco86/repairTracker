@@ -54,15 +54,6 @@ if (photoModal) {
   })
 };
 
-let closeBtn = document.getElementById('close');
-if (closeBtn) {
-  closeBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    let photoViewer = document.getElementById("photoViewer");
-    photoViewer.style = "display: none;"
-  })
-};
-
 let updateIssue = document.getElementById("updateIssue");
 if (updateIssue) {
   updateIssue.addEventListener('submit', (event) => {
@@ -76,7 +67,7 @@ if (updateIssue) {
       body: JSON.stringify(newIssue),
     })
       .then(response => {
-        window.reload();
+        location.reload();
       })
       .catch((error) => {
         console.log('Error:', error);
@@ -195,11 +186,8 @@ if (deleteBtn) {
         console.log(response.position)
         if (response.position === "Admin") {
           let id = document.getElementById("orderID").textContent;
-          fetch("/api/orders/" + id, { method: "DELETE" }).then((response) => {
-            event.preventDefault();
-            console.log(response)
-            console.log("deleted order", id);
-            // location.reload();
+          fetch("/api/orders/delete/" + id, { method: "DELETE" }).then((response) => {
+           location.reload();
           })
         }
         else { handleDeleteError(event); }
@@ -216,7 +204,9 @@ const personalizePage = () => {
       let adminLink = document.getElementById('adminLink')
       if (response.position === "Admin") {
         if (adminLink) {
-          adminLink.innerHTML = `<a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger" href="/admin">ADMIN</a>`
+          adminLink.innerHTML = `<a class="nav-link" href="/admin">
+          <i class="fas fa-fw fa-laptop"></i>
+          <span>Admin</span></a>`
         }
       }
     });
