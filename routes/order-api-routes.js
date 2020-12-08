@@ -171,7 +171,6 @@ module.exports = (app) => {
 
   // UPDATE REPAIR ORDER STATUSES
   app.put("/api/orders/:status/:id", (req, res) => {
-    console.log(req)
     switch (req.params.status) {
       case "inProgress":
         updateStatus(0, 1, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
@@ -214,8 +213,7 @@ module.exports = (app) => {
   });
 
   //DELETE
-  app.delete("/api/information/update/:id", (req, res) => {
-    console.log(req)
+  app.delete("/api/orders/delete/:id", (req, res) => {
     db.Order.destroy({
       where: { id: req.params.id }
     })

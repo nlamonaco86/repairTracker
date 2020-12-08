@@ -1,6 +1,6 @@
 # repairTracker
 
-repair Tracker is a convenient, easy to use, repair order status and invoice management system for businesses and customers.
+repair Tracker is a convenient, easy to use, invoice management and point of sale system for businesses and customers.
 
 This full-stack application uses Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap, and packages such as Twilio, Stripe, Nodemailer, dotenv, util, and more provide supporting features.
 
@@ -30,7 +30,6 @@ Repair techs can create new work orders for customers along with cloud uploaded 
 
 Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
  
-
 ## Customer Portal
 
 Customers can view the Tracker page to lookup the current status of their order, with or without an account, and view their invoice, from the customer portal.  
@@ -46,7 +45,7 @@ This account can be used to test the application on Heroku.
 FUTURE UPDATES: 
 - Improved Customer Portal and front-end functions to view more data. 
 - Assign different repairs to different Techs, and restrict access to repair orders assigned to them
-- Marking an order paid will take in the price paid and log it for daily/weekly/yearly totals and averages 
+- Financial graphs for daily/weekly/monthly/etc. payment totals 
 
 ## Table of Contents
 
@@ -91,7 +90,8 @@ PHONE_NUMBER=yourPhoneNumber
 Cloudinary requires an account at Cloudinary, if you omit this step the app will run but the image features won't work. Likewise if if there is no environment variables for email set, the e-mail features will not work. Note that gmail and other providers may require you to enable "less secure" options in order to work with Nodemailer - consider using a spare or temporary email for this purpose. 
 
 ## Usage
-![repairTracker](./views/assets/screenshot.png) 
+![repairTracker wide](./views/assets/screenshot10.png) 
+![repairTracker mobile](./views/assets/screenshot11.png) 
 ![invoice](./views/assets/screenshot4.png) 
 ![pay via Stripe](./views/assets/screenshot9.png) 
 ![forgot password](./views/assets/screenshot7.png) 
