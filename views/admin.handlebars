@@ -1,98 +1,210 @@
-<nav class="navbar navbar-expand-lg bg-info" id="mainNav">
-  <div class="container">
-    <a href='/'><i class="fas fa-tools fa-3x text-light"></i></a>
-    <a href='/' class="navbar-brand js-scroll-trigger ml-4">repair Tracker</a>
-    <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-info text-white rounded" type="button"
-      data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-      aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-1 rounded js-scroll-trigger"
-            href="/logout">LOG OUT</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-<div class="col-lg-12 mt-4 mr-auto" id="infoCard">
-  <div class="card">
-    <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">
-      CREATE EMPLOYEE ACCOUNT:
-    </div>
-    <div class="card-body row justify-content-center">
-      <div id="adminSignupError" class="mt-2" style="padding:20px;border-radius:50px;"></div>
-      <div class="col-lg-12">
-        <form class="adminSignup">
-          <div class="form-row justify-content-between">
-            <div class="form-group col-lg-3">
-              <label for="email address">Email address</label>
-              <input type="email" class="form-control" id="email-input" placeholder="Email">
-            </div>
-            <div class="form-group col-lg-3">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password-input" placeholder="Password">
-            </div>
-            <div class="form-group col-lg-3">
-              <label for="first name">First</label>
-              <input type="text" class="form-control" id="first-input" placeholder="First Name">
-            </div>
-            <div class="form-group col-lg-3">
-              <label for="last name">Last</label>
-              <input type="text" class="form-control" id="last-input" placeholder="Last Name">
-            </div>
-          </div>
-          <div class="form-row justify-content-between">
-            <div class="form-group col-lg-3">
-              <label for="position">Position</label>
-              <select id="position-input" class="" placeholder="Position">
-                <option selected>Technician</option>
-                <option>Manager</option>
-                <option>Employee</option>
-                <option>Admin</option>
-              </select>
-            </div>
-            <div class="form-group col-lg-3">
-              <label for="phone number">Phone</label>
-              <input type="text" class="form-control" id="phone-input" placeholder="Numbers Only, No () or -">
-            </div>
-            <div class="form-group col-lg-3">
-              <label for="date of bith">D.O.B.</label>
-              <input type="text" class="form-control" id="dob-input" placeholder="DOB">
-            </div>
-            <div class="form-group col-lg-3">
-              <label for="ssn">SSN</label>
-              <input type="text" class="form-control" id="ssn-input" placeholder="SSN">
-            </div>
-            <div style="display: none" id="alert" class="alert alert-danger" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span> <span class="msg"></span>
-            </div>
-          </div>
-          <button type="submit" class="btn-lg btn-info text-white">CREATE</button>
-        </form>
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./">
+      <div class="sidebar-brand-icon">
+        <i class="fas fa-tools"></i>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="sidebar-brand-text mx-3">repairTracker</div>
+    </a>
 
-<div class="col-lg-12 mt-4 mr-auto">
-  <div class="card">
-    <div class="card-header font-weight-bold bg-info text-white h4 d-flex justify-content-center">EDIT USER RECORDS:
-    </div>
-    <div class="card-body row justify-content-center">
-      <div id="editRecordError" class="mt-2" style="padding:20px;border-radius:50px;"></div>
-      <div class="col-lg-12">
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-        {{#each users}}
-        {{> users/user-record}}
-        {{/each}}
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="./">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <!-- Topbar Search -->
+        <p class="text-dark mt-3 ml-3 font-weight-bold text-uppercase">Administrator</p>
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+          <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+              aria-labelledby="searchDropdown">
+              <form class="form-inline mr-auto w-100 navbar-search">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                    aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="/logout" id="userDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+              <i class="fas fa-2x fa-sign-out-alt text-info"></i>
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <div id="searchError"></div>
+
+        <!-- Content Row -->
+        <div class="row">
+
+          <!-- Content Column -->
+          <div id="adminSignupError" class="mt-2" style="padding:10px;border-radius:50px;"></div>
+          <div class="col-lg-12 mb-1">
+
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 bg-gradient-info text-white">
+                <h6 class="m-0 font-weight-bold text-center">Create User Account</h6>
+              </div>
+              <div class="card-body font-weight-bold text-dark">
+
+                <form class="adminSignup">
+                  <div class="form-row justify-content-between">
+                    <div class="form-group col-lg-3">
+                      <label for="email address">Email address</label>
+                      <input type="email" class="form-control" id="email-input" placeholder="Email">
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password-input" placeholder="Password">
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="first name">First</label>
+                      <input type="text" class="form-control" id="first-input" placeholder="First Name">
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="last name">Last</label>
+                      <input type="text" class="form-control" id="last-input" placeholder="Last Name">
+                    </div>
+                  </div>
+                  <div class="form-row justify-content-between">
+                    <div class="form-group col-lg-3">
+                      <label for="position">Position</label>
+                      <select id="position-input" class="" placeholder="Position">
+                        <option selected>Technician</option>
+                        <option>Manager</option>
+                        <option>Employee</option>
+                        <option>Admin</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="phone number">Phone</label>
+                      <input type="text" class="form-control" id="phone-input" placeholder="Numbers Only, No () or -">
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="date of bith">D.O.B.</label>
+                      <input type="text" class="form-control" id="dob-input" placeholder="DOB">
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="ssn">SSN</label>
+                      <input type="text" class="form-control" id="ssn-input" placeholder="SSN">
+                    </div>
+                    <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                      <span class="sr-only">Error:</span> <span class="msg"></span>
+                    </div>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <button type="submit" class="btn-lg btn-info text-white">CREATE</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-12 mb-1">
+            <div id="editRecordError" class="" style="padding:10px;border-radius:50px;"></div>
+
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 bg-gradient-info text-white">
+                <h6 class="m-0 font-weight-bold text-center">Edit / Remove User Record</h6>
+              </div>
+              <div class="card-body font-weight-bold text-dark">
+
+                {{#each users}}
+                {{> users/user-record}}
+                {{/each}}
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
+
     </div>
+
   </div>
+  <!-- End of Content Wrapper -->
+
 </div>
+<!-- End of Page Wrapper -->
 
-</body>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
 
-</html>
+<!-- Custom scripts for all pages-->
+<script src="assets/js/sb-admin-2.js"></script>
+
+<!-- Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+  rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="assets/css/sb-admin-2.min.css" rel="stylesheet">

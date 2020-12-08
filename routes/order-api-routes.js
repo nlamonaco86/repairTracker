@@ -26,9 +26,9 @@ module.exports = (app) => {
   };
 
   const markPaid = async (paid, targetId, req, res) => {
-    let data = await db.Order.update({paid: paid }, { where: { id: targetId } })
+    let data = await db.Order.update({ paid: paid }, { where: { id: targetId } })
     return data
-  };  
+  };
 
   const viewOrder = async (orderId, req, res) => {
     let data = await db.sequelize.query("UPDATE Orders SET inView = IF(id = :id, 1, 0)",
@@ -56,28 +56,35 @@ module.exports = (app) => {
           city: req.body.city,
           state: req.body.state,
           zip: req.body.zip,
-        })
-        // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
-        // Order entry
-        db.Order.create({
-          id: req.body.id,
-          hours: req.body.hours,
-          rate: req.body.rate,
-          partsPrice: req.body.partsPrice,
-          partsNeeded: req.body.partsNeeded,
-          year: req.body.year,
-          make: req.body.make,
-          model: req.body.model,
-          vin: req.body.vin,
-          issue: req.body.issue,
-          photo: req.body.photo,
-          received: 1,
-          waiting: 0,
-          inProgress: 0,
-          complete: 0,
-          paid: 0,
-          CustomerId: req.body.genCustomerId
-        })
+        }).then((result) => {
+          console.log(result)
+          // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
+          // Order entry
+          db.Order.create({
+            id: req.body.id,
+            hours: req.body.hours,
+            rate: req.body.rate,
+            partsPrice: req.body.partsPrice,
+            partsNeeded: req.body.partsNeeded,
+            year: req.body.year,
+            make: req.body.make,
+            model: req.body.model,
+            vin: req.body.vin,
+            issue: req.body.issue,
+            photo: req.body.photo,
+            received: 1,
+            waiting: 0,
+            inProgress: 0,
+            complete: 0,
+            paid: 0,
+            CustomerId: result.id
+          }).then(() => {
+            res.send("success")
+          })
+            .catch((err) => {
+              res.status(401).json(err);
+            });
+        });
       }
       else {
         // if the customer already exists, update their information to reflect the recent entry
@@ -95,35 +102,35 @@ module.exports = (app) => {
           },
           {
             where: { lastName: req.body.lastName, firstName: req.body.firstName }
+          }).then((result) => {
+            // And create a new order associated to them
+            db.Order.create({
+              id: req.body.id,
+              hours: req.body.hours,
+              rate: req.body.rate,
+              partsPrice: req.body.partsPrice,
+              partsNeeded: req.body.partsNeeded,
+              year: req.body.year,
+              make: req.body.make,
+              model: req.body.model,
+              vin: req.body.vin,
+              issue: req.body.issue,
+              photo: req.body.photo,
+              received: 1,
+              waiting: 0,
+              inProgress: 0,
+              complete: 0,
+              paid: 0,
+              CustomerId: result.id
+            })
+          }) .then(() => {
+            res.send("success")
           })
-        // And create a new order associated to them
-        db.Order.create({
-          id: req.body.id,
-          hours: req.body.hours,
-          rate: req.body.rate,
-          partsPrice: req.body.partsPrice,
-          partsNeeded: req.body.partsNeeded,
-          year: req.body.year,
-          make: req.body.make,
-          model: req.body.model,
-          vin: req.body.vin,
-          issue: req.body.issue,
-          photo: req.body.photo,
-          received: 1,
-          waiting: 0,
-          inProgress: 0,
-          complete: 0,
-          paid: 0,
-          CustomerId: result.id
-        })
+          .catch((err) => {
+            res.status(401).json(err);
+          });
       }
     })
-      .then(() => {
-        res.send("success")
-      })
-      .catch((err) => {
-        res.status(401).json(err);
-      });
   });
 
   app.get("/api/orders/:id", (req, res) => {
@@ -182,7 +189,7 @@ module.exports = (app) => {
         updateStatus(0, 0, 0, 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       case "paid":
-        markPaid( 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        markPaid(1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
         break;
       default:
     }

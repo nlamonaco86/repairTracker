@@ -28,8 +28,8 @@ if (adminSignUpForm) {
     };
 
     if (!userData.email || !userData.password || !userData.first || !userData.last || !userData.phone || !userData.position || !userData.ssn || !userData.dob) {
-      let searchError = document.getElementById("adminSignupError")
-      searchError.innerHTML =
+      let adminSignupError = document.getElementById("adminSignupError")
+      adminSignupError.innerHTML =
         `<div class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>Please check the information you entered, and try again!
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -43,7 +43,7 @@ if (adminSignUpForm) {
           userData.position, userData.phone, userData.dob, userData.ssn);
       }
       else {
-        signupError.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        adminSignupError.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>Passwords must contain between 6 to 20 characters and contain at least one number, one uppercase and one lowercase letter.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
