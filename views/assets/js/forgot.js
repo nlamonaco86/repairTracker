@@ -3,6 +3,7 @@ let forgotError = document.getElementById("forgotError")
 
 const forgotPassword = (email, type) => {
     let resetInfo = { email: email, type: type };
+    let resetMethod = type
   
     fetch('../api/user_data/forgotpassword', { 
       method: 'POST', 
@@ -14,7 +15,7 @@ const forgotPassword = (email, type) => {
         console.log(data)
         forgotError.innerHTML =
         `<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Your password has been reset! Please check your e-mail.</strong>
+        <strong>Your password has been reset! Please check your ${resetMethod}.</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
