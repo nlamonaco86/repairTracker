@@ -13,12 +13,13 @@ module.exports = (app) => {
   };
 
   const getOneOrder = async (searchId) => {
-    return db.Order.findOne({
+    let data = await db.Order.findOne({
       where: { id: searchId },
       include: [
         { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
       ]
     })
+    return data
   };
 
   const updateStatus = async (rcv, inP, wait, com, targetId, req, res) => {
@@ -89,6 +90,21 @@ module.exports = (app) => {
       else {
         // if the customer already exists, update their information to reflect the recent entry
         getOneCustomer(req.body.lastName, req.body.firstName).then((result) => {
+          db.Customer.update(
+            {
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              tel: req.body.tel,
+              email: req.body.email,
+              addr1: req.body.addr1,
+              addr2: req.body.addr2,
+              city: req.body.city,
+              state: req.body.state,
+              zip: req.body.zip
+            },
+            {
+              where: { id: result.id }
+            }).then((result) => { console.log(`customer record ${result.id} updated`) })
             // And create a new order associated to them
             db.Order.create({
               id: req.body.id,

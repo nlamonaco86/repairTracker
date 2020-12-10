@@ -1,7 +1,6 @@
 // Require models and passport
 require('dotenv').config();
 const db = require("../models");
-const order = require('../config/order');
 // nodemailer module
 const nodemailer = require('nodemailer');
 const email = require('../config/email');

@@ -2,7 +2,7 @@
 
 repair Tracker is a convenient, easy to use, invoice management and point of sale system for businesses and customers.
 
-This full-stack application uses Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap, and packages such as Twilio, Stripe, Nodemailer, dotenv, util, and more provide supporting features.
+This full-stack application uses Node.js, Express, MySQL, Sequelize, Passport, Express-Handlebars, and Bootstrap, and packages such as Twilio, Stripe, Nodemailer, Cloudinary, dotenv and more provide supporting features.
 
 The UI and database are themed towards auto repair, but can quickly be refactored to suit the needs of virtually any industry, such as appliance or electronics repair shops, food delivery services, and much more. 
 
@@ -10,7 +10,7 @@ The UI and database are themed towards auto repair, but can quickly be refactore
 
 ## Complete User Authentication System
 
-The server automatically creates an Administrator account on the first startup, which can then be user to create employee, manager, etc. accounts for different levels of employee access to the platform.
+The server automatically creates an Administrator account on the first startup, which can then be user to create employee, manager, etc. accounts for different levels of employee access to sections of the platform.
 
 Anyone can create a Customer account as well, but can only access the customer sections of the app with it. 
 
@@ -18,11 +18,11 @@ All users are able to reset their password with a temporary code sent to their e
 
 The Administrator account is able to edit or delete employee or customer user information through the admin control panel. 
 
-## Complete Invoice & Payment System
+## Complete Invoice & Point-of-Sale System
 
-Technicians can generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax, and displays all the information in a customer-friendly manner.  
+Technicians can generate a printable or .pdf invoice for each work order. The invoice calculates labor and parts costs, as well as local sales tax, and displays all the information in a customer-friendly manner. 
 
-Customers can pay for the balance of their invoice, either in person or remotely, using their credit card or Google Pay via integration with Stripe. Technicians are able to see if an invoice is paid or not. 
+Customers can pay for the balance of their invoice, either in person or remotely, using their credit card or Apple/Google Pay via integration with Stripe. Full integration with Stripe marks orders in the database as paid, so Technicians are able to see if an invoice is paid or not. 
 
 ## Track and Manage Repair Order Statuses
 
@@ -30,6 +30,8 @@ Repair techs can create new work orders for customers along with cloud uploaded 
 
 Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
  
+Intuitive database/server design ensures that duplicate customer records are not created, rather multiple orders associate to the same customer and their contact information is automatically updated to reflect their most recent information provided.
+
 ## Customer Portal
 
 Customers can view the Tracker page to lookup the current status of their order, with or without an account, and view their invoice, from the customer portal.  

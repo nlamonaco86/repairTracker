@@ -76,13 +76,7 @@ module.exports = (app) => {
     else { res.render('tracker', { title: 'Track Your Order' }) }
   });
 
-  app.get("/invoice/:id", isAuthenticated, (req, res) => {
-    oneInvoice(req.params.id).then((result) => { 
-      res.render('invoice', { title: 'Invoice - ' + result[0].id, layout: 'main', invoice: result });
-    })
-  });
-
-  app.get("/customer/invoice/:id", (req, res) => {
+  app.get("/invoice/:id", (req, res) => {
     oneInvoice(req.params.id).then((result) => { 
       res.render('invoice', { title: 'Invoice - ' + result[0].id, layout: 'main', invoice: result });
     })

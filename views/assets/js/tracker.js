@@ -29,7 +29,7 @@ searchBtn.addEventListener("click", (event) => {
       .then(
         function (response) {
           if (!response.error){ 
-            invoiceBox.innerHTML = `<h4>Click <a id="invoiceBtn" href="../customer/invoice/${response.id}" target="_blank" class="font-weight-bold">here</a> to view your invoice</h4>`
+            invoiceBox.innerHTML = `<h4>Click <a id="invoiceBtn" href="../invoice/${response.id}" target="_blank" class="font-weight-bold">here</a> to view your invoice</h4>`
           }
           if (response.received === 1) {
             result.innerHTML = "Your order has been received.";
