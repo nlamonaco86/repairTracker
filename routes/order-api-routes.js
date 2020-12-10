@@ -5,13 +5,14 @@ const db = require("../models");
 module.exports = (app) => {
 
   // Helper functions
-  const getOneCustomer = (lastName, firstName) => {
-    return db.Customer.findOne({
+  const getOneCustomer = async (lastName, firstName) => {
+    let data = await db.Customer.findOne({
       where: { lastName: lastName, firstName: firstName },
     })
+    return data
   };
 
-  const getOneOrder = (searchId) => {
+  const getOneOrder = async (searchId) => {
     return db.Order.findOne({
       where: { id: searchId },
       include: [
@@ -57,7 +58,6 @@ module.exports = (app) => {
           state: req.body.state,
           zip: req.body.zip,
         }).then((result) => {
-          console.log(result)
           // Customer/Vehicle ID's arrive from client-side to avoid any promise/async issues
           // Order entry
           db.Order.create({
@@ -88,21 +88,7 @@ module.exports = (app) => {
       }
       else {
         // if the customer already exists, update their information to reflect the recent entry
-        db.Customer.update(
-          {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            tel: req.body.tel,
-            email: req.body.email,
-            addr1: req.body.addr1,
-            addr2: req.body.addr2,
-            city: req.body.city,
-            state: req.body.state,
-            zip: req.body.zip
-          },
-          {
-            where: { lastName: req.body.lastName, firstName: req.body.firstName }
-          }).then((result) => {
+        getOneCustomer(req.body.lastName, req.body.firstName).then((result) => {
             // And create a new order associated to them
             db.Order.create({
               id: req.body.id,

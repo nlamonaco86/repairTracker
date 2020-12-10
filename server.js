@@ -53,7 +53,7 @@ db.sequelize.sync().then(function () {
           first: "Administrator",
           last: "Account",
           position: "Admin",
-          phone: "9998887777",
+          phone: "9083379307",
           dob: "09/04/2020",
           ssn: "123456789",
         })
