@@ -30,6 +30,8 @@ Repair techs can create new work orders for customers along with cloud uploaded 
 
 Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
  
+Eligible customers can receive automatic, personalized SMS updates with info about their order whenever a technician updates the order status. 
+
 Intuitive database/server design ensures that duplicate customer records are not created, rather multiple orders associate to the same customer and their contact information is automatically updated to reflect their most recent information provided.
 
 ## Customer Portal

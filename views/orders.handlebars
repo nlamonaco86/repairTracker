@@ -167,7 +167,7 @@
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a href="/logout">
-                           
+
                             <i class="fas fa-2x fa-sign-out-alt text-info"></i>
                         </a>
                     </li>
@@ -240,11 +240,11 @@
                                             placeholder="Apartment, studio, or floor"></input>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-5">
                                             <label for="city">City</label>
                                             <input type="text" class="" id="city"></input>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <label for="state">State</label>
                                             <select id="state" class="">
                                                 <option>CT</option>
@@ -262,6 +262,13 @@
                                         <div class="form-group col-md-2">
                                             <label for="zip">ZIP</label>
                                             <input type="text" class="" id="zip">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="acceptSMS">SMS</label>
+                                            <select id="acceptSMS" class="">
+                                                <option value="1">YES</option>
+                                                <option value="0">NO</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -308,8 +315,9 @@
                                         {{!-- <script type="text/javascript" src="/js/member-upload.js" defer></script> --}}
                                     </div>
                                 </form>
-                                <button id="upload_widget" class="btn btn-circle btn-md" style="background-color:#BD34C7;"
-                                    aria-label="image upload"><i class="fas fa-3x fa-image text-white"></i></button>
+                                <button id="upload_widget" class="btn btn-circle btn-md"
+                                    style="background-color:#BD34C7;" aria-label="image upload"><i
+                                        class="fas fa-3x fa-image text-white"></i></button>
                             </div>
                         </div>
 

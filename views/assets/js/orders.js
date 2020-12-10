@@ -13,6 +13,7 @@ if (createForm) {
       firstName: document.getElementById("firstname").value,
       lastName: document.getElementById("lastname").value,
       tel: document.getElementById("tel").value,
+      acceptSMS: document.getElementById("acceptSMS").value,
       email: document.getElementById("email").value,
       addr1: document.getElementById("addr").value,
       addr2: document.getElementById("addrB").value,

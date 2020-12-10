@@ -1,6 +1,11 @@
 // Require models and passport
 require('dotenv').config();
 const db = require("../models");
+// Twilio module
+let twilio = require('twilio');
+let accountSid = process.env.ACCOUNT_SID
+let authToken = process.env.AUTH_TOKEN
+let client = new twilio(accountSid, authToken);
 
 module.exports = (app) => {
 
@@ -16,14 +21,9 @@ module.exports = (app) => {
     let data = await db.Order.findOne({
       where: { id: searchId },
       include: [
-        { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
+        { model: db.Customer, attributes: ['id', 'firstName', 'lastName', 'tel', 'acceptSMS', 'email', 'addr1', 'addr2', 'city', 'state', 'zip'] }
       ]
     })
-    return data
-  };
-
-  const updateStatus = async (rcv, inP, wait, com, targetId, req, res) => {
-    let data = await db.Order.update({ received: rcv, inProgress: inP, waiting: wait, complete: com }, { where: { id: targetId } })
     return data
   };
 
@@ -41,6 +41,20 @@ module.exports = (app) => {
     return data
   };
 
+  const updateStatus = async (rcv, inP, wait, com, targetId, req, res) => {
+    let data = await db.Order.update({ received: rcv, inProgress: inP, waiting: wait, complete: com }, { where: { id: targetId } })
+    return data
+  };
+
+  const txtCustomer = (name, orderId, status, phone) => {
+    client.messages.create({
+      body: `repairTracker: ${name}, Order #${orderId} status has been updated to ${status}. View your invoice at https://www.YOUR_URL.com/invoice/${orderId}`,
+      to: "+1" + phone,
+      from: process.env.PHONE_NUMBER
+    })
+      .then((message) => console.log(message.sid));
+  }
+
   app.post("/api/orders", (req, res) => {
     // Check to see if the customer is already in the database
     // Attempt to match their first and last name, as it's the least likely to change 
@@ -52,6 +66,7 @@ module.exports = (app) => {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           tel: req.body.tel,
+          acceptSMS: req.body.acceptSMS,
           email: req.body.email,
           addr1: req.body.addr1,
           addr2: req.body.addr2,
@@ -95,6 +110,7 @@ module.exports = (app) => {
               firstName: req.body.firstName,
               lastName: req.body.lastName,
               tel: req.body.tel,
+              acceptSMS: req.body.acceptSMS,
               email: req.body.email,
               addr1: req.body.addr1,
               addr2: req.body.addr2,
@@ -104,30 +120,30 @@ module.exports = (app) => {
             },
             {
               where: { id: result.id }
-            }).then((result) => { console.log(`customer record ${result.id} updated`) })
-            // And create a new order associated to them
-            db.Order.create({
-              id: req.body.id,
-              hours: req.body.hours,
-              rate: req.body.rate,
-              partsPrice: req.body.partsPrice,
-              partsNeeded: req.body.partsNeeded,
-              year: req.body.year,
-              make: req.body.make,
-              model: req.body.model,
-              vin: req.body.vin,
-              issue: req.body.issue,
-              photo: req.body.photo,
-              received: 1,
-              waiting: 0,
-              inProgress: 0,
-              complete: 0,
-              paid: 0,
-              CustomerId: result.id
-            })
-          }) .then(() => {
-            res.send("success")
+            }).then((result) => { console.log(`customer record updated`) })
+          // And create a new order associated to them
+          db.Order.create({
+            id: req.body.id,
+            hours: req.body.hours,
+            rate: req.body.rate,
+            partsPrice: req.body.partsPrice,
+            partsNeeded: req.body.partsNeeded,
+            year: req.body.year,
+            make: req.body.make,
+            model: req.body.model,
+            vin: req.body.vin,
+            issue: req.body.issue,
+            photo: req.body.photo,
+            received: 1,
+            waiting: 0,
+            inProgress: 0,
+            complete: 0,
+            paid: 0,
+            CustomerId: result.id
           })
+        }).then(() => {
+          res.send("success")
+        })
           .catch((err) => {
             res.status(401).json(err);
           });
@@ -182,13 +198,32 @@ module.exports = (app) => {
   app.put("/api/orders/:status/:id", (req, res) => {
     switch (req.params.status) {
       case "inProgress":
-        updateStatus(0, 1, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        //fetch the order information
+        getOneOrder(req.params.id).then((result) => {
+          //send SMS to the customer IF they are OK with it
+          if (result.Customer.acceptSMS === 1) { txtCustomer(result.Customer.firstName, result.id, req.params.status, result.Customer.tel) }
+          // update the order status
+          updateStatus(0, 1, 0, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        })
         break;
       case "waiting":
-        updateStatus(0, 0, 1, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        //fetch the order information
+        getOneOrder(req.params.id).then((result) => {
+          //send SMS to the customer IF they are OK with it
+          if (result.Customer.acceptSMS === 1) { txtCustomer(result.Customer.firstName, result.id, req.params.status, result.Customer.tel) }
+          if (result.Customer.acceptSMS === 0) { console.log("customer does not accept SMS") }
+          // update the order status
+          updateStatus(0, 0, 1, 0, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        })
         break;
       case "complete":
-        updateStatus(0, 0, 0, 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        //fetch the order information
+        getOneOrder(req.params.id).then((result) => {
+          //send SMS to the customer IF they are OK with it
+          if (result.Customer.acceptSMS === 1) { txtCustomer(result.Customer.firstName, result.id, req.params.status, result.Customer.tel) }
+          // update the order status
+          updateStatus(0, 0, 0, 1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })
+        })
         break;
       case "paid":
         markPaid(1, req.params.id).then((result) => { (result.changedRows == 0 ? res.status(404).end() : res.status(200).end()) })

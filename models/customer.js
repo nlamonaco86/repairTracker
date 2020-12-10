@@ -14,6 +14,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false
       },
+      acceptSMS: {
+        type: DataTypes.TINYINT,
+        allowNull: false
+      },
       email: {
         type: DataTypes.STRING,
       },
