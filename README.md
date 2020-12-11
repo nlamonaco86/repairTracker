@@ -28,7 +28,7 @@ Customers can pay for the balance of their invoice, either in person or remotely
 
 Repair techs can create new work orders for customers along with cloud uploaded images, notes, and industry-specific data related to the work order. 
 
-Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes or customer information related to the order from that same menu. 
+Techs can manage the status of current work orders through the dashboard, as well as view and edit the work notes, parts and labor required, or customer contact information related to the order from that same menu. 
  
 Eligible customers can receive automatic, personalized SMS updates with info about their order whenever a technician updates the order status. 
 

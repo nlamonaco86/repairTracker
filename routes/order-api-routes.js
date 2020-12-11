@@ -188,8 +188,8 @@ module.exports = (app) => {
   });
 
   //UPDATE ISSUE
-  app.put("/api/orders/:id", (req, res) => {
-    db.Order.update({ issue: req.body.issue }, { where: { id: req.params.id } }).then((result) => {
+  app.put("/api/orders/updateIssue/where/:id", (req, res) => {
+    db.Order.update({ issue: req.body.issue, hours: req.body.hours, partsPrice: req.body.partsPrice, partsNeeded: req.body.partsNeeded }, { where: { id: req.params.id } }).then((result) => {
       (result.changedRows == 0 ? res.status(404).end() : res.status(200).end())
     })
   });

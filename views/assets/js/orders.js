@@ -61,8 +61,13 @@ if (updateIssue) {
     event.preventDefault();
     //define a new order as an object based on input from the form
     let id = document.getElementById("orderID").textContent;
-    let newIssue = { issue: document.getElementById("issueU").value }
-    fetch('api/orders/' + id, {
+    let newIssue = { 
+      issue: document.getElementById("issueU").value,
+      hours: document.getElementById("hoursU").value,
+      partsPrice: document.getElementById("partsPriceU").value,
+      partsNeeded: document.getElementById("partsNeededU").value,
+     }
+    fetch('api/orders/updateIssue/where/' + id, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify(newIssue),

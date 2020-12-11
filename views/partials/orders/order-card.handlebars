@@ -2,9 +2,8 @@
 <div class="col-xl-6 col-lg-6">
     <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
-        <div
-            class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-gradient-info text-white">
-            <h6 class="m-0 font-weight-bold">Order Information</h6>
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-gradient-info text-white">
+            <h6 class="m-0 font-weight-bold">Customer Information</h6>
             <div>
                 <i id="customerCardBtn" aria-label="edit" class="fa fa-edit"></i>
                 <i id="saveBtn" aria-label="edit" class="fa fa-save mr-4" style="display:none;"></i>
@@ -27,7 +26,7 @@
             </div> --}}
         </div>
         <!-- Card Body -->
-        <div class="card-body text-dark">
+        <div class="card-body text-dark" style="min-height:424px;">
 
             <div id="editCustomerId" style="display:none;">{{CustomerId}}</div>
             <div id="customerCard">
@@ -111,7 +110,7 @@
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-gradient-info text-white">
-            <h6 class="m-0 font-weight-bold">Notes</h6>
+            <h6 class="m-0 font-weight-bold">Order Information</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -122,13 +121,31 @@
         <!-- Card Body -->
         <div class="card-body">
 
-            <div class="pt-4 pb-2">
+            <div>
                 <form id="updateIssue">
-                    <div class="form-group">
-                        <textarea type="text" class="extended" id="issueU">{{issue}}</textarea>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="labor hours">Labor Hours</label>
+                            <input type="text" class="" id="hoursU" value="{{hours}}"></input>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="parts price">Parts Price</label>
+                            <input type="text" class="" id="partsPriceU" value="{{partsPrice}}"></input>
+                        </div>
                     </div>
-
-                    <div class="mt-4 text-center small mb-4">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="parts needed">Parts Needed</label>
+                            <textarea type="text" class="extendedOne" id="partsNeededU">{{partsNeeded}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="notes">Notes</label>
+                           <textarea type="text" class="extendedOne" id="issueU">{{issue}}</textarea>
+                        </div>
+                    </div>
+                    <div class="text-center small">
                         <button type="submit" class="btn btn-dark btn-circle btn-md" aria-label="update issue"><i
                                 class="fas fa-3x fa-save"></i></button>
                     </div>
